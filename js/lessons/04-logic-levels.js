@@ -101,6 +101,37 @@ function render(container) {
 
   container.appendChild(
     section(
+      "Các họ logic phổ biến",
+      p(
+        "Các mức logic (ngưỡng điện áp) khác nhau tùy theo công nghệ sản xuất chip. Điều này quan trọng khi kết nối các chip từ các thế hệ hoặc hãng khác nhau.",
+      ),
+      el("div", { class: "card", style: { overflowX: "auto" } }, [
+        el("table", { class: "tbl tbl-bordered" }, [
+          el("thead", {}, [
+            el("tr", {}, [
+              el("th", { text: "Họ logic" }),
+              el("th", { text: "Điện áp nguồn" }),
+              el("th", { text: "Ngưỡng logic 0 (max)" }),
+              el("th", { text: "Ngưỡng logic 1 (min)" }),
+              el("th", { text: "Ứng dụng" }),
+            ]),
+          ]),
+          el("tbody", {}, [
+            el("tr", {}, [el("td", { class: "mono", text: "TTL" }), el("td", { text: "5 V" }), el("td", { text: "0,8 V" }), el("td", { text: "2,0 V" }), el("td", { class: "small", text: "Chip cổ điển, Arduino 5V" })]),
+            el("tr", {}, [el("td", { class: "mono", text: "CMOS 3.3V" }), el("td", { text: "3,3 V" }), el("td", { text: "0,9 V" }), el("td", { text: "1,8 V" }), el("td", { class: "small", text: "Raspberry Pi, ESP32" })]),
+            el("tr", {}, [el("td", { class: "mono", text: "CMOS 1.8V" }), el("td", { text: "1,8 V" }), el("td", { text: "0,45 V" }), el("td", { text: "0,9 V" }), el("td", { class: "small", text: "Chip di động hiện đại" })]),
+          ]),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Cảnh báo thực tế: " }),
+        el("span", { text: "Nếu kết nối chip 5V với chip 3.3V trực tiếp, điện áp đầu ra 5V có thể làm hỏng chip 3.3V. Cần dùng mạch chuyển mức (level shifter) để kết nối an toàn." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Tóm tắt",
       summary(null, [
         `<strong>Logic 0</strong> = điện áp ≤ ${VOL_MAX} V; <strong>logic 1</strong> = điện áp ≥ ${VIH_MIN} V (trên hệ thống 5 V).`,

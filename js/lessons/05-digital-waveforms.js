@@ -43,6 +43,29 @@ function render(container) {
   );
 
   container.appendChild(
+    section(
+      "Tốc độ truyền dữ liệu",
+      p(
+        "Hiểu dạng sóng số giúp bạn tính toán tốc độ truyền dữ liệu — một thông số quan trọng trong thiết kế hệ thống.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Tần số và chu kỳ clock", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Tần số (f) là số chu kỳ mỗi giây, tính bằng Hz. Chu kỳ (T) là thời gian một chu kỳ: <strong>T = 1/f</strong>.<br><br>Ví dụ: CPU 3 GHz → T = 1/3.000.000.000 ≈ 0,33 ns mỗi chu kỳ." }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Tốc độ bit (Bit rate)", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Nếu mỗi chu kỳ clock truyền 1 bit: <strong>Bit rate = Tần số clock</strong>.<br><br>Ví dụ: USB 2.0 = 480 Mbps → 480 triệu bit mỗi giây → mỗi bit kéo dài ~2,08 ns." }),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Ứng dụng thực tế: " }),
+        el("span", { text: "UART (kết nối serial) thường chạy ở 9600 baud = 9600 bit/giây. Để truyền 1 byte (8 bit + 2 bit khung) mất khoảng 1,04 ms. Đây là lý do UART thường chỉ dùng cho dữ liệu tốc độ thấp như cảm biến, GPS." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
     quizSection(
       "digital-waveforms",
       [

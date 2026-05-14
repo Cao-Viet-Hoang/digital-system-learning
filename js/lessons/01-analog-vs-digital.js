@@ -59,6 +59,29 @@ function render(container) {
 
   container.appendChild(
     section(
+      "Tại sao phải chuyển đổi?",
+      p(
+        "Thế giới thực là analog — âm thanh, nhiệt độ, ánh sáng đều biến đổi liên tục. Nhưng máy tính chỉ hiểu 0 và 1. Vì vậy cần một quá trình gọi là <strong>lấy mẫu và lượng hóa</strong> (sampling & quantization) để chuyển tín hiệu analog sang digital.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Lấy mẫu (Sampling)", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Đo giá trị tín hiệu analog tại các thời điểm đều đặn. Tần số lấy mẫu càng cao, âm thanh hoặc tín hiệu số hóa càng trung thực. CD âm nhạc lấy mẫu 44.100 lần mỗi giây." }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Lượng hóa (Quantization)", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Làm tròn giá trị đo được đến mức số gần nhất. Ví dụ: với 8-bit, có 256 mức; với 16-bit, có 65.536 mức. Nhiều bit hơn = chi tiết hơn." }),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Ví dụ thực tế: " }),
+        el("span", { text: "Khi bạn ghi âm giọng nói trên điện thoại, ADC lấy mẫu âm thanh ~8.000 lần/giây và mã hóa mỗi mẫu thành số nhị phân. Khi phát lại, DAC chuyển ngược lại thành sóng âm thanh analog." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Ví dụ thực tế",
       el("div", { class: "grid grid-3" }, [
         exampleCard("🎤", "Microphone", "Analog: áp suất không khí liên tục → điện áp liên tục."),
@@ -74,6 +97,7 @@ function render(container) {
   container.appendChild(
     section(
       "Ưu và nhược điểm",
+      p("Không có hệ thống nào là hoàn hảo tuyệt đối. Hiểu ưu nhược điểm giúp bạn chọn đúng kỹ thuật cho từng tình huống:"),
       el("table", { class: "tbl tbl-bordered" }, [
         el("thead", {}, [
           el("tr", {}, [

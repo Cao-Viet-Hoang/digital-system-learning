@@ -134,6 +134,45 @@ function render(container) {
 
   container.appendChild(
     section(
+      "ADC và DAC hoạt động như thế nào?",
+      p(
+        "ADC và DAC là hai thành phần quan trọng nhất trong hệ thống hỗn hợp. Hiểu cách chúng hoạt động giúp bạn thiết kế và sửa lỗi hệ thống hiệu quả hơn.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-lavender" }, [
+          el("h4", { text: "ADC — Bộ chuyển đổi A→D", style: { margin: "0 0 8px" } }),
+          el("ol", { class: "small" }, [
+            el("li", { text: "Lấy mẫu: đo điện áp tại thời điểm xác định" }),
+            el("li", { text: "Giữ mẫu: giữ giá trị ổn định để xử lý" }),
+            el("li", { text: "Lượng hóa: làm tròn đến mức gần nhất (ví dụ: 1024 mức với 10 bit)" }),
+            el("li", { text: "Mã hóa: xuất số nhị phân tương ứng" }),
+          ]),
+          el("div", { class: "small text-2", style: { marginTop: "8px" } }, [
+            el("span", { text: "Ví dụ: micro điện thoại, cảm biến nhiệt độ, camera" }),
+          ]),
+        ]),
+        el("div", { class: "card card-soft-mint" }, [
+          el("h4", { text: "DAC — Bộ chuyển đổi D→A", style: { margin: "0 0 8px" } }),
+          el("ol", { class: "small" }, [
+            el("li", { text: "Nhận số nhị phân từ bộ xử lý" }),
+            el("li", { text: "Chuyển thành điện áp tỉ lệ với giá trị số" }),
+            el("li", { text: "Lọc để làm mượt tín hiệu bậc thang" }),
+            el("li", { text: "Khuếch đại để điều khiển cơ cấu chấp hành" }),
+          ]),
+          el("div", { class: "small text-2", style: { marginTop: "8px" } }, [
+            el("span", { text: "Ví dụ: loa, động cơ servo, màn hình analog" }),
+          ]),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Lưu ý quan trọng: " }),
+        el("span", { text: "Độ chính xác của hệ thống bị giới hạn bởi ADC. Nếu ADC chỉ có 8-bit (256 mức), dù bộ xử lý mạnh đến đâu, thông tin cũng không chi tiết hơn 256 mức ban đầu." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Tóm tắt",
       summary(null, [
         "Hầu hết hệ thống thực đều là <strong>hỗn hợp</strong>: cảm biến và cơ cấu chấp hành là analog; xử lý là digital; <em>ADC</em> và <em>DAC</em> kết nối hai thế giới.",

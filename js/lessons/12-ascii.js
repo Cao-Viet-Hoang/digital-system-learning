@@ -71,6 +71,32 @@ function render(container) {
 
   container.appendChild(
     section(
+      "ASCII và các bộ mã ký tự hiện đại",
+      p(
+        "ASCII được thiết kế năm 1963 cho tiếng Anh với 128 ký tự (7 bit). Thế giới hiện đại cần nhiều hơn thế.",
+      ),
+      el("div", { class: "stack", style: { gap: "12px" } }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Cấu trúc ASCII gốc (7-bit, 128 ký tự)", style: { margin: "0 0 8px" } }),
+          el("div", { class: "grid grid-2", style: { gap: "8px" } }, [
+            el("div", { class: "small" }, [el("div", { html: "<strong>0–31:</strong> Ký tự điều khiển (CR, LF, Tab...)" }), el("div", { html: "<strong>32:</strong> Dấu cách (Space)" }), el("div", { html: "<strong>33–47:</strong> Ký hiệu (!, @, #...)" })]),
+            el("div", { class: "small" }, [el("div", { html: "<strong>48–57:</strong> Chữ số '0'–'9'" }), el("div", { html: "<strong>65–90:</strong> Chữ hoa A–Z" }), el("div", { html: "<strong>97–122:</strong> Chữ thường a–z" })]),
+          ]),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Unicode — giải pháp toàn cầu", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "ASCII không có tiếng Việt, tiếng Trung, tiếng Ả Rập... <strong>Unicode</strong> giải quyết điều này với hơn 143.000 ký tự từ hầu hết ngôn ngữ trên thế giới.<br><br><strong>UTF-8</strong> là cách mã hóa Unicode phổ biến nhất — ký tự ASCII dùng 1 byte, các ký tự khác dùng 2–4 byte. Trang web bạn đang xem dùng UTF-8!" }),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Mẹo hay: " }),
+        el("span", { html: "Chữ thường = Chữ hoa + 32. Ví dụ: 'A' = 65, 'a' = 97 = 65 + 32. Trong nhị phân, bit thứ 5 (từ phải, đánh số từ 0) là bit phân biệt hoa/thường: 'A' = <span class='mono'>01000001</span>, 'a' = <span class='mono'>01100001</span>." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Summary",
       summary(null, [
         "ASCII ánh xạ mỗi ký tự đến mã 7-bit (ASCII mở rộng dùng 8 bit).",

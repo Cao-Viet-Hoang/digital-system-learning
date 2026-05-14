@@ -110,6 +110,29 @@ function render(container) {
 
   container.appendChild(
     section(
+      "Ứng dụng của BCD trong thực tế",
+      p(
+        "BCD được thiết kế cho một mục đích cụ thể: dễ dàng hiển thị và xử lý số thập phân mà không cần chuyển đổi phức tạp.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Màn hình 7 đoạn và đồng hồ", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Đồng hồ điện tử, máy tính bỏ túi, đồng hồ số dùng BCD để hiển thị giờ:phút:giây. Mỗi chữ số trên màn hình tương ứng với một nibble BCD — bộ điều khiển 7 đoạn chỉ cần dịch trực tiếp từ BCD sang tín hiệu LED." }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Tính toán tài chính", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Máy tính tài chính và POS (point-of-sale) dùng BCD để tránh lỗi làm tròn số thập phân. Ví dụ: 0.1 + 0.2 trong nhị phân float = 0.30000000000000004, nhưng trong BCD = 0.3 chính xác." }),
+        ]),
+      ]),
+      el("div", { class: "card card-soft-lavender", style: { marginTop: "12px" } }, [
+        el("h4", { text: "So sánh hiệu quả lưu trữ", style: { margin: "0 0 8px" } }),
+        el("p", { class: "small", style: { margin: 0 }, html: "Số 99 (thập phân):<br>• Nhị phân thuần: <span class='mono'>1100011</span> = 7 bit<br>• BCD: <span class='mono'>1001 1001</span> = 8 bit<br><br>BCD cần 8 bit để biểu diễn số 99, trong khi nhị phân chỉ cần 7 bit. Tuy nhiên, đánh đổi này xứng đáng khi độ chính xác thập phân quan trọng hơn hiệu quả lưu trữ." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Summary",
       summary(null, [
         "BCD = mỗi chữ số thập phân được mã hóa thành nhóm 4-bit riêng.",

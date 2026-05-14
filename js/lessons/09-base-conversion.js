@@ -28,6 +28,29 @@ function render(container) {
 
   container.appendChild(
     section(
+      "Tổng quan các phương pháp",
+      p(
+        "Có ba phương pháp chính để chuyển đổi cơ số. Hiểu rõ từng phương pháp giúp bạn chọn cách nhanh nhất cho từng tình huống.",
+      ),
+      el("div", { class: "stack", style: { gap: "12px" } }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "① Thập phân → Nhị phân / Hex: Chia liên tiếp", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Chia số cho cơ số (2 hoặc 16) liên tiếp cho đến khi thương = 0. Ghi lại phần dư. Đọc phần dư từ dưới lên (từ phần dư cuối đến đầu).<br><br><strong>Ví dụ:</strong> 25 ÷ 2 = 12 dư 1 → 12 ÷ 2 = 6 dư 0 → 6 ÷ 2 = 3 dư 0 → 3 ÷ 2 = 1 dư 1 → 1 ÷ 2 = 0 dư 1 → Đọc ngược: <span class='mono'>11001</span>" }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "② Nhị phân / Hex → Thập phân: Tổng có trọng số", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Nhân mỗi chữ số với giá trị vị trí của nó (lũy thừa của cơ số) rồi cộng lại.<br><br><strong>Ví dụ:</strong> <span class='mono'>1101</span>₂ = 1×8 + 1×4 + 0×2 + 1×1 = 13" }),
+        ]),
+        el("div", { class: "card card-soft-mint" }, [
+          el("h4", { text: "③ Nhị phân ↔ Hex: Nhóm nibble", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Đây là phương pháp nhanh nhất vì 4 bit = 1 chữ số hex (tra bảng trực tiếp).<br><br><strong>Binary → Hex:</strong> nhóm 4 bit từ phải, tra bảng.<br><strong>Hex → Binary:</strong> mỗi chữ số hex mở rộng thành 4 bit." }),
+        ]),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Chọn hướng chuyển đổi",
       p("Chọn hướng cần chuyển đổi. Nhập giá trị để xem lời giải từng bước và đáp án cuối cùng."),
       buildPicker(),

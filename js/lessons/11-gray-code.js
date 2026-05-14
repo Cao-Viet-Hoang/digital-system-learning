@@ -101,6 +101,37 @@ function render(container) {
 
   container.appendChild(
     section(
+      "Hiểu sâu về thuật toán XOR",
+      p(
+        "Công thức chuyển đổi Gray code dùng phép XOR (⊕). Đây là phép toán logic cơ bản: kết quả là 1 khi hai bit KHÁC nhau, 0 khi hai bit GIỐNG nhau.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Bảng XOR", style: { margin: "0 0 8px" } }),
+          el("table", { class: "tbl", style: { fontSize: "14px" } }, [
+            el("thead", {}, [el("tr", {}, [el("th", { text: "A" }), el("th", { text: "B" }), el("th", { text: "A ⊕ B" })])]),
+            el("tbody", {}, [
+              el("tr", {}, [el("td", { class: "mono", text: "0" }), el("td", { class: "mono", text: "0" }), el("td", { class: "mono", text: "0" })]),
+              el("tr", {}, [el("td", { class: "mono", text: "0" }), el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "1" })]),
+              el("tr", {}, [el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "0" }), el("td", { class: "mono", text: "1" })]),
+              el("tr", {}, [el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "0" })]),
+            ]),
+          ]),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Tại sao XOR đảm bảo 1 bit?", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Khi đếm nhị phân, mỗi bước chỉ thêm 1 vào LSB rồi lan tràn sang trái. Gray code dùng XOR với bit trước để 'hấp thụ' sự lan tràn đó, đảm bảo chỉ đúng 1 bit thay đổi.<br><br>Đây là lý do Gray code còn được gọi là <em>reflected binary code</em> — nó được tạo ra bằng cách phản chiếu các bit." }),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Ứng dụng thú vị: " }),
+        el("span", { text: "Bản đồ Karnaugh (K-map) trong thiết kế logic sắp xếp các ô theo thứ tự Gray code để các ô liền kề chỉ khác 1 biến — giúp đơn giản hóa biểu thức Boolean dễ dàng hơn." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
       "Summary",
       summary(null, [
         "Mã Gray là mã hóa nhị phân trong đó <strong>các giá trị liên tiếp chỉ khác nhau một bit</strong>.",

@@ -51,6 +51,34 @@ function render(container) {
   );
 
   container.appendChild(
+    section(
+      "Chuyển đổi thập phân → nhị phân",
+      p(
+        "Để chuyển từ thập phân sang nhị phân, dùng phương pháp <strong>chia liên tiếp cho 2</strong>. Đọc phần dư từ dưới lên.",
+      ),
+      el("div", { class: "card card-soft-lavender" }, [
+        el("h4", { text: "Ví dụ: 13 → nhị phân", style: { margin: "0 0 12px" } }),
+        el("table", { class: "tbl", style: { fontSize: "14px" } }, [
+          el("thead", {}, [
+            el("tr", {}, [
+              el("th", { text: "Bước" }), el("th", { text: "Số bị chia" }), el("th", { text: "÷ 2" }), el("th", { text: "Thương" }), el("th", { text: "Phần dư ↑" }),
+            ]),
+          ]),
+          el("tbody", {}, [
+            el("tr", {}, [el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "13" }), el("td", { class: "mono", text: "÷ 2" }), el("td", { class: "mono", text: "6" }), el("td", { class: "mono", style: { color: "var(--c-peach-deep)", fontWeight: "700" }, text: "1" })]),
+            el("tr", {}, [el("td", { class: "mono", text: "2" }), el("td", { class: "mono", text: "6" }), el("td", { class: "mono", text: "÷ 2" }), el("td", { class: "mono", text: "3" }), el("td", { class: "mono", style: { color: "var(--c-peach-deep)", fontWeight: "700" }, text: "0" })]),
+            el("tr", {}, [el("td", { class: "mono", text: "3" }), el("td", { class: "mono", text: "3" }), el("td", { class: "mono", text: "÷ 2" }), el("td", { class: "mono", text: "1" }), el("td", { class: "mono", style: { color: "var(--c-peach-deep)", fontWeight: "700" }, text: "1" })]),
+            el("tr", {}, [el("td", { class: "mono", text: "4" }), el("td", { class: "mono", text: "1" }), el("td", { class: "mono", text: "÷ 2" }), el("td", { class: "mono", text: "0" }), el("td", { class: "mono", style: { color: "var(--c-peach-deep)", fontWeight: "700" }, text: "1" })]),
+          ]),
+        ]),
+        el("div", { class: "card card-soft-mint", style: { marginTop: "10px", textAlign: "center" } }, [
+          el("span", { html: "Đọc phần dư từ dưới lên: <strong>1101</strong> → Kiểm tra: 8+4+0+1 = 13 ✓" }),
+        ]),
+      ]),
+    ),
+  );
+
+  container.appendChild(
     quizSection(
       "binary-system",
       [

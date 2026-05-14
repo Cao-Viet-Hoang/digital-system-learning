@@ -39,6 +39,33 @@ function render(container) {
             "Ví dụ: <span class='mono'>1 0 1 1</span> = 1×8 + 0×4 + 1×2 + 1×1 = <strong>11</strong>. Tức là chỉ cộng trọng số của các bit bằng 1.",
         }),
       ]),
+      el("div", { class: "card card-soft-lavender", style: { marginTop: "12px" } }, [
+        el("h4", { text: "MSB và LSB là gì?", style: { margin: "0 0 8px" } }),
+        el("p", { class: "small", style: { margin: 0 }, html: "<strong>MSB (Most Significant Bit)</strong> — bit ngoài cùng bên <em>trái</em>, có trọng số cao nhất (giá trị lớn nhất). <strong>LSB (Least Significant Bit)</strong> — bit ngoài cùng bên <em>phải</em>, có trọng số thấp nhất (bằng 1). Ví dụ: trong số <span class='mono'>10110</span>, MSB = 1 (trọng số 16), LSB = 0 (trọng số 1)." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
+      "Tại sao máy tính dùng nhị phân?",
+      p(
+        "Tại sao không dùng thập phân (10 chữ số) hay hệ 8 (8 chữ số)? Câu trả lời nằm ở <strong>vật lý điện tử</strong>.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Lý do vật lý", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Transistor — linh kiện cơ bản của chip — có hai trạng thái ổn định nhất: đóng (off, điện áp thấp = 0) và mở (on, điện áp cao = 1). Phân biệt 2 trạng thái dễ và đáng tin cậy hơn nhiều so với 10 trạng thái." }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Lý do kỹ thuật", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, text: "Với 2 trạng thái, mạch điện đơn giản hơn, nhanh hơn, tiêu thụ ít điện hơn, và chống nhiễu tốt hơn. Một chip hiện đại có hàng tỷ transistor nhị phân." }),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Cần nhớ: " }),
+        el("span", { html: "n bit biểu diễn được 2<sup>n</sup> giá trị khác nhau. Ví dụ: 8 bit → 2<sup>8</sup> = 256 giá trị (0 đến 255). Đây là phạm vi màu sắc của mỗi kênh RGB trong hình ảnh." }),
+      ]),
     ),
   );
 

@@ -46,6 +46,29 @@ function render(container) {
   );
 
   container.appendChild(
+    section(
+      "Hex trong thực tế lập trình",
+      p(
+        "Lập trình viên dùng hex mỗi ngày vì nó ngắn gọn hơn nhị phân và dễ ánh xạ sang bit hơn thập phân.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        el("div", { class: "card card-soft-sky" }, [
+          el("h4", { text: "Màu sắc HTML", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Màu <span class='mono'>#FF5733</span> nghĩa là:<br>• Đỏ (R): <span class='mono'>FF</span> = 255<br>• Xanh lá (G): <span class='mono'>57</span> = 87<br>• Xanh dương (B): <span class='mono'>33</span> = 51<br>Mỗi kênh màu dùng 1 byte (2 chữ số hex = 8 bit)." }),
+        ]),
+        el("div", { class: "card card-soft-peach" }, [
+          el("h4", { text: "Địa chỉ bộ nhớ", style: { margin: "0 0 8px" } }),
+          el("p", { class: "small", style: { margin: 0 }, html: "Địa chỉ bộ nhớ thường viết bằng hex: <span class='mono'>0x7FFF0000</span>. Đây là địa chỉ 32-bit = 8 chữ số hex = 32 bit nhị phân. Nhị phân sẽ cần 32 chữ số — khó đọc hơn nhiều!" }),
+        ]),
+      ]),
+      el("div", { class: "card card-soft-lavender", style: { marginTop: "12px" } }, [
+        el("h4", { text: "Quy tắc đổi nhanh Binary ↔ Hex", style: { margin: "0 0 8px" } }),
+        el("p", { class: "small", style: { margin: 0 }, html: "<strong>Binary → Hex:</strong> Chia thành nhóm 4 bit từ phải, tra bảng từng nhóm.<br><strong>Hex → Binary:</strong> Mỗi chữ số hex mở rộng thành 4 bit nhị phân.<br><br>Đây là lý do hex là \"cầu nối\" lý tưởng giữa thế giới bit của máy tính và con người." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
     quizSection(
       "hexadecimal",
       [

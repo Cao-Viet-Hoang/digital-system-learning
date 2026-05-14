@@ -43,6 +43,37 @@ function render(container) {
   );
 
   container.appendChild(
+    section(
+      "So sánh các hệ thống số",
+      p(
+        "Hệ thập phân không phải hệ thống duy nhất. Mọi hệ đếm vị trí đều hoạt động theo cùng một nguyên lý — chỉ khác ở số chữ số cơ bản.",
+      ),
+      el("div", { class: "card", style: { overflowX: "auto" } }, [
+        el("table", { class: "tbl tbl-bordered" }, [
+          el("thead", {}, [
+            el("tr", {}, [
+              el("th", { text: "Hệ" }),
+              el("th", { text: "Cơ số" }),
+              el("th", { text: "Chữ số dùng" }),
+              el("th", { text: "Ứng dụng" }),
+            ]),
+          ]),
+          el("tbody", {}, [
+            el("tr", {}, [el("td", { text: "Thập phân" }), el("td", { class: "mono", text: "10" }), el("td", { class: "mono", text: "0–9" }), el("td", { class: "small", text: "Đời thường, tiền tệ, đo lường" })]),
+            el("tr", {}, [el("td", { text: "Nhị phân" }), el("td", { class: "mono", text: "2" }), el("td", { class: "mono", text: "0, 1" }), el("td", { class: "small", text: "Bên trong máy tính, vi xử lý" })]),
+            el("tr", {}, [el("td", { text: "Bát phân" }), el("td", { class: "mono", text: "8" }), el("td", { class: "mono", text: "0–7" }), el("td", { class: "small", text: "Quyền file Unix (chmod 755)" })]),
+            el("tr", {}, [el("td", { text: "Thập lục phân" }), el("td", { class: "mono", text: "16" }), el("td", { class: "mono", text: "0–9, A–F" }), el("td", { class: "small", text: "Địa chỉ bộ nhớ, màu sắc HTML (#FF5733)" })]),
+          ]),
+        ]),
+      ]),
+      el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
+        el("strong", { text: "Điểm mấu chốt: " }),
+        el("span", { text: "Giá trị của một số KHÔNG thay đổi khi đổi hệ đếm — chỉ cách viết thay đổi. Số 12 (thập phân) = 1100 (nhị phân) = C (hex) đều là cùng một lượng." }),
+      ]),
+    ),
+  );
+
+  container.appendChild(
     section("Luyện tập: thay đổi chữ số", buildDigitTweaker()),
   );
 
