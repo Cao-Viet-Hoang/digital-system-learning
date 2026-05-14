@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Systems Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/lesson.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DS</div>
+        <div class="brand-text">
+          <div class="brand-title">Digital Systems</div>
+          <div class="brand-subtitle">Interactive Learning</div>
+        </div>
+      </div>
+      <nav class="nav" id="primary-nav"></nav>
+      <div class="sidebar-footer">
+        <button class="btn btn-ghost btn-sm" id="reset-progress">Reset progress</button>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn" id="toggle-sidebar" aria-label="Toggle sidebar">☰</button>
+          <div id="breadcrumb" class="breadcrumb"></div>
+        </div>
+        <div class="topbar-right">
+          <div class="progress-pill">
+            <span class="progress-label">Chapter progress</span>
+            <div class="progress-bar"><div class="progress-fill" id="overall-progress"></div></div>
+            <span class="progress-pct" id="overall-progress-pct">0%</span>
+          </div>
+        </div>
+      </header>
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

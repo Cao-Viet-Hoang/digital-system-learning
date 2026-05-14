@@ -1,0 +1,198 @@
+/* Design tokens */
+:root {
+  /* Pastel palette */
+  --c-mint: #c8e6d5;
+  --c-mint-deep: #7ec8a6;
+  --c-peach: #ffd6b8;
+  --c-peach-deep: #f0a274;
+  --c-lavender: #d9d2f5;
+  --c-lavender-deep: #9b8cd9;
+  --c-sky: #bde0fe;
+  --c-sky-deep: #6ba8e0;
+  --c-butter: #fff3b8;
+  --c-butter-deep: #e6c95a;
+  --c-rose: #ffc4d1;
+  --c-rose-deep: #e08097;
+
+  /* Surfaces */
+  --bg: #fbf8f3;
+  --surface: #ffffff;
+  --surface-2: #f5f1ea;
+  --surface-3: #ece6db;
+
+  /* Text */
+  --text: #2a2730;
+  --text-2: #5b5664;
+  --text-3: #8b8694;
+  --text-inverse: #ffffff;
+
+  /* Borders */
+  --border: #e5dfd3;
+  --border-strong: #d0c8b6;
+
+  /* Semantic */
+  --c-success: #6dbf8b;
+  --c-success-bg: #d8f0e1;
+  --c-error: #e88a8a;
+  --c-error-bg: #fbdcdc;
+  --c-warning: #e6b052;
+  --c-warning-bg: #fbe9c8;
+  --c-info: #6ba8e0;
+  --c-info-bg: #d4e8fa;
+
+  /* Logic state colors */
+  --logic-0: #6ba8e0;
+  --logic-0-bg: #d4e8fa;
+  --logic-1: #f0a274;
+  --logic-1-bg: #ffe2cc;
+  --logic-x: #b5a8c9;
+  --logic-x-bg: #ebe4f4;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(50, 40, 30, 0.04), 0 1px 3px rgba(50, 40, 30, 0.06);
+  --shadow-md: 0 2px 6px rgba(50, 40, 30, 0.05), 0 6px 16px rgba(50, 40, 30, 0.08);
+  --shadow-lg: 0 8px 24px rgba(50, 40, 30, 0.1);
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+
+  /* Layout */
+  --sidebar-w: 280px;
+  --topbar-h: 64px;
+  --content-max: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0 0 var(--s-3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+h2 {
+  font-size: 22px;
+  line-height: 1.25;
+}
+h3 {
+  font-size: 18px;
+  line-height: 1.3;
+}
+h4 {
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+p {
+  margin: 0 0 var(--s-3);
+  color: var(--text-2);
+}
+
+a {
+  color: var(--c-sky-deep);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+code,
+kbd,
+samp,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--c-butter);
+  color: var(--text);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--r-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+.text-mono {
+  font-family: var(--font-mono);
+}
+.text-2 {
+  color: var(--text-2);
+}
+.text-3 {
+  color: var(--text-3);
+}
+.small {
+  font-size: 13px;
+}

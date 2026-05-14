@@ -1,0 +1,339 @@
+/* Lesson layout */
+.lesson-header {
+  margin-bottom: var(--s-6);
+}
+
+.lesson-header .badge {
+  margin-bottom: var(--s-3);
+}
+
+.lesson-objective {
+  background: var(--c-butter);
+  border-radius: var(--r-lg);
+  padding: var(--s-4) var(--s-5);
+  margin-bottom: var(--s-6);
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+}
+
+.lesson-objective-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--surface);
+  border-radius: var(--r-md);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.lesson-objective-text {
+  flex: 1;
+}
+
+.lesson-objective-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #6b5912;
+  margin-bottom: 2px;
+}
+
+.lesson-section {
+  margin-bottom: var(--s-8);
+}
+
+.lesson-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.lesson-section-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--c-lavender);
+  color: var(--c-lavender-deep);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.lesson-footer {
+  margin-top: var(--s-10);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.lesson-nav-btn {
+  flex: 1;
+  min-width: 200px;
+  text-align: left;
+  padding: var(--s-4);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.lesson-nav-btn:hover {
+  border-color: var(--c-lavender-deep);
+  background: var(--surface-2);
+}
+
+.lesson-nav-btn-label {
+  font-size: 12px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.lesson-nav-btn-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.lesson-nav-btn.right {
+  text-align: right;
+}
+
+/* Summary panel */
+.summary {
+  background: var(--c-mint);
+  border-radius: var(--r-lg);
+  padding: var(--s-5);
+}
+
+.summary h3 {
+  margin-bottom: var(--s-3);
+}
+
+.summary ul {
+  margin: 0;
+  padding-left: var(--s-5);
+}
+
+.summary li {
+  margin-bottom: var(--s-2);
+  color: #2c5f47;
+}
+
+/* Quiz styles */
+.quiz {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-5);
+}
+
+.quiz-q {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: var(--s-4);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: 10px 14px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-size: 14px;
+  width: 100%;
+}
+
+.quiz-option:hover:not(.disabled) {
+  border-color: var(--c-lavender-deep);
+  background: var(--surface-2);
+}
+
+.quiz-option.selected {
+  border-color: var(--c-lavender-deep);
+  background: var(--c-lavender);
+}
+
+.quiz-option.correct {
+  border-color: var(--c-success);
+  background: var(--c-success-bg);
+}
+
+.quiz-option.incorrect {
+  border-color: var(--c-error);
+  background: var(--c-error-bg);
+}
+
+.quiz-option.disabled {
+  cursor: not-allowed;
+}
+
+.quiz-option-marker {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--text-2);
+}
+
+.quiz-option.selected .quiz-option-marker {
+  background: var(--c-lavender-deep);
+  color: white;
+}
+
+.quiz-option.correct .quiz-option-marker {
+  background: var(--c-success);
+  color: white;
+}
+
+.quiz-option.incorrect .quiz-option-marker {
+  background: var(--c-error);
+  color: white;
+}
+
+.quiz-feedback {
+  margin-top: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md);
+  font-size: 14px;
+}
+
+.quiz-feedback.ok {
+  background: var(--c-success-bg);
+  color: #245a37;
+}
+.quiz-feedback.bad {
+  background: var(--c-error-bg);
+  color: #7a2222;
+}
+.quiz-feedback.hint {
+  background: var(--c-warning-bg);
+  color: #6b4a13;
+}
+
+.quiz-actions {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  flex-wrap: wrap;
+}
+
+.quiz-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s-4);
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.quiz-progress-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.quiz-progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface-3);
+}
+
+.quiz-progress-dot.current {
+  background: var(--c-lavender-deep);
+}
+.quiz-progress-dot.correct {
+  background: var(--c-success);
+}
+.quiz-progress-dot.wrong {
+  background: var(--c-error);
+}
+
+/* Logic level indicators */
+.logic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.logic-pill.l-0 {
+  background: var(--logic-0-bg);
+  color: #234a6e;
+}
+.logic-pill.l-1 {
+  background: var(--logic-1-bg);
+  color: #7a4422;
+}
+.logic-pill.l-x {
+  background: var(--logic-x-bg);
+  color: #4d3f7a;
+}
+
+.logic-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Bit row with weight display */
+.bit-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.bit-weight {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.bit-contrib {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-2);
+  font-weight: 500;
+  min-height: 18px;
+}
+
+.bit-contrib.active {
+  color: var(--c-peach-deep);
+  font-weight: 700;
+}
