@@ -6,10 +6,10 @@ import { fromHex, toHex, groupBitsToNibbles } from "../utils/conversions.js";
 export default {
   id: "hexadecimal",
   order: 8,
-  title: "The Hexadecimal System",
-  subtitle: "Base 16. One hex digit = exactly four bits — that's why programmers love it.",
+  title: "Hệ Thập Lục Phân (Hexadecimal)",
+  subtitle: "Cơ số 16. Một chữ số hex = đúng bốn bit — đó là lý do lập trình viên yêu thích nó.",
   objective:
-    "Read hex digits, see how they map to 4-bit nibbles, and convert between hex and binary by grouping.",
+    "Đọc các chữ số hex, xem chúng ánh xạ đến nibble 4-bit như thế nào, và chuyển đổi giữa hex và nhị phân bằng cách nhóm.",
   render,
 };
 
@@ -19,9 +19,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "The 16 hex digits",
+      "16 chữ số hex",
       p(
-        "Hexadecimal uses sixteen digits: <span class='mono'>0–9</span> for values 0..9, then <span class='mono'>A, B, C, D, E, F</span> for 10..15. Each hex digit maps to exactly one group of four bits.",
+        "Hệ thập lục phân dùng mười sáu chữ số: <span class='mono'>0–9</span> cho giá trị 0..9, rồi <span class='mono'>A, B, C, D, E, F</span> cho 10..15. Mỗi chữ số hex ánh xạ đến đúng một nhóm bốn bit (nibble).",
       ),
       buildLookupTable(),
     ),
@@ -29,17 +29,17 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: convert by typing",
-      p("Type a number in any field — the other two update."),
+      "Hãy thử: chuyển đổi bằng cách nhập",
+      p("Nhập số vào bất kỳ ô nào — hai ô còn lại sẽ tự cập nhật."),
       buildConverter(),
     ),
   );
 
   container.appendChild(
     section(
-      "Try it: group bits into nibbles",
+      "Hãy thử: nhóm bit thành nibble",
       p(
-        "Enter a binary string. The app groups bits into 4-bit nibbles (padding the left with zeros if needed) and shows the matching hex digit for each.",
+        "Nhập chuỗi bit nhị phân. Ứng dụng nhóm các bit thành nibble 4-bit (thêm số 0 bên trái nếu cần) và hiển thị chữ số hex tương ứng cho mỗi nhóm.",
       ),
       buildNibbleGrouper(),
     ),
@@ -50,14 +50,14 @@ function render(container) {
       "hexadecimal",
       [
         {
-          prompt: "Hex <span class='mono'>2F</span> equals which decimal value?",
+          prompt: "Hex <span class='mono'>2F</span> bằng giá trị thập phân nào?",
           options: [{ label: "31" }, { label: "47" }, { label: "63" }, { label: "215" }],
           answer: 1,
           hint: "2×16 + 15.",
           explanation: "2×16 + F(15) = 32 + 15 = 47.",
         },
         {
-          prompt: "Which 4-bit nibble matches hex digit <strong>C</strong>?",
+          prompt: "Nibble 4-bit nào khớp với chữ số hex <strong>C</strong>?",
           options: [
             { label: "<span class='mono'>1010</span>" },
             { label: "<span class='mono'>1100</span>" },
@@ -66,10 +66,10 @@ function render(container) {
           ],
           answer: 1,
           hint: "C = 12 = 8 + 4.",
-          explanation: "12 in binary is 1100.",
+          explanation: "12 trong nhị phân là 1100.",
         },
         {
-          prompt: "Binary <span class='mono'>11011010</span> in hex is:",
+          prompt: "Nhị phân <span class='mono'>11011010</span> trong hex là:",
           options: [
             { label: "<span class='mono'>0xBA</span>" },
             { label: "<span class='mono'>0xDA</span>" },
@@ -77,7 +77,7 @@ function render(container) {
             { label: "<span class='mono'>0xEA</span>" },
           ],
           answer: 1,
-          hint: "Group: 1101 1010 → D A.",
+          hint: "Nhóm: 1101 1010 → D A.",
           explanation: "1101 = D, 1010 = A → DA.",
         },
       ],
@@ -88,9 +88,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "Hex is base 16: digits 0–9 and A–F (values 10–15).",
-        "One hex digit = exactly one 4-bit nibble. To convert binary → hex, group bits in fours from the right.",
-        "Hex is just a shorter way to write binary — handy for memory addresses and byte values.",
+        "Hex là cơ số 16: chữ số 0–9 và A–F (giá trị 10–15).",
+        "Một chữ số hex = đúng một nibble 4-bit. Để chuyển nhị phân → hex, nhóm bit thành nhóm 4 từ phải sang.",
+        "Hex chỉ là cách viết ngắn hơn của nhị phân — tiện dụng cho địa chỉ bộ nhớ và giá trị byte.",
       ]),
     ),
   );
@@ -102,9 +102,9 @@ function buildLookupTable() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal" }),
+        el("th", { text: "Thập phân" }),
         el("th", { text: "Hex" }),
-        el("th", { text: "Binary (4 bits)" }),
+        el("th", { text: "Nhị phân (4 bit)" }),
       ]),
     ]),
   );
@@ -127,7 +127,7 @@ function buildConverter() {
   const card = el("div", { class: "card" });
   const state = { value: 47 };
 
-  const decInp = mkField("Decimal", "number", "47", (e) => {
+  const decInp = mkField("Thập phân", "number", "47", (e) => {
     const v = parseInt(e.target.value, 10);
     if (Number.isFinite(v) && v >= 0) {
       state.value = v;
@@ -142,7 +142,7 @@ function buildConverter() {
       sync();
     }
   }, true);
-  const binInp = mkField("Binary", "text", "00101111", (e) => {
+  const binInp = mkField("Nhị phân", "text", "00101111", (e) => {
     const raw = e.target.value.replace(/[^01]/g, "");
     if (raw) {
       state.value = parseInt(raw, 2);
@@ -165,7 +165,7 @@ function buildConverter() {
     clear(vis);
     const bits = state.value.toString(2);
     const groups = groupBitsToNibbles(bits);
-    vis.appendChild(el("div", { class: "small text-2", text: "Nibble grouping (left-padded with zeros):" }));
+    vis.appendChild(el("div", { class: "small text-2", text: "Nhóm nibble (thêm số 0 bên trái):" }));
     const row = el("div", { class: "row", style: { justifyContent: "center", marginTop: "8px", gap: "10px" } });
     groups.forEach((g) => {
       row.appendChild(
@@ -228,14 +228,14 @@ function buildNibbleGrouper() {
     const hex = groups.map((g) => g.hex).join("");
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { marginTop: "12px", textAlign: "center" } }, [
-        el("span", { html: "Combined hex: <span class='mono' style='font-size:20px;font-weight:700'>" + hex + "</span>" }),
+        el("span", { html: "Hex kết hợp: <span class='mono' style='font-size:20px;font-weight:700'>" + hex + "</span>" }),
       ]),
     );
   }
   inp.addEventListener("input", rerender);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Enter binary bits:" }),
+      el("span", { class: "small text-2", text: "Nhập bit nhị phân:" }),
       inp,
     ]),
   );

@@ -6,10 +6,10 @@ import { binToDecSteps, toBinary } from "../utils/conversions.js";
 export default {
   id: "binary-system",
   order: 7,
-  title: "The Binary System",
-  subtitle: "Base 2 — every position is a power of two.",
+  title: "Hệ Nhị Phân (Binary)",
+  subtitle: "Cơ số 2 — mỗi vị trí là một lũy thừa của hai.",
   objective:
-    "Convert a binary value to decimal step by step using place values, and recognise binary as a positional system with base 2.",
+    "Chuyển đổi giá trị nhị phân sang thập phân từng bước theo giá trị vị trí, và nhận ra hệ nhị phân là hệ thống vị trí với cơ số 2.",
   render,
 };
 
@@ -19,9 +19,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: weight table with toggleable bits",
+      "Hãy thử: bảng trọng số với bit có thể bật/tắt",
       p(
-        "Click cells to switch each bit on or off. The weight table on the right updates the contribution. The total is the decimal value of the binary number.",
+        "Nhấn vào ô để bật hoặc tắt từng bit. Bảng trọng số bên phải cập nhật đóng góp. Tổng là giá trị thập phân của số nhị phân.",
       ),
       buildWeightTable(),
     ),
@@ -29,9 +29,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Hide-and-check",
+      "Ẩn và kiểm tra",
       p(
-        "Try this: turn off the answer, compute the decimal value yourself, then reveal it. The check button confirms whether your guess matches the value.",
+        "Thử cách này: ẩn đáp án, tự tính giá trị thập phân, rồi hiện ra. Nút kiểm tra xác nhận đoán của bạn có khớp giá trị không.",
       ),
       buildHideCheck(),
     ),
@@ -39,7 +39,7 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Expansion in symbols",
+      "Khai triển theo ký hiệu",
       el("div", { class: "card card-soft-mint" }, [
         el("p", {
           style: { margin: 0 },
@@ -56,23 +56,23 @@ function render(container) {
       [
         {
           prompt:
-            "What is the decimal value of <span class='mono'>10101</span> in binary?",
+            "Giá trị thập phân của <span class='mono'>10101</span> trong nhị phân là bao nhiêu?",
           options: [{ label: "10" }, { label: "17" }, { label: "21" }, { label: "23" }],
           answer: 2,
-          hint: "Weights: 16, 8, 4, 2, 1.",
+          hint: "Trọng số: 16, 8, 4, 2, 1.",
           explanation: "1×16 + 0×8 + 1×4 + 0×2 + 1×1 = 21.",
         },
         {
           prompt:
-            "Which weight does the <strong>rightmost</strong> bit always have?",
-          options: [{ label: "0" }, { label: "1" }, { label: "2" }, { label: "Same as bit position" }],
+            "Bit <strong>ngoài cùng bên phải</strong> luôn có trọng số nào?",
+          options: [{ label: "0" }, { label: "1" }, { label: "2" }, { label: "Bằng với vị trí bit" }],
           answer: 1,
-          hint: "It's 2⁰.",
-          explanation: "2⁰ = 1, regardless of word length.",
+          hint: "Đó là 2⁰.",
+          explanation: "2⁰ = 1, bất kể độ dài từ là bao nhiêu.",
         },
         {
           prompt:
-            "Which binary value equals decimal <strong>26</strong>?",
+            "Giá trị nhị phân nào bằng số thập phân <strong>26</strong>?",
           options: [
             { label: "<span class='mono'>10110</span>" },
             { label: "<span class='mono'>11010</span>" },
@@ -81,7 +81,7 @@ function render(container) {
           ],
           answer: 1,
           hint: "26 = 16 + 8 + 2.",
-          explanation: "Bits at weights 16, 8, 2 → <span class='mono'>11010</span>.",
+          explanation: "Các bit tại trọng số 16, 8, 2 → <span class='mono'>11010</span>.",
         },
       ],
     ),
@@ -91,9 +91,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "Binary is base 2 — two digits (0, 1) and powers of two as weights.",
-        "Convert to decimal by summing weights of the 1-bits.",
-        "<em>n</em> bits represent 2<sup>n</sup> values.",
+        "Hệ nhị phân là cơ số 2 — hai chữ số (0, 1) và lũy thừa của hai là trọng số.",
+        "Chuyển sang thập phân bằng cách cộng trọng số của các bit bằng 1.",
+        "<em>n</em> bit biểu diễn 2<sup>n</sup> giá trị.",
       ]),
     ),
   );
@@ -108,7 +108,7 @@ function buildWeightTable() {
 
   // Left: toggle row
   const left = el("div", { class: "card card-soft-sky" });
-  left.appendChild(el("h4", { text: "Bits", style: { margin: "0 0 10px" } }));
+  left.appendChild(el("h4", { text: "Các Bit", style: { margin: "0 0 10px" } }));
   const row = el("div", { class: "row", style: { gap: "8px", justifyContent: "center", flexWrap: "wrap" } });
   const btns = [];
   for (let p = N - 1; p >= 0; p--) {
@@ -128,16 +128,16 @@ function buildWeightTable() {
 
   // Right: weight table
   const right = el("div", { class: "card" });
-  right.appendChild(el("h4", { text: "Weight table", style: { margin: "0 0 10px" } }));
+  right.appendChild(el("h4", { text: "Bảng trọng số", style: { margin: "0 0 10px" } }));
   const tbl = el("table", { class: "tbl", style: { fontSize: "13px" } });
   const tbody = el("tbody");
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Position" }),
-        el("th", { text: "Weight" }),
+        el("th", { text: "Vị trí" }),
+        el("th", { text: "Trọng số" }),
         el("th", { text: "Bit" }),
-        el("th", { text: "Contribution" }),
+        el("th", { text: "Đóng góp" }),
       ]),
     ]),
   );
@@ -182,10 +182,10 @@ function buildWeightTable() {
       );
     }
     clear(totalRow);
-    totalRow.appendChild(el("div", { class: "small text-2", text: "Binary value" }));
+    totalRow.appendChild(el("div", { class: "small text-2", text: "Giá trị nhị phân" }));
     totalRow.appendChild(el("div", { class: "mono", style: { fontSize: "20px" }, text: binStr }));
     totalRow.appendChild(
-      el("div", { style: { fontSize: "26px", fontWeight: "600", marginTop: "4px" }, text: total + " (decimal)" }),
+      el("div", { style: { fontSize: "26px", fontWeight: "600", marginTop: "4px" }, text: total + " (thập phân)" }),
     );
     totalRow.appendChild(
       el("div", { class: "small text-2", text: parts.length ? "= " + parts.join(" + ") : "= 0" }),
@@ -226,7 +226,7 @@ function buildHideCheck() {
     hidden = true;
     inp.value = "";
     clear(answer);
-    answer.appendChild(el("button", { class: "btn btn-ghost btn-sm", text: "Reveal answer", onclick: revealAnswer }));
+    answer.appendChild(el("button", { class: "btn btn-ghost btn-sm", text: "Hiện đáp án", onclick: revealAnswer }));
     clear(fb);
   }
 
@@ -240,37 +240,37 @@ function buildHideCheck() {
       el("div", {
         class: "card card-soft-mint",
         style: { display: "inline-block", padding: "10px 18px", marginTop: "8px" },
-        html: "Decimal: <strong>" + v + "</strong> &nbsp;( = " + (breakdown || "0") + ")",
+        html: "Thập phân: <strong>" + v + "</strong> &nbsp;( = " + (breakdown || "0") + ")",
       }),
     );
   }
 
-  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Binary value:" }));
+  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Giá trị nhị phân:" }));
   card.appendChild(display);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Your decimal guess:" }),
+      el("span", { class: "small text-2", text: "Đoán thập phân của bạn:" }),
       inp,
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           const v = parseInt(inp.value, 10);
           const target = parseInt(bits, 2);
           clear(fb);
           if (!Number.isFinite(v)) {
-            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Enter a decimal number." }));
+            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Nhập số thập phân." }));
             return;
           }
           fb.appendChild(
             el("div", { class: v === target ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-              el("strong", { text: v === target ? "Correct! " : "Not quite. " }),
+              el("strong", { text: v === target ? "Chính xác! " : "Chưa đúng. " }),
               el("span", { html: "<span class='mono'>" + bits + "</span> = " + target + "." }),
             ]),
           );
         },
       }),
-      el("button", { class: "btn btn-outline btn-sm", text: "New number", onclick: newQ }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Số mới", onclick: newQ }),
     ]),
   );
   card.appendChild(answer);

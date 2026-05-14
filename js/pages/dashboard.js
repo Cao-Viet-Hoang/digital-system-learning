@@ -17,31 +17,31 @@ export function renderDashboard(container) {
   const completedCount = lessons.filter((l) => getLessonStatus(l.id) === "completed").length;
 
   const hero = el("div", { class: "hero" }, [
-    el("h1", { text: "Digital Systems — Chapter 1" }),
+    el("h1", { text: "Hệ Thống Số — Chương 1" }),
     el("p", {
       text:
-        "Learn the foundations of digital electronics through hands-on simulations. Toggle bits, read waveforms, convert between number systems, and master codes like BCD, Gray, and ASCII.",
+        "Học nền tảng điện tử số qua các mô phỏng tương tác. Bật/tắt bit, đọc dạng sóng, chuyển đổi giữa các hệ thống số, và nắm vững các mã như BCD, Gray và ASCII.",
     }),
     el("div", { class: "row" }, [
       lastLesson
         ? el("button", {
             class: "btn btn-primary",
-            text: `Continue: ${lastLesson.title}`,
+            text: `Tiếp tục: ${lastLesson.title}`,
             onclick: () => navigate(`lesson/${lastLesson.id}`),
           })
         : el("button", {
             class: "btn btn-primary",
-            text: "Start lesson 1",
+            text: "Bắt đầu bài học 1",
             onclick: () => navigate(`lesson/${lessons[0].id}`),
           }),
       el("button", {
         class: "btn btn-outline",
-        text: "Quick practice",
+        text: "Luyện tập nhanh",
         onclick: () => navigate("practice"),
       }),
       el("button", {
         class: "btn btn-outline",
-        text: "Chapter exam",
+        text: "Kiểm tra chương",
         onclick: () => navigate("exam"),
       }),
     ]),
@@ -50,11 +50,11 @@ export function renderDashboard(container) {
 
   // Stats row
   const stats = el("div", { class: "grid grid-3", style: { marginBottom: "24px" } }, [
-    statCard("Lessons completed", `${completedCount} / ${lessons.length}`, "mint"),
-    statCard("Overall progress", `${pct}%`, "lavender"),
+    statCard("Bài học đã hoàn thành", `${completedCount} / ${lessons.length}`, "mint"),
+    statCard("Tiến độ tổng thể", `${pct}%`, "lavender"),
     statCard(
-      "Last activity",
-      lastLesson ? lastLesson.title : "Not started",
+      "Hoạt động gần nhất",
+      lastLesson ? lastLesson.title : "Chưa bắt đầu",
       "peach",
       lastLesson ? () => navigate(`lesson/${lastLesson.id}`) : null,
     ),
@@ -62,11 +62,11 @@ export function renderDashboard(container) {
   inner.appendChild(stats);
 
   // Lessons grid
-  inner.appendChild(el("h2", { text: "Lessons", style: { marginTop: "8px" } }));
+  inner.appendChild(el("h2", { text: "Các bài học", style: { marginTop: "8px" } }));
   inner.appendChild(
     el("p", {
       class: "text-2",
-      text: "Each lesson has an interactive simulation and a short quiz. Complete them in order or jump to any topic.",
+      text: "Mỗi bài học có mô phỏng tương tác và bài kiểm tra ngắn. Học theo thứ tự hoặc nhảy đến bất kỳ chủ đề nào.",
     }),
   );
 
@@ -77,10 +77,10 @@ export function renderDashboard(container) {
     const color = cardColors[i % cardColors.length];
     const statusBadge =
       status === "completed"
-        ? el("span", { class: "badge badge-success", text: "Completed" })
+        ? el("span", { class: "badge badge-success", text: "Hoàn thành" })
         : status === "in-progress"
-        ? el("span", { class: "badge badge-warning", text: "In progress" })
-        : el("span", { class: "badge", text: "Not started" });
+        ? el("span", { class: "badge badge-warning", text: "Đang học" })
+        : el("span", { class: "badge", text: "Chưa bắt đầu" });
 
     const card = el(
       "div",
@@ -108,7 +108,7 @@ export function renderDashboard(container) {
           ? el("div", {
               class: "small",
               style: { marginTop: "4px", fontWeight: "500" },
-              text: `Best quiz score: ${score}%`,
+              text: `Điểm kiểm tra cao nhất: ${score}%`,
             })
           : null,
       ],
@@ -118,30 +118,30 @@ export function renderDashboard(container) {
   inner.appendChild(grid);
 
   // Tools section
-  inner.appendChild(el("h2", { text: "Tools & references", style: { marginTop: "32px" } }));
+  inner.appendChild(el("h2", { text: "Công cụ & tài liệu tham khảo", style: { marginTop: "32px" } }));
   const tools = el("div", { class: "grid grid-3", style: { marginTop: "12px" } }, [
     toolCard(
-      "Quick practice",
-      "Random questions on any topic to drill conversions and codes.",
-      "Open practice",
+      "Luyện tập nhanh",
+      "Câu hỏi ngẫu nhiên theo bất kỳ chủ đề nào để rèn luyện chuyển đổi và mã hóa.",
+      "Mở luyện tập",
       () => navigate("practice"),
     ),
     toolCard(
-      "Chapter exam",
-      "Full chapter quiz with scoring and a topic-by-topic breakdown.",
-      "Take exam",
+      "Kiểm tra chương",
+      "Bài kiểm tra toàn chương với điểm số và phân tích theo từng chủ đề.",
+      "Làm bài kiểm tra",
       () => navigate("exam"),
     ),
     toolCard(
-      "Reference tables",
-      "Lookup tables for binary, hex, BCD, Gray and ASCII.",
-      "View tables",
+      "Bảng tra cứu",
+      "Bảng tra cứu nhanh cho nhị phân, hex, BCD, Gray và ASCII.",
+      "Xem bảng",
       () => navigate("reference"),
     ),
     toolCard(
-      "Glossary",
-      "Short, plain-language definitions of all key terms.",
-      "Open glossary",
+      "Bảng chú giải",
+      "Định nghĩa ngắn gọn, dễ hiểu cho tất cả các thuật ngữ quan trọng.",
+      "Mở bảng chú giải",
       () => navigate("dictionary"),
     ),
   ]);

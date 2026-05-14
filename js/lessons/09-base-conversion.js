@@ -15,10 +15,10 @@ import {
 export default {
   id: "base-conversion",
   order: 9,
-  title: "Base Conversion",
-  subtitle: "Convert between decimal, binary, and hex — with every step shown.",
+  title: "Chuyển Đổi Cơ Số",
+  subtitle: "Chuyển đổi giữa thập phân, nhị phân và hex — với từng bước được hiển thị chi tiết.",
   objective:
-    "Carry out base conversions confidently by following the standard methods: repeated division for decimal→base, weighted sum for base→decimal, nibble grouping for binary↔hex.",
+    "Thực hiện chuyển đổi cơ số tự tin bằng cách theo các phương pháp chuẩn: chia liên tiếp cho decimal→base, tổng có trọng số cho base→decimal, nhóm nibble cho binary↔hex.",
   render,
 };
 
@@ -28,17 +28,17 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Pick a direction",
-      p("Choose what to convert. Type a value to see a step-by-step solution and the final answer."),
+      "Chọn hướng chuyển đổi",
+      p("Chọn hướng cần chuyển đổi. Nhập giá trị để xem lời giải từng bước và đáp án cuối cùng."),
       buildPicker(),
     ),
   );
 
   container.appendChild(
     section(
-      "Self-check practice",
+      "Luyện tập tự kiểm tra",
       p(
-        "Try a problem first. Enter your answer; if you're stuck, peek at the steps. New questions are generated each round.",
+        "Hãy thử giải trước. Nhập đáp án của bạn; nếu bí, hãy xem các bước. Câu hỏi mới được tạo mỗi lần.",
       ),
       buildPractice(),
     ),
@@ -49,7 +49,7 @@ function render(container) {
       "base-conversion",
       [
         {
-          prompt: "Convert decimal <strong>23</strong> to binary.",
+          prompt: "Chuyển số thập phân <strong>23</strong> sang nhị phân.",
           options: [
             { label: "<span class='mono'>10101</span>" },
             { label: "<span class='mono'>10111</span>" },
@@ -57,18 +57,18 @@ function render(container) {
             { label: "<span class='mono'>11101</span>" },
           ],
           answer: 1,
-          hint: "Divide by 2 repeatedly, reading remainders bottom-up.",
+          hint: "Chia liên tiếp cho 2, đọc phần dư từ dưới lên.",
           explanation: "23 = 16 + 4 + 2 + 1 = 10111₂.",
         },
         {
-          prompt: "Convert binary <span class='mono'>110101</span> to decimal.",
+          prompt: "Chuyển nhị phân <span class='mono'>110101</span> sang thập phân.",
           options: [{ label: "21" }, { label: "53" }, { label: "55" }, { label: "61" }],
           answer: 1,
-          hint: "Weights: 32, 16, 8, 4, 2, 1.",
+          hint: "Trọng số: 32, 16, 8, 4, 2, 1.",
           explanation: "32 + 16 + 4 + 1 = 53.",
         },
         {
-          prompt: "Convert hex <span class='mono'>3A</span> to decimal.",
+          prompt: "Chuyển hex <span class='mono'>3A</span> sang thập phân.",
           options: [{ label: "26" }, { label: "30" }, { label: "58" }, { label: "60" }],
           answer: 2,
           hint: "3×16 + A(10).",
@@ -82,21 +82,21 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "<strong>Decimal → binary / hex.</strong> Divide by 2 (or 16) repeatedly; remainders read from bottom to top give the answer.",
-        "<strong>Binary / hex → decimal.</strong> Multiply each digit by its place value and sum.",
-        "<strong>Binary ↔ hex.</strong> Group bits in fours from the right (binary → hex) or expand each hex digit to 4 bits (hex → binary).",
+        "<strong>Thập phân → nhị phân / hex.</strong> Chia liên tiếp cho 2 (hoặc 16); đọc phần dư từ dưới lên để có kết quả.",
+        "<strong>Nhị phân / hex → thập phân.</strong> Nhân mỗi chữ số với giá trị vị trí của nó và cộng lại.",
+        "<strong>Nhị phân ↔ hex.</strong> Nhóm bit thành nhóm 4 từ phải (nhị phân → hex) hoặc mở rộng mỗi chữ số hex thành 4 bit (hex → nhị phân).",
       ]),
     ),
   );
 }
 
 const directions = [
-  { id: "d2b", label: "Decimal → Binary" },
-  { id: "b2d", label: "Binary → Decimal" },
-  { id: "d2h", label: "Decimal → Hex" },
-  { id: "h2d", label: "Hex → Decimal" },
-  { id: "b2h", label: "Binary → Hex" },
-  { id: "h2b", label: "Hex → Binary" },
+  { id: "d2b", label: "Thập phân → Nhị phân" },
+  { id: "b2d", label: "Nhị phân → Thập phân" },
+  { id: "d2h", label: "Thập phân → Hex" },
+  { id: "h2d", label: "Hex → Thập phân" },
+  { id: "b2h", label: "Nhị phân → Hex" },
+  { id: "h2b", label: "Hex → Nhị phân" },
 ];
 
 function buildPicker() {
@@ -159,7 +159,7 @@ function buildPicker() {
     clear(stepWrap);
     const v = parseInput(active, raw);
     if (v == null) {
-      stepWrap.appendChild(el("div", { class: "alert alert-warning", text: "Enter a valid value." }));
+      stepWrap.appendChild(el("div", { class: "alert alert-warning", text: "Nhập giá trị hợp lệ." }));
       return;
     }
     stepWrap.appendChild(renderSolution(active, v, raw));
@@ -174,12 +174,12 @@ function buildPicker() {
 
 function inputLabel(dir) {
   return {
-    d2b: "Decimal number",
-    b2d: "Binary digits",
-    d2h: "Decimal number",
-    h2d: "Hex digits",
-    b2h: "Binary digits",
-    h2b: "Hex digits",
+    d2b: "Số thập phân",
+    b2d: "Chữ số nhị phân",
+    d2h: "Số thập phân",
+    h2d: "Chữ số hex",
+    b2h: "Chữ số nhị phân",
+    h2b: "Chữ số hex",
   }[dir];
 }
 
@@ -213,42 +213,42 @@ function renderSolution(dir, value, raw) {
     const n = Number(value);
     const { steps, result } = decToBinSteps(n);
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Repeatedly divide by 2; read <em>remainders</em> from bottom to top." }),
+      el("div", { class: "alert alert-info", html: "Chia liên tiếp cho 2; đọc <em>phần dư</em> từ dưới lên." }),
     );
     out.appendChild(renderDivTable(steps, 2));
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: result + "₂" }),
-        el("div", { class: "small", text: n + " (decimal) = " + result + " (binary)" }),
+        el("div", { class: "small", text: n + " (thập phân) = " + result + " (nhị phân)" }),
       ]),
     );
   } else if (dir === "b2d") {
     const bin = String(value);
     const { terms, result } = binToDecSteps(bin);
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Multiply each bit by its place value (a power of 2) and sum." }),
+      el("div", { class: "alert alert-info", html: "Nhân mỗi bit với giá trị vị trí (lũy thừa của 2) và cộng lại." }),
     );
     out.appendChild(renderWeightTable(terms));
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: String(result) }),
-        el("div", { class: "small", text: bin + " (binary) = " + result + " (decimal)" }),
+        el("div", { class: "small", text: bin + " (nhị phân) = " + result + " (thập phân)" }),
       ]),
     );
   } else if (dir === "d2h") {
     const n = Number(value);
     const { steps, result } = decToHexSteps(n);
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Repeatedly divide by 16; read <em>remainders</em> from bottom to top (10–15 become A–F)." }),
+      el("div", { class: "alert alert-info", html: "Chia liên tiếp cho 16; đọc <em>phần dư</em> từ dưới lên (10–15 thành A–F)." }),
     );
     out.appendChild(renderDivTable(steps, 16, true));
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: "0x" + result }),
-        el("div", { class: "small", text: n + " (decimal) = " + result + " (hex)" }),
+        el("div", { class: "small", text: n + " (thập phân) = " + result + " (hex)" }),
       ]),
     );
   } else if (dir === "h2d") {
@@ -263,12 +263,12 @@ function renderSolution(dir, value, raw) {
       contribution: parseInt(d, 16) * Math.pow(16, digits.length - 1 - i),
     }));
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Multiply each hex digit by its place value (a power of 16)." }),
+      el("div", { class: "alert alert-info", html: "Nhân mỗi chữ số hex với giá trị vị trí (lũy thừa của 16)." }),
     );
     out.appendChild(renderHexWeightTable(terms));
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: String(n) }),
       ]),
     );
@@ -276,7 +276,7 @@ function renderSolution(dir, value, raw) {
     const bin = String(value);
     const groups = groupBitsToNibbles(bin);
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Group bits in fours from the right (pad the left with 0 if needed)." }),
+      el("div", { class: "alert alert-info", html: "Nhóm bit thành nhóm 4 từ phải (thêm 0 bên trái nếu cần)." }),
     );
     const row = el("div", { class: "row", style: { justifyContent: "center", flexWrap: "wrap" } });
     groups.forEach((g) => {
@@ -290,14 +290,14 @@ function renderSolution(dir, value, raw) {
     out.appendChild(row);
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: "0x" + groups.map((g) => g.hex).join("") }),
       ]),
     );
   } else if (dir === "h2b") {
     const hex = String(value);
     out.appendChild(
-      el("div", { class: "alert alert-info", html: "Expand each hex digit to 4 binary bits, then concatenate." }),
+      el("div", { class: "alert alert-info", html: "Mở rộng mỗi chữ số hex thành 4 bit nhị phân, rồi nối lại." }),
     );
     const row = el("div", { class: "row", style: { justifyContent: "center", flexWrap: "wrap" } });
     const bin = hex
@@ -314,7 +314,7 @@ function renderSolution(dir, value, raw) {
     out.appendChild(row);
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Result" }),
+        el("div", { class: "small text-2", text: "Kết quả" }),
         el("div", { class: "mono", style: { fontSize: "22px", fontWeight: "600" }, text: bin.join("") + "₂" }),
       ]),
     );
@@ -328,11 +328,11 @@ function renderDivTable(steps, divisor, asHex) {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Step" }),
-        el("th", { text: "Dividend" }),
+        el("th", { text: "Bước" }),
+        el("th", { text: "Số bị chia" }),
         el("th", { text: "÷ " + divisor }),
-        el("th", { text: "Quotient" }),
-        el("th", { text: "Remainder" }),
+        el("th", { text: "Thương" }),
+        el("th", { text: "Phần dư" }),
       ]),
     ]),
   );
@@ -351,7 +351,7 @@ function renderDivTable(steps, divisor, asHex) {
   tbl.appendChild(tb);
   wrap.appendChild(tbl);
   wrap.appendChild(
-    el("p", { class: "small text-2", style: { marginTop: "8px" }, text: "Read remainders bottom-up to get the result." }),
+    el("p", { class: "small text-2", style: { marginTop: "8px" }, text: "Đọc phần dư từ dưới lên để có kết quả." }),
   );
   return wrap;
 }
@@ -362,10 +362,10 @@ function renderWeightTable(terms) {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Position" }),
+        el("th", { text: "Vị trí" }),
         el("th", { text: "Bit" }),
-        el("th", { text: "Weight" }),
-        el("th", { text: "Contribution" }),
+        el("th", { text: "Trọng số" }),
+        el("th", { text: "Đóng góp" }),
       ]),
     ]),
   );
@@ -394,11 +394,11 @@ function renderHexWeightTable(terms) {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Position" }),
-        el("th", { text: "Digit" }),
-        el("th", { text: "Value" }),
-        el("th", { text: "Weight" }),
-        el("th", { text: "Contribution" }),
+        el("th", { text: "Vị trí" }),
+        el("th", { text: "Chữ số" }),
+        el("th", { text: "Giá trị" }),
+        el("th", { text: "Trọng số" }),
+        el("th", { text: "Đóng góp" }),
       ]),
     ]),
   );
@@ -444,7 +444,7 @@ function buildPractice() {
     state.q = generateQuestion(state.dir);
     state.showSteps = false;
     clear(promptEl);
-    promptEl.appendChild(el("div", { class: "small text-2", text: "Convert this value:" }));
+    promptEl.appendChild(el("div", { class: "small text-2", text: "Chuyển đổi giá trị này:" }));
     promptEl.appendChild(
       el("div", { class: "mono", style: { fontSize: "26px", fontWeight: "600", margin: "6px 0" }, text: state.q.display }),
     );
@@ -452,25 +452,25 @@ function buildPractice() {
 
     clear(inputWrap);
     const inp = el("input", { class: "input input-mono", type: "text", style: { width: "160px" } });
-    inputWrap.appendChild(el("span", { class: "small text-2", text: "Your answer:" }));
+    inputWrap.appendChild(el("span", { class: "small text-2", text: "Đáp án của bạn:" }));
     inputWrap.appendChild(inp);
     inputWrap.appendChild(
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           const guess = (inp.value || "").trim().toUpperCase().replace(/^0X/, "").replace(/^0B/, "");
           const expected = state.q.expected.toUpperCase().replace(/^0X/, "").replace(/^0B/, "");
           clear(fb);
           if (!guess) {
-            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Enter your answer." }));
+            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Nhập đáp án của bạn." }));
             return;
           }
           const ok = guess === expected;
           fb.appendChild(
             el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-              el("strong", { text: ok ? "Correct! " : "Not quite. " }),
-              el("span", { html: "Answer: <span class='mono'>" + state.q.expected + "</span>." }),
+              el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
+              el("span", { html: "Đáp án: <span class='mono'>" + state.q.expected + "</span>." }),
             ]),
           );
         },
@@ -479,14 +479,14 @@ function buildPractice() {
     inputWrap.appendChild(
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: state.showSteps ? "Hide steps" : "Show steps",
+        text: state.showSteps ? "Ẩn các bước" : "Xem các bước",
         onclick: () => {
           state.showSteps = !state.showSteps;
           renderSteps();
         },
       }),
     );
-    inputWrap.appendChild(el("button", { class: "btn btn-outline btn-sm", text: "Next", onclick: newQ }));
+    inputWrap.appendChild(el("button", { class: "btn btn-outline btn-sm", text: "Tiếp theo", onclick: newQ }));
 
     clear(fb);
     renderSteps();
@@ -501,7 +501,7 @@ function buildPractice() {
 
   card.appendChild(
     el("div", { class: "row" }, [
-      el("span", { class: "small text-2", text: "Conversion type:" }),
+      el("span", { class: "small text-2", text: "Loại chuyển đổi:" }),
       select,
     ]),
   );

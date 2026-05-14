@@ -6,10 +6,10 @@ import { binToGray, grayToBin, toBinary, decToGray } from "../utils/conversions.
 export default {
   id: "gray-code",
   order: 11,
-  title: "Gray Code",
-  subtitle: "A reflected binary code: two consecutive codes differ by exactly one bit.",
+  title: "Mã Gray",
+  subtitle: "Mã nhị phân phản chiếu: hai mã liên tiếp chỉ khác nhau đúng một bit.",
   objective:
-    "Convert between binary and Gray code, see the single-bit transition property, and apply it to position sensing.",
+    "Chuyển đổi giữa nhị phân và mã Gray, nhận thấy tính chất chuyển đổi một bit, và áp dụng vào cảm biến vị trí.",
   render,
 };
 
@@ -19,9 +19,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Compare binary vs Gray",
+      "So sánh nhị phân và mã Gray",
       p(
-        "Step through values 0..15 and watch how many bits change at each transition. In <strong>plain binary</strong>, a step like 7 → 8 changes all four bits at once. In <strong>Gray code</strong>, only one bit ever changes between consecutive values.",
+        "Duyệt qua các giá trị 0..15 và quan sát bao nhiêu bit thay đổi ở mỗi bước chuyển. Trong <strong>nhị phân thông thường</strong>, một bước như 7 → 8 thay đổi cả bốn bit cùng lúc. Trong <strong>mã Gray</strong>, chỉ có đúng một bit thay đổi giữa các giá trị liên tiếp.",
       ),
       buildStepper(),
     ),
@@ -29,17 +29,17 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: convert between binary and Gray",
-      p("Type a binary value to see the Gray code and vice versa."),
+      "Hãy thử: chuyển đổi giữa nhị phân và mã Gray",
+      p("Nhập giá trị nhị phân để xem mã Gray và ngược lại. Các bước tính toán được hiển thị chi tiết."),
       buildConverter(),
     ),
   );
 
   container.appendChild(
     section(
-      "Why it matters: rotary encoders",
+      "Tại sao quan trọng: bộ mã hóa quay (rotary encoder)",
       p(
-        "A rotary encoder reads a code wheel as it spins. If the wheel were marked in binary, multiple bits could change at the same instant. Mechanical wear means some bits might flip a touch earlier than others, producing brief but wrong readings. With Gray code, only one bit changes per step — so the reading is at most one position off, never wildly wrong.",
+        "Bộ mã hóa quay đọc bánh xe mã khi nó quay. Nếu bánh xe được đánh dấu bằng nhị phân, nhiều bit có thể thay đổi cùng một lúc. Sự mài mòn cơ học có nghĩa là một số bit có thể lật sớm hơn bit khác, tạo ra các giá trị đọc sai tức thời. Với mã Gray, chỉ có một bit thay đổi mỗi bước — vì vậy đọc sai nhiều nhất là một vị trí, không bao giờ sai lớn.",
       ),
       buildEncoderDemo(),
     ),
@@ -47,9 +47,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Spot the bad transition",
+      "Tìm chuyển đổi sai",
       p(
-        "These transitions are presented in order. Which one breaks the Gray code rule (more than one bit changes)?",
+        "Các chuyển đổi này được trình bày theo thứ tự. Chuyển đổi nào vi phạm quy tắc mã Gray (có nhiều hơn một bit thay đổi)?",
       ),
       buildBadTransitionExercise(),
     ),
@@ -60,7 +60,7 @@ function render(container) {
       "gray-code",
       [
         {
-          prompt: "What is the Gray code for binary <span class='mono'>0110</span>?",
+          prompt: "Mã Gray của nhị phân <span class='mono'>0110</span> là gì?",
           options: [
             { label: "<span class='mono'>0011</span>" },
             { label: "<span class='mono'>0101</span>" },
@@ -69,22 +69,22 @@ function render(container) {
           ],
           answer: 1,
           hint: "G[0] = B[0]; G[i] = B[i-1] XOR B[i].",
-          explanation: "0110 → keep first 0; 0⊕1=1; 1⊕1=0; 1⊕0=1 → 0101.",
+          explanation: "0110 → giữ 0 đầu tiên; 0⊕1=1; 1⊕1=0; 1⊕0=1 → 0101.",
         },
         {
-          prompt: "Which property makes Gray code useful for encoders?",
+          prompt: "Tính chất nào làm mã Gray hữu ích cho bộ mã hóa?",
           options: [
-            { label: "Codes are shorter than binary" },
-            { label: "Consecutive codes differ by exactly one bit" },
-            { label: "Half the codes are zero" },
-            { label: "It is the only code with no zero" },
+            { label: "Mã ngắn hơn nhị phân" },
+            { label: "Các mã liên tiếp chỉ khác nhau đúng một bit" },
+            { label: "Một nửa mã là số không" },
+            { label: "Đây là mã duy nhất không có số không" },
           ],
           answer: 1,
-          hint: "Think mechanical wear and bit-flip glitches.",
-          explanation: "Only one bit changes per step, so a momentarily wrong bit can only mis-read by one position.",
+          hint: "Nghĩ về sự mài mòn cơ học và lỗi lật bit.",
+          explanation: "Chỉ một bit thay đổi mỗi bước, vì vậy một bit sai tạm thời chỉ đọc sai một vị trí.",
         },
         {
-          prompt: "Gray code <span class='mono'>1011</span> corresponds to which binary value?",
+          prompt: "Mã Gray <span class='mono'>1011</span> tương ứng với giá trị nhị phân nào?",
           options: [
             { label: "<span class='mono'>1010</span>" },
             { label: "<span class='mono'>1101</span>" },
@@ -103,10 +103,10 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "Gray code is a binary encoding where <strong>consecutive values differ by one bit</strong>.",
-        "Binary → Gray: G[0]=B[0]; G[i]=B[i-1]⊕B[i].",
-        "Gray → Binary: B[0]=G[0]; B[i]=G[i]⊕B[i-1].",
-        "Used in rotary encoders, Karnaugh maps, and asynchronous communication.",
+        "Mã Gray là mã hóa nhị phân trong đó <strong>các giá trị liên tiếp chỉ khác nhau một bit</strong>.",
+        "Nhị phân → Gray: G[0]=B[0]; G[i]=B[i-1]⊕B[i].",
+        "Gray → Nhị phân: B[0]=G[0]; B[i]=G[i]⊕B[i-1].",
+        "Được dùng trong bộ mã hóa quay, bản đồ Karnaugh và truyền thông bất đồng bộ.",
       ]),
     ),
   );
@@ -118,11 +118,11 @@ function buildStepper() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal" }),
-        el("th", { text: "Binary" }),
+        el("th", { text: "Thập phân" }),
+        el("th", { text: "Nhị phân" }),
         el("th", { text: "Gray" }),
-        el("th", { text: "Bits changed (binary)" }),
-        el("th", { text: "Bits changed (Gray)" }),
+        el("th", { text: "Bit thay đổi (nhị phân)" }),
+        el("th", { text: "Bit thay đổi (Gray)" }),
       ]),
     ]),
   );
@@ -218,7 +218,7 @@ function buildConverter() {
       }
       steps.appendChild(
         el("div", { class: "card card-soft-lavender", style: { padding: "12px 16px" } }, [
-          el("div", { class: "small text-2", text: "Binary → Gray, bit by bit:" }),
+          el("div", { class: "small text-2", text: "Nhị phân → Gray, từng bit:" }),
           ...rows.map((r) =>
             el("div", { class: "mono", style: { marginTop: "4px" } }, [r.label + " = " + r.value]),
           ),
@@ -236,11 +236,11 @@ function buildConverter() {
       }
       steps.appendChild(
         el("div", { class: "card card-soft-lavender", style: { padding: "12px 16px" } }, [
-          el("div", { class: "small text-2", text: "Gray → Binary, bit by bit:" }),
+          el("div", { class: "small text-2", text: "Gray → Nhị phân, từng bit:" }),
           ...rows.map((r) =>
             el("div", { class: "mono", style: { marginTop: "4px" } }, [r.label + " = " + r.value]),
           ),
-          el("div", { class: "mono", style: { marginTop: "10px", fontSize: "18px", fontWeight: "700" }, text: "Binary = " + b.join("") }),
+          el("div", { class: "mono", style: { marginTop: "10px", fontSize: "18px", fontWeight: "700" }, text: "Nhị phân = " + b.join("") }),
         ]),
       );
     }
@@ -249,11 +249,11 @@ function buildConverter() {
   card.appendChild(
     el("div", { class: "grid grid-2" }, [
       el("div", { class: "field" }, [
-        el("label", { class: "label", text: "Binary" }),
+        el("label", { class: "label", text: "Nhị phân" }),
         binInp,
       ]),
       el("div", { class: "field" }, [
-        el("label", { class: "label", text: "Gray code" }),
+        el("label", { class: "label", text: "Mã Gray" }),
         grayInp,
       ]),
     ]),
@@ -284,19 +284,19 @@ function buildEncoderDemo() {
     clear(display);
     display.appendChild(
       el("div", { class: "card card-soft-sky", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Position" }),
+        el("div", { class: "small text-2", text: "Vị trí" }),
         el("div", { style: { fontSize: "28px", fontWeight: "700" }, text: String(pos) }),
       ]),
     );
     display.appendChild(
       el("div", { class: "card card-soft-peach", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Binary code" }),
+        el("div", { class: "small text-2", text: "Mã nhị phân" }),
         el("div", { class: "mono", style: { fontSize: "20px", fontWeight: "700" }, text: toBinary(pos, 4) }),
       ]),
     );
     display.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center" } }, [
-        el("div", { class: "small text-2", text: "Gray code" }),
+        el("div", { class: "small text-2", text: "Mã Gray" }),
         el("div", { class: "mono", style: { fontSize: "20px", fontWeight: "700" }, text: decToGray(pos, 4) }),
       ]),
     );
@@ -367,7 +367,7 @@ function buildBadTransitionExercise() {
         },
         [
           el("div", { class: "mono", text: p.from + "  →  " + p.to }),
-          el("div", { class: "small text-2", style: { marginTop: "2px" }, text: "Bits changed: " + countChange(p.from, p.to) }),
+          el("div", { class: "small text-2", style: { marginTop: "2px" }, text: "Bit thay đổi: " + countChange(p.from, p.to) }),
         ],
       );
       list.appendChild(item);
@@ -377,8 +377,8 @@ function buildBadTransitionExercise() {
       const ok = chosen === badIdx;
       fb.appendChild(
         el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-          el("strong", { text: ok ? "Correct! " : "Not quite. " }),
-          el("span", { text: "The bad transition was #" + (badIdx + 1) + " — more than one bit changed." }),
+          el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
+          el("span", { text: "Chuyển đổi sai là #" + (badIdx + 1) + " — có nhiều hơn một bit thay đổi." }),
         ]),
       );
     }
@@ -389,7 +389,7 @@ function buildBadTransitionExercise() {
     el("div", { class: "row", style: { marginTop: "10px" } }, [
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           if (chosen != null) {
             revealed = true;
@@ -397,7 +397,7 @@ function buildBadTransitionExercise() {
           }
         },
       }),
-      el("button", { class: "btn btn-outline btn-sm", text: "New set", onclick: generate }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Bộ mới", onclick: generate }),
     ]),
   );
   card.appendChild(fb);

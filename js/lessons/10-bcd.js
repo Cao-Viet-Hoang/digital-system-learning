@@ -7,10 +7,10 @@ import { COLORS } from "../utils/colors.js";
 export default {
   id: "bcd",
   order: 10,
-  title: "BCD — Binary Coded Decimal",
-  subtitle: "Each decimal digit is encoded with its own 4-bit group. Used by displays and pocket calculators.",
+  title: "BCD — Mã Thập Phân Nhị Phân",
+  subtitle: "Mỗi chữ số thập phân được mã hóa bằng nhóm 4-bit riêng. Dùng trong màn hình hiển thị và máy tính bỏ túi.",
   objective:
-    "Encode a decimal value as BCD, distinguish BCD from plain binary, identify invalid nibbles, and read a 7-segment display.",
+    "Mã hóa giá trị thập phân sang BCD, phân biệt BCD với nhị phân thông thường, xác định nibble không hợp lệ, và đọc màn hình 7 đoạn.",
   render,
 };
 
@@ -34,9 +34,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: encode a decimal as BCD",
+      "Hãy thử: mã hóa thập phân sang BCD",
       p(
-        "Each decimal digit is encoded as a 4-bit group. Notice how this is <em>different</em> from plain binary — the value 23 in BCD is <span class='mono'>0010 0011</span>, but in plain binary 23 is <span class='mono'>10111</span>.",
+        "Mỗi chữ số thập phân được mã hóa thành một nhóm 4-bit. Chú ý cách này <em>khác</em> với nhị phân thông thường — giá trị 23 trong BCD là <span class='mono'>0010 0011</span>, nhưng trong nhị phân thông thường 23 là <span class='mono'>10111</span>. Điều này vì BCD mã hóa từng chữ số riêng lẻ!",
       ),
       buildBcdEncoder(),
     ),
@@ -44,16 +44,16 @@ function render(container) {
 
   container.appendChild(
     section(
-      "BCD vs plain binary",
+      "BCD so với nhị phân thông thường",
       buildComparison(),
     ),
   );
 
   container.appendChild(
     section(
-      "Valid vs invalid BCD nibbles",
+      "Nibble BCD hợp lệ và không hợp lệ",
       p(
-        "Only nibbles 0000–1001 (values 0–9) are valid BCD codes. The nibbles 1010–1111 (values 10–15) are <strong>invalid</strong> in BCD.",
+        "Chỉ các nibble từ 0000–1001 (giá trị 0–9) là mã BCD hợp lệ. Các nibble từ 1010–1111 (giá trị 10–15) là <strong>không hợp lệ</strong> trong BCD vì không có chữ số thập phân nào có giá trị từ 10 trở lên.",
       ),
       buildNibbleChecker(),
     ),
@@ -61,9 +61,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Toggle 7-segment display",
+      "Bật/tắt màn hình 7 đoạn",
       p(
-        "A 7-segment display lights up seven LED bars (labelled a..g) to show a digit. Toggle the segments below to form the target digit.",
+        "Màn hình 7 đoạn thắp sáng bảy thanh LED (được đánh nhãn a..g) để hiển thị một chữ số. Bật/tắt các đoạn bên dưới để tạo chữ số mục tiêu.",
       ),
       buildSevenSegment(),
     ),
@@ -74,7 +74,7 @@ function render(container) {
       "bcd",
       [
         {
-          prompt: "Decimal <strong>59</strong> in BCD is:",
+          prompt: "Số thập phân <strong>59</strong> trong BCD là:",
           options: [
             { label: "<span class='mono'>00111011</span>" },
             { label: "<span class='mono'>0101 1001</span>" },
@@ -82,27 +82,27 @@ function render(container) {
             { label: "<span class='mono'>0101 1010</span>" },
           ],
           answer: 1,
-          hint: "Encode each digit separately: 5 → 0101, 9 → 1001.",
-          explanation: "59 → digit 5 is 0101, digit 9 is 1001. BCD = 0101 1001.",
+          hint: "Mã hóa từng chữ số riêng lẻ: 5 → 0101, 9 → 1001.",
+          explanation: "59 → chữ số 5 là 0101, chữ số 9 là 1001. BCD = 0101 1001.",
         },
         {
-          prompt: "Is the nibble <span class='mono'>1011</span> a valid BCD code?",
-          options: [{ label: "Yes" }, { label: "No — value 11 is outside 0–9" }],
+          prompt: "Nibble <span class='mono'>1011</span> có phải là mã BCD hợp lệ không?",
+          options: [{ label: "Có" }, { label: "Không — giá trị 11 nằm ngoài phạm vi 0–9" }],
           answer: 1,
-          hint: "BCD only encodes 0..9.",
-          explanation: "1011 = 11 in binary; BCD allows only 0..9 (0000..1001).",
+          hint: "BCD chỉ mã hóa 0..9.",
+          explanation: "1011 = 11 trong nhị phân; BCD chỉ cho phép 0..9 (0000..1001).",
         },
         {
-          prompt: "Decimal 23 in <strong>plain binary</strong> vs <strong>BCD</strong>:",
+          prompt: "Số 23 trong <strong>nhị phân thông thường</strong> so với <strong>BCD</strong>:",
           options: [
-            { label: "Binary 10111 / BCD 00100011 — different because BCD encodes each digit separately" },
-            { label: "Both are 00100011" },
-            { label: "Both are 10111" },
-            { label: "Binary 00010111 / BCD 10111" },
+            { label: "Nhị phân 10111 / BCD 00100011 — khác nhau vì BCD mã hóa từng chữ số riêng" },
+            { label: "Cả hai đều là 00100011" },
+            { label: "Cả hai đều là 10111" },
+            { label: "Nhị phân 00010111 / BCD 10111" },
           ],
           answer: 0,
-          hint: "BCD pads each decimal digit to 4 bits.",
-          explanation: "Plain binary uses the whole number's value (10111). BCD encodes 2 → 0010 and 3 → 0011 separately.",
+          hint: "BCD đệm mỗi chữ số thập phân thành 4 bit.",
+          explanation: "Nhị phân thông thường dùng giá trị toàn bộ số (10111). BCD mã hóa 2 → 0010 và 3 → 0011 riêng lẻ.",
         },
       ],
     ),
@@ -112,9 +112,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "BCD = each decimal digit, encoded as its own 4-bit group.",
-        "Only nibbles 0000–1001 are valid; 1010–1111 are not used.",
-        "BCD wastes bits compared to plain binary but makes display drivers (eg. 7-segment) much simpler.",
+        "BCD = mỗi chữ số thập phân được mã hóa thành nhóm 4-bit riêng.",
+        "Chỉ các nibble 0000–1001 là hợp lệ; 1010–1111 không được dùng.",
+        "BCD lãng phí bit hơn so với nhị phân thông thường nhưng làm cho bộ điều khiển màn hình (ví dụ: 7 đoạn) đơn giản hơn nhiều.",
       ]),
     ),
   );
@@ -151,9 +151,9 @@ function buildBcdEncoder() {
     out.appendChild(row);
     out.appendChild(
       el("div", { class: "card card-soft-mint", style: { textAlign: "center", marginTop: "10px" } }, [
-        el("div", { class: "small text-2", text: "BCD encoding" }),
+        el("div", { class: "small text-2", text: "Mã hóa BCD" }),
         el("div", { class: "mono", style: { fontSize: "20px", fontWeight: "600" }, text: groups.map((g) => g.bits).join(" ") }),
-        el("div", { class: "small text-2", style: { marginTop: "8px" }, text: "Plain binary of the same value, for comparison:" }),
+        el("div", { class: "small text-2", style: { marginTop: "8px" }, text: "Nhị phân thông thường của cùng giá trị, để so sánh:" }),
         el("div", { class: "mono", style: { fontSize: "16px" }, text: toBinary(v) }),
       ]),
     );
@@ -161,7 +161,7 @@ function buildBcdEncoder() {
   inp.addEventListener("input", rerender);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Decimal:" }),
+      el("span", { class: "small text-2", text: "Thập phân:" }),
       inp,
     ]),
   );
@@ -176,8 +176,8 @@ function buildComparison() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal" }),
-        el("th", { text: "Plain binary" }),
+        el("th", { text: "Thập phân" }),
+        el("th", { text: "Nhị phân thường" }),
         el("th", { text: "BCD" }),
       ]),
     ]),
@@ -222,14 +222,14 @@ function buildNibbleChecker() {
     const valid = isValidBcdNibble(str);
     clear(display);
     display.appendChild(el("div", { class: "mono", style: { fontSize: "22px" }, text: str }));
-    display.appendChild(el("div", { class: "small text-2", style: { marginTop: "4px" }, text: "Decimal: " + v }));
+    display.appendChild(el("div", { class: "small text-2", style: { marginTop: "4px" }, text: "Thập phân: " + v }));
     display.appendChild(
       el(
         "div",
         {
           class: "badge " + (valid ? "badge-success" : "badge-error"),
           style: { marginTop: "8px", fontSize: "13px" },
-          text: valid ? "Valid BCD digit (" + v + ")" : "Invalid BCD nibble (value " + v + " > 9)",
+          text: valid ? "Nibble BCD hợp lệ (" + v + ")" : "Nibble BCD không hợp lệ (giá trị " + v + " > 9)",
         },
       ),
     );
@@ -270,7 +270,7 @@ function buildSevenSegment() {
     controls.appendChild(
       el("button", {
         class: "btn btn-sm btn-ghost",
-        text: "Clear",
+        text: "Xóa",
         onclick: () => {
           Object.keys(segs).forEach((k) => (segs[k] = 0));
           rerender();
@@ -280,7 +280,7 @@ function buildSevenSegment() {
     controls.appendChild(
       el("button", {
         class: "btn btn-sm btn-ghost",
-        text: "Show target",
+        text: "Hiện mục tiêu",
         onclick: () => {
           Object.assign(segs, SEG_FOR_DIGIT[target]);
           rerender();
@@ -290,17 +290,17 @@ function buildSevenSegment() {
     clear(fb);
     const match = matchDigit(segs);
     if (match === target) {
-      fb.appendChild(el("div", { class: "quiz-feedback ok", text: "Looks like a " + target + ". Match!" }));
+      fb.appendChild(el("div", { class: "quiz-feedback ok", text: "Trông giống số " + target + ". Khớp rồi!" }));
     } else if (match != null) {
       fb.appendChild(
-        el("div", { class: "quiz-feedback hint", text: "Currently displays " + match + ", target is " + target + "." }),
+        el("div", { class: "quiz-feedback hint", text: "Đang hiển thị số " + match + ", mục tiêu là số " + target + "." }),
       );
     }
   }
 
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Target digit:" }),
+      el("span", { class: "small text-2", text: "Chữ số mục tiêu:" }),
       (() => {
         const sel = el("select", { class: "select", style: { width: "80px" } });
         for (let i = 0; i < 10; i++) sel.appendChild(el("option", { value: String(i), text: String(i) }));
@@ -312,7 +312,7 @@ function buildSevenSegment() {
       })(),
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: "Random target",
+        text: "Mục tiêu ngẫu nhiên",
         onclick: () => {
           target = Math.floor(Math.random() * 10);
           rerender();

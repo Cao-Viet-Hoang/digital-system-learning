@@ -2,41 +2,41 @@
 import { el, clear } from "../utils/dom.js";
 
 const TERMS = [
-  { term: "Analog signal", def: "A continuously varying quantity (eg. voltage from a microphone). Can take any value within its range." },
-  { term: "Digital signal", def: "A signal that takes a small discrete set of values, usually two — interpreted as 0 and 1." },
-  { term: "Bit", def: "A binary digit — the smallest unit of digital information; value 0 or 1." },
-  { term: "Byte", def: "A group of 8 bits. Often the smallest addressable unit of memory." },
-  { term: "Nibble", def: "A group of 4 bits — exactly one hex digit." },
-  { term: "Binary (base 2)", def: "Number system with two digits (0, 1) and powers of two as place values." },
-  { term: "Decimal (base 10)", def: "Number system with ten digits (0–9) and powers of ten as place values." },
-  { term: "Hexadecimal (base 16)", def: "Number system with sixteen digits (0–9, A–F) — one hex digit = 4 bits." },
-  { term: "Logic 0 / Logic 1", def: "The two valid binary states. Voltage ranges depend on the technology (eg. CMOS, TTL)." },
-  { term: "Undefined region", def: "Voltage range between logic 0 and logic 1 where the gate's interpretation is unreliable." },
-  { term: "Clock", def: "A regular oscillating signal that paces a digital system; data is sampled on clock edges." },
-  { term: "Waveform", def: "Plot of a signal's value over time." },
-  { term: "BCD (Binary Coded Decimal)", def: "Encoding where each decimal digit is represented by its own 4-bit group (0000..1001)." },
-  { term: "Gray code", def: "A binary encoding where consecutive values differ by exactly one bit." },
-  { term: "ASCII", def: "American Standard Code for Information Interchange — maps characters to 7-bit numeric codes." },
-  { term: "ADC", def: "Analog-to-digital converter — samples a continuous voltage and outputs a binary number." },
-  { term: "DAC", def: "Digital-to-analog converter — takes a binary number and produces a corresponding voltage." },
-  { term: "MSB / LSB", def: "Most-significant bit / least-significant bit — the leftmost / rightmost bit of a binary value." },
-  { term: "7-segment display", def: "A display made of seven LED segments (a..g) that can show digits 0–9." },
-  { term: "Nibble (BCD)", def: "In BCD context, a 4-bit group representing exactly one decimal digit." },
+  { term: "Tín hiệu Analog", def: "Đại lượng thay đổi liên tục (ví dụ: điện áp từ microphone). Có thể nhận bất kỳ giá trị nào trong phạm vi của nó." },
+  { term: "Tín hiệu Digital", def: "Tín hiệu chỉ nhận một tập hợp nhỏ các giá trị rời rạc, thường là hai — được hiểu là 0 và 1." },
+  { term: "Bit", def: "Chữ số nhị phân — đơn vị thông tin nhỏ nhất của kỹ thuật số; giá trị 0 hoặc 1." },
+  { term: "Byte", def: "Nhóm 8 bit. Thường là đơn vị nhỏ nhất có thể địa chỉ hóa trong bộ nhớ." },
+  { term: "Nibble", def: "Nhóm 4 bit — đúng bằng một chữ số hex." },
+  { term: "Nhị phân (cơ số 2)", def: "Hệ thống số với hai chữ số (0, 1) và lũy thừa của 2 là giá trị vị trí." },
+  { term: "Thập phân (cơ số 10)", def: "Hệ thống số với mười chữ số (0–9) và lũy thừa của 10 là giá trị vị trí." },
+  { term: "Thập lục phân (cơ số 16)", def: "Hệ thống số với mười sáu chữ số (0–9, A–F) — một chữ số hex = 4 bit." },
+  { term: "Logic 0 / Logic 1", def: "Hai trạng thái nhị phân hợp lệ. Dải điện áp phụ thuộc vào công nghệ (ví dụ: CMOS, TTL)." },
+  { term: "Vùng không xác định", def: "Dải điện áp giữa logic 0 và logic 1 nơi cổng không thể xác định giá trị đáng tin cậy." },
+  { term: "Clock (xung nhịp)", def: "Tín hiệu dao động đều đặn điều phối hệ thống số; dữ liệu được lấy mẫu tại cạnh clock." },
+  { term: "Dạng sóng (Waveform)", def: "Đồ thị giá trị tín hiệu theo thời gian." },
+  { term: "BCD (Mã thập phân nhị phân)", def: "Mã hóa mỗi chữ số thập phân bằng nhóm 4-bit riêng (0000..1001)." },
+  { term: "Mã Gray", def: "Mã hóa nhị phân mà các giá trị liên tiếp chỉ khác nhau đúng một bit." },
+  { term: "ASCII", def: "Bảng mã tiêu chuẩn Mỹ cho trao đổi thông tin — ánh xạ ký tự sang mã số 7-bit." },
+  { term: "ADC", def: "Bộ chuyển đổi analog-sang-digital — lấy mẫu điện áp liên tục và xuất số nhị phân." },
+  { term: "DAC", def: "Bộ chuyển đổi digital-sang-analog — nhận số nhị phân và tạo ra điện áp tương ứng." },
+  { term: "MSB / LSB", def: "Bit quan trọng nhất / bit ít quan trọng nhất — bit ngoài cùng bên trái / phải của giá trị nhị phân." },
+  { term: "Màn hình 7 đoạn", def: "Màn hình gồm bảy đoạn LED (a..g) có thể hiển thị chữ số 0–9." },
+  { term: "Nibble (trong BCD)", def: "Trong ngữ cảnh BCD, nhóm 4-bit biểu diễn đúng một chữ số thập phân." },
 ];
 
 export function renderDictionary(container) {
   clear(container);
   const inner = el("div", { class: "content-inner" });
   container.appendChild(inner);
-  inner.appendChild(el("h1", { text: "Glossary" }));
+  inner.appendChild(el("h1", { text: "Bảng Chú Giải" }));
   inner.appendChild(
-    el("p", { class: "text-2", text: "Short, plain-language definitions of the key terms used in this chapter." }),
+    el("p", { class: "text-2", text: "Định nghĩa ngắn gọn, dễ hiểu cho các thuật ngữ quan trọng trong chương này." }),
   );
 
   const search = el("input", {
     class: "input input-mono",
     type: "text",
-    placeholder: "Search terms…",
+    placeholder: "Tìm thuật ngữ…",
     style: { maxWidth: "320px", marginBottom: "16px" },
   });
   inner.appendChild(search);
@@ -55,7 +55,7 @@ export function renderDictionary(container) {
       );
     });
     if (!list.children.length) {
-      list.appendChild(el("div", { class: "alert alert-info", text: "No terms matched your search." }));
+      list.appendChild(el("div", { class: "alert alert-info", text: "Không tìm thấy thuật ngữ nào khớp." }));
     }
   }
   search.addEventListener("input", rerender);

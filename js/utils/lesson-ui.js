@@ -27,7 +27,7 @@ export function section(title, ...children) {
 
 export function summary(title, points) {
   return el("div", { class: "summary" }, [
-    el("h3", { text: title || "Key takeaways" }),
+    el("h3", { text: title || "Điểm chính cần nhớ" }),
     el(
       "ul",
       {},
@@ -42,7 +42,7 @@ export function quizSection(lessonId, questions, title) {
   wrap.appendChild(
     el("div", { class: "lesson-section-title" }, [
       el("div", { class: "lesson-section-num", text: String(sectionCounter) }),
-      el("h2", { text: title || "Quick check", style: { margin: "0" } }),
+      el("h2", { text: title || "Kiểm tra nhanh", style: { margin: "0" } }),
     ]),
   );
   const host = el("div");

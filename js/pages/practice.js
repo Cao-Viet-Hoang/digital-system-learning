@@ -8,9 +8,9 @@ export function renderPractice(container) {
   const inner = el("div", { class: "content-inner" });
   container.appendChild(inner);
 
-  inner.appendChild(el("h1", { text: "Quick Practice" }));
+  inner.appendChild(el("h1", { text: "Luyện Tập Nhanh" }));
   inner.appendChild(
-    el("p", { class: "text-2", text: "Drill any combination of topics — set how many questions and the difficulty." }),
+    el("p", { class: "text-2", text: "Luyện tập bất kỳ kết hợp chủ đề nào — chọn số câu hỏi và mức độ khó." }),
   );
 
   const state = {
@@ -41,12 +41,12 @@ export function renderPractice(container) {
   renderChips();
   inner.appendChild(
     el("div", { class: "card" }, [
-      el("h3", { text: "Topics", style: { margin: "0 0 10px" } }),
+      el("h3", { text: "Chủ đề", style: { margin: "0 0 10px" } }),
       chips,
       el("div", { class: "row", style: { marginTop: "10px" } }, [
         el("button", {
           class: "btn btn-ghost btn-sm",
-          text: "Select all",
+          text: "Chọn tất cả",
           onclick: () => {
             state.selectedTopics = topics.map((t) => t.id);
             renderChips();
@@ -54,7 +54,7 @@ export function renderPractice(container) {
         }),
         el("button", {
           class: "btn btn-ghost btn-sm",
-          text: "Clear",
+          text: "Bỏ chọn",
           onclick: () => {
             state.selectedTopics = [];
             renderChips();
@@ -86,11 +86,12 @@ export function renderPractice(container) {
   const diffRow = el("div", { class: "row" });
   function renderDiff() {
     clear(diffRow);
+    const diffLabels = { easy: "Dễ", normal: "Bình thường", hard: "Khó" };
     ["easy", "normal", "hard"].forEach((d) => {
       diffRow.appendChild(
         el("button", {
           class: "btn btn-sm" + (state.difficulty === d ? " btn-primary" : " btn-outline"),
-          text: d[0].toUpperCase() + d.slice(1),
+          text: diffLabels[d],
           onclick: () => {
             state.difficulty = d;
             renderDiff();
@@ -103,8 +104,8 @@ export function renderPractice(container) {
 
   inner.appendChild(
     el("div", { class: "grid grid-2", style: { marginTop: "16px" } }, [
-      el("div", { class: "card" }, [el("h3", { text: "Number of questions", style: { margin: "0 0 10px" } }), countRow]),
-      el("div", { class: "card" }, [el("h3", { text: "Difficulty", style: { margin: "0 0 10px" } }), diffRow]),
+      el("div", { class: "card" }, [el("h3", { text: "Số câu hỏi", style: { margin: "0 0 10px" } }), countRow]),
+      el("div", { class: "card" }, [el("h3", { text: "Mức độ khó", style: { margin: "0 0 10px" } }), diffRow]),
     ]),
   );
 
@@ -113,7 +114,7 @@ export function renderPractice(container) {
     el("div", { class: "row", style: { marginTop: "20px", justifyContent: "center" } }, [
       el("button", {
         class: "btn btn-primary btn-lg",
-        text: "Start practice",
+        text: "Bắt đầu luyện tập",
         onclick: () => start(),
       }),
     ]),
@@ -125,7 +126,7 @@ export function renderPractice(container) {
   function start() {
     clear(quizHost);
     if (state.selectedTopics.length === 0) {
-      quizHost.appendChild(el("div", { class: "alert alert-warning", text: "Choose at least one topic." }));
+      quizHost.appendChild(el("div", { class: "alert alert-warning", text: "Hãy chọn ít nhất một chủ đề." }));
       return;
     }
     const questions = [];
@@ -134,7 +135,7 @@ export function renderPractice(container) {
       const q = generateQuestion(t, state.difficulty);
       if (q) questions.push(q);
     }
-    quizHost.appendChild(el("h2", { text: "Practice round", style: { marginBottom: "12px" } }));
+    quizHost.appendChild(el("h2", { text: "Vòng luyện tập", style: { marginBottom: "12px" } }));
     const host = el("div");
     quizHost.appendChild(host);
     renderQuiz(host, { questions, onComplete: () => {} });

@@ -6,10 +6,10 @@ import { COLORS } from "../utils/colors.js";
 export default {
   id: "logic-levels",
   order: 4,
-  title: "Logic Levels",
-  subtitle: "Logic 0, logic 1, and the forbidden region in between.",
+  title: "Mức Logic",
+  subtitle: "Logic 0, logic 1 và vùng cấm ở giữa.",
   objective:
-    "Identify whether a voltage represents logic 0, logic 1, or falls in the undefined region, and explain why margins matter.",
+    "Xác định liệu điện áp biểu diễn logic 0, logic 1, hay rơi vào vùng không xác định, và giải thích tại sao biên độ dự phòng quan trọng.",
   render,
 };
 
@@ -23,9 +23,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: drag the voltage",
+      "Hãy thử: kéo điện áp",
       p(
-        "Move the slider to set the input voltage. The reading on the right shows what the logic gate would interpret. The shaded zone in the middle is the <strong>undefined region</strong> — a circuit cannot reliably tell 0 from 1 there.",
+        "Di chuyển thanh trượt để đặt điện áp đầu vào. Chỉ số bên phải cho thấy cổng logic sẽ hiểu như thế nào. Vùng tô bóng ở giữa là <strong>vùng không xác định</strong> — mạch điện không thể phân biệt 0 với 1 ở đây một cách đáng tin cậy.",
       ),
       buildVoltageSim(),
     ),
@@ -33,27 +33,27 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Why the gap?",
+      "Tại sao có khoảng cách?",
       p(
-        "Real circuits never produce a perfect 0 V or 5 V. Power supply noise, wire resistance, and component variation all shift voltages a little. By defining a <em>buffer zone</em> between 0 and 1, designs stay reliable even in the presence of noise. Modern logic uses tighter ranges (eg. 3.3 V, 1.8 V) but the principle is the same.",
+        "Mạch thực không bao giờ tạo ra 0 V hoặc 5 V chính xác. Nhiễu nguồn điện, điện trở dây dẫn và sự biến đổi linh kiện đều làm điện áp thay đổi một chút. Bằng cách định nghĩa một <em>vùng đệm</em> giữa 0 và 1, thiết kế vẫn đáng tin cậy ngay cả khi có nhiễu. Logic hiện đại dùng dải điện áp hẹp hơn (ví dụ: 3,3 V, 1,8 V) nhưng nguyên lý vẫn như vậy.",
       ),
       el("div", { class: "grid grid-3" }, [
-        valueCard("Logic 0", `0 V to ${VOL_MAX} V`, "sky"),
-        valueCard("Undefined", `${VOL_MAX} V to ${VIH_MIN} V`, "lavender"),
-        valueCard("Logic 1", `${VIH_MIN} V to ${VCC} V`, "peach"),
+        valueCard("Logic 0", `0 V đến ${VOL_MAX} V`, "sky"),
+        valueCard("Không xác định", `${VOL_MAX} V đến ${VIH_MIN} V`, "lavender"),
+        valueCard("Logic 1", `${VIH_MIN} V đến ${VCC} V`, "peach"),
       ]),
     ),
   );
 
   container.appendChild(
-    section("Practice: predict the logic level", buildPredictExercise()),
+    section("Luyện tập: dự đoán mức logic", buildPredictExercise()),
   );
 
   container.appendChild(
     section(
-      "Noise demo",
+      "Demo nhiễu",
       p(
-        "Add noise on top of an input voltage. Notice how a clean 0 (eg. 0.2 V) or clean 1 (eg. 4.7 V) easily survives noise, while a value near the threshold (eg. 2.0 V) becomes unreliable.",
+        "Thêm nhiễu vào điện áp đầu vào. Chú ý cách điện áp 0 sạch (ví dụ: 0,2 V) hoặc 1 sạch (ví dụ: 4,7 V) dễ dàng chịu được nhiễu, trong khi giá trị gần ngưỡng (ví dụ: 2,0 V) trở nên không đáng tin cậy.",
       ),
       buildNoiseDemo(),
     ),
@@ -64,36 +64,36 @@ function render(container) {
       "logic-levels",
       [
         {
-          prompt: "A 5 V CMOS-style gate reads <strong>0.5 V</strong>. The logic level is:",
-          options: [{ label: "Logic 0" }, { label: "Logic 1" }, { label: "Undefined" }],
+          prompt: "Cổng CMOS 5 V đọc <strong>0,5 V</strong>. Mức logic là:",
+          options: [{ label: "Logic 0" }, { label: "Logic 1" }, { label: "Không xác định" }],
           answer: 0,
-          hint: "0.5 V is below the 0.8 V threshold.",
-          explanation: "0.5 V ≤ 0.8 V → logic 0.",
+          hint: "0,5 V thấp hơn ngưỡng 0,8 V.",
+          explanation: "0,5 V ≤ 0,8 V → logic 0.",
         },
         {
-          prompt: "An input sits at <strong>1.5 V</strong>. The gate output is:",
+          prompt: "Đầu vào ở mức <strong>1,5 V</strong>. Đầu ra cổng là:",
           options: [
             { label: "Logic 0" },
             { label: "Logic 1" },
-            { label: "Undefined — the gate may behave unpredictably" },
-            { label: "Exactly halfway between 0 and 1" },
+            { label: "Không xác định — cổng có thể hoạt động không thể đoán trước" },
+            { label: "Đúng giữa 0 và 1" },
           ],
           answer: 2,
-          hint: "0.8 V < 1.5 V < 2.0 V.",
-          explanation: "Anything strictly between V_OL,max and V_IH,min is the undefined / forbidden region.",
+          hint: "0,8 V < 1,5 V < 2,0 V.",
+          explanation: "Bất kỳ giá trị nào nằm chặt giữa V_OL,max và V_IH,min đều là vùng không xác định / cấm.",
         },
         {
-          prompt: "Why are logic-level <em>margins</em> useful?",
+          prompt: "Tại sao <em>biên độ dự phòng</em> mức logic lại hữu ích?",
           options: [
-            { label: "They make the circuit faster" },
-            { label: "They allow the gate to tolerate noise on the input" },
-            { label: "They reduce the chip's price" },
-            { label: "They double the power supply" },
+            { label: "Làm mạch nhanh hơn" },
+            { label: "Cho phép cổng chịu được nhiễu ở đầu vào" },
+            { label: "Giảm giá chip" },
+            { label: "Nhân đôi nguồn điện" },
           ],
           answer: 1,
-          hint: "Think about real cables, supply noise and component variation.",
+          hint: "Nghĩ về cáp thực, nhiễu nguồn điện và sự biến đổi linh kiện.",
           explanation:
-            "The buffer zone lets the gate ignore small variations on the input without flipping its interpretation.",
+            "Vùng đệm cho phép cổng bỏ qua các biến đổi nhỏ ở đầu vào mà không đảo lộn cách hiểu của nó.",
         },
       ],
     ),
@@ -101,11 +101,11 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Summary",
+      "Tóm tắt",
       summary(null, [
-        `<strong>Logic 0</strong> = voltage ≤ ${VOL_MAX} V; <strong>logic 1</strong> = voltage ≥ ${VIH_MIN} V (on a 5 V system).`,
-        "Between those thresholds is the <em>undefined region</em> — the circuit cannot reliably decide.",
-        "Margins exist to tolerate noise. A clean 0 or 1 stays correct even when a little noise rides on top.",
+        `<strong>Logic 0</strong> = điện áp ≤ ${VOL_MAX} V; <strong>logic 1</strong> = điện áp ≥ ${VIH_MIN} V (trên hệ thống 5 V).`,
+        "Giữa các ngưỡng đó là <em>vùng không xác định</em> — mạch không thể quyết định đáng tin cậy.",
+        "Biên độ dự phòng tồn tại để chịu được nhiễu. Một 0 hoặc 1 sạch vẫn đúng ngay cả khi có một chút nhiễu thêm vào.",
       ]),
     ),
   );
@@ -143,7 +143,7 @@ function buildVoltageSim() {
 
   // Labels
   text(svg, v2x(VOL_MAX / 2), barY + barH + 18, "Logic 0", "12", "#234a6e");
-  text(svg, (v2x(VOL_MAX) + v2x(VIH_MIN)) / 2, barY + barH + 18, "Undefined", "12", "#4d3f7a");
+  text(svg, (v2x(VOL_MAX) + v2x(VIH_MIN)) / 2, barY + barH + 18, "Không xác định", "12", "#4d3f7a");
   text(svg, (v2x(VIH_MIN) + v2x(VCC)) / 2, barY + barH + 18, "Logic 1", "12", "#7a4422");
 
   // Threshold labels
@@ -180,7 +180,7 @@ function buildVoltageSim() {
     vLabel.textContent = v.toFixed(2) + " V";
     clear(lLabel);
     let cls = "logic-pill l-x";
-    let label = "Undefined";
+    let label = "Không xác định";
     if (v <= VOL_MAX) {
       cls = "logic-pill l-0";
       label = "Logic 0";
@@ -189,9 +189,9 @@ function buildVoltageSim() {
       label = "Logic 1";
     }
     lLabel.appendChild(el("span", { class: cls, text: label }));
-    if (label === "Undefined") {
+    if (label === "Không xác định") {
       lLabel.appendChild(
-        el("div", { class: "small text-2", style: { marginTop: "6px" }, text: "Caution: gate behaviour is unpredictable in this region." }),
+        el("div", { class: "small text-2", style: { marginTop: "6px" }, text: "Cảnh báo: hành vi cổng không thể đoán trước trong vùng này." }),
       );
     }
   }
@@ -284,7 +284,7 @@ function buildPredictExercise() {
     clear(buttons);
     [
       { v: "0", label: "Logic 0", cls: "btn-sky" },
-      { v: "x", label: "Undefined", cls: "btn-outline" },
+      { v: "x", label: "Không xác định", cls: "btn-outline" },
       { v: "1", label: "Logic 1", cls: "btn-peach" },
     ].forEach((opt) => {
       const isSelected = chosen === opt.v;
@@ -310,7 +310,7 @@ function buildPredictExercise() {
             clear(fb);
             fb.appendChild(
               el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-                el("strong", { text: ok ? "Correct! " : "Not quite. " }),
+                el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
                 el("span", { text: `${voltage.toFixed(1)} V → ${correctLabel(voltage)}.` }),
               ]),
             );
@@ -331,16 +331,16 @@ function buildPredictExercise() {
   }
   function correctLabel(v) {
     const k = correctKey(v);
-    return k === "0" ? "Logic 0" : k === "1" ? "Logic 1" : "Undefined";
+    return k === "0" ? "Logic 0" : k === "1" ? "Logic 1" : "Không xác định";
   }
 
-  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Predict the logic level for this voltage:" }));
+  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Dự đoán mức logic cho điện áp này:" }));
   card.appendChild(display);
   card.appendChild(buttons);
   card.appendChild(fb);
   card.appendChild(
     el("div", { class: "row", style: { marginTop: "12px", justifyContent: "center" } }, [
-      el("button", { class: "btn btn-outline btn-sm", text: "Next voltage", onclick: newQ }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Điện áp tiếp theo", onclick: newQ }),
     ]),
   );
   newQ();
@@ -395,7 +395,7 @@ function buildNoiseDemo() {
     for (let i = 0; i < N; i++) d += (i === 0 ? "M" : "L") + xs[i].toFixed(1) + " " + ys[i].toFixed(1) + " ";
     path.setAttribute("d", d);
 
-    readingLabel.textContent = `${countUndef} / ${N} samples landed in the undefined region.`;
+    readingLabel.textContent = `${countUndef} / ${N} mẫu rơi vào vùng không xác định.`;
   }
 
   card.appendChild(svg);
@@ -403,13 +403,13 @@ function buildNoiseDemo() {
 
   const controls = el("div", { class: "grid grid-2", style: { marginTop: "12px" } });
   controls.appendChild(
-    sliderRow("Base voltage", 0, VCC, state.base, 0.1, (v) => {
+    sliderRow("Điện áp cơ bản", 0, VCC, state.base, 0.1, (v) => {
       state.base = v;
       update();
     }, (v) => v.toFixed(1) + " V"),
   );
   controls.appendChild(
-    sliderRow("Noise amplitude", 0, 1.5, state.noise, 0.05, (v) => {
+    sliderRow("Biên độ nhiễu", 0, 1.5, state.noise, 0.05, (v) => {
       state.noise = v;
       update();
     }, (v) => "±" + v.toFixed(2) + " V"),

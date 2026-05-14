@@ -6,9 +6,9 @@ import { recordExamScore, getProgress } from "../progress.js";
 import { navigate } from "../router.js";
 
 const LEVELS = {
-  basic: { label: "Basic", count: 8, difficulty: "easy" },
-  practice: { label: "Practice", count: 15, difficulty: "normal" },
-  challenge: { label: "Challenge", count: 20, difficulty: "hard" },
+  basic: { label: "Cơ bản", count: 8, difficulty: "easy" },
+  practice: { label: "Luyện tập", count: 15, difficulty: "normal" },
+  challenge: { label: "Thử thách", count: 20, difficulty: "hard" },
 };
 
 export function renderExam(container) {
@@ -16,11 +16,11 @@ export function renderExam(container) {
   const inner = el("div", { class: "content-inner" });
   container.appendChild(inner);
 
-  inner.appendChild(el("h1", { text: "Chapter Exam" }));
+  inner.appendChild(el("h1", { text: "Kiểm Tra Chương" }));
   inner.appendChild(
     el("p", {
       class: "text-2",
-      text: "Mixed questions covering every topic in chapter 1. Choose a difficulty level to start.",
+      text: "Câu hỏi tổng hợp bao gồm mọi chủ đề trong chương 1. Chọn mức độ khó để bắt đầu.",
     }),
   );
 
@@ -36,8 +36,8 @@ export function renderExam(container) {
         },
         [
           el("h3", { text: lv.label, style: { margin: "0 0 4px" } }),
-          el("div", { class: "small text-2", text: `${lv.count} questions • ${lv.difficulty} difficulty` }),
-          el("button", { class: "btn btn-outline btn-sm", style: { marginTop: "10px" }, text: "Start" }),
+          el("div", { class: "small text-2", text: `${lv.count} câu • mức ${lv.difficulty === "easy" ? "dễ" : lv.difficulty === "normal" ? "bình thường" : "khó"}` }),
+          el("button", { class: "btn btn-outline btn-sm", style: { marginTop: "10px" }, text: "Bắt đầu" }),
         ],
       ),
     );
@@ -47,7 +47,7 @@ export function renderExam(container) {
   // History
   const history = getProgress().examScores;
   if (history.length) {
-    inner.appendChild(el("h3", { text: "Recent attempts", style: { marginTop: "32px" } }));
+    inner.appendChild(el("h3", { text: "Lần thử gần đây", style: { marginTop: "32px" } }));
     const list = el("div", { class: "stack" });
     history.slice(0, 5).forEach((h) => {
       const d = new Date(h.at);
@@ -78,7 +78,7 @@ export function renderExam(container) {
     }
     clear(examWrap);
     examWrap.appendChild(
-      el("h2", { text: `${lv.label} exam`, style: { marginBottom: "12px" } }),
+      el("h2", { text: `Kiểm tra ${lv.label}`, style: { marginBottom: "12px" } }),
     );
     const host = el("div");
     examWrap.appendChild(host);
@@ -102,7 +102,7 @@ function renderTopicBreakdown(questions) {
   // user's choices stored by the quiz engine via answers in dots? We don't
   // export that. So instead, build a quick summary card listing topics covered.
   const wrap = el("div", { style: { marginTop: "16px" } });
-  wrap.appendChild(el("h3", { text: "Topics covered" }));
+  wrap.appendChild(el("h3", { text: "Các chủ đề đã kiểm tra" }));
   const byTopic = {};
   questions.forEach((q) => {
     if (!byTopic[q.topicId]) byTopic[q.topicId] = { label: q.topicLabel, count: 0 };
@@ -114,10 +114,10 @@ function renderTopicBreakdown(questions) {
       el("div", { class: "card", style: { display: "flex", justifyContent: "space-between", alignItems: "center" } }, [
         el("span", { text: t.label }),
         el("div", { class: "row" }, [
-          el("span", { class: "small text-2", text: `${t.count} questions` }),
+          el("span", { class: "small text-2", text: `${t.count} câu` }),
           el("button", {
             class: "btn btn-outline btn-sm",
-            text: "Open lesson",
+            text: "Mở bài học",
             onclick: () => {
               const topic = topics.find((tt) => tt.id === id);
               if (topic) navigate(`lesson/${topic.lesson}`);

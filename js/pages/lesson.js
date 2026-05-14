@@ -11,11 +11,11 @@ export function renderLessonPage(container, { id }) {
   if (!lesson) {
     container.appendChild(
       el("div", { class: "content-inner" }, [
-        el("h1", { text: "Lesson not found" }),
-        el("p", { text: `No lesson with id "${id}".` }),
+        el("h1", { text: "Không tìm thấy bài học" }),
+        el("p", { text: `Không có bài học nào với mã "${id}".` }),
         el("button", {
           class: "btn btn-primary",
-          text: "Back to overview",
+          text: "Về tổng quan",
           onclick: () => navigate("/"),
         }),
       ]),
@@ -30,7 +30,7 @@ export function renderLessonPage(container, { id }) {
   container.appendChild(inner);
 
   const header = el("div", { class: "lesson-header" }, [
-    el("div", { class: "badge badge-lavender", text: `Lesson ${lesson.order} of 12` }),
+    el("div", { class: "badge badge-lavender", text: `Bài ${lesson.order} / 12` }),
     el("h1", { text: lesson.title }),
     lesson.subtitle ? el("p", { class: "text-2", text: lesson.subtitle }) : null,
   ]);
@@ -40,7 +40,7 @@ export function renderLessonPage(container, { id }) {
     el("div", { class: "lesson-objective" }, [
       el("div", { class: "lesson-objective-icon", text: "★" }),
       el("div", { class: "lesson-objective-text" }, [
-        el("div", { class: "lesson-objective-label", text: "Learning objective" }),
+        el("div", { class: "lesson-objective-label", text: "Mục tiêu học tập" }),
         el("div", { text: lesson.objective }),
       ]),
     ]),
@@ -64,7 +64,7 @@ export function renderLessonPage(container, { id }) {
           onclick: () => navigate(`lesson/${prev.id}`),
         },
         [
-          el("div", { class: "lesson-nav-btn-label", text: "← Previous" }),
+          el("div", { class: "lesson-nav-btn-label", text: "← Trước" }),
           el("div", { class: "lesson-nav-btn-title", text: prev.title }),
         ],
       ),
@@ -81,7 +81,7 @@ export function renderLessonPage(container, { id }) {
           onclick: () => navigate(`lesson/${next.id}`),
         },
         [
-          el("div", { class: "lesson-nav-btn-label", text: "Next →" }),
+          el("div", { class: "lesson-nav-btn-label", text: "Tiếp →" }),
           el("div", { class: "lesson-nav-btn-title", text: next.title }),
         ],
       ),
@@ -95,8 +95,8 @@ export function renderLessonPage(container, { id }) {
           onclick: () => navigate("exam"),
         },
         [
-          el("div", { class: "lesson-nav-btn-label", text: "Next →" }),
-          el("div", { class: "lesson-nav-btn-title", text: "Chapter exam" }),
+          el("div", { class: "lesson-nav-btn-label", text: "Tiếp →" }),
+          el("div", { class: "lesson-nav-btn-title", text: "Kiểm tra chương" }),
         ],
       ),
     );

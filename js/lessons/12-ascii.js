@@ -6,10 +6,10 @@ import { toBinary, toHex, asciiName } from "../utils/conversions.js";
 export default {
   id: "ascii",
   order: 12,
-  title: "ASCII",
-  subtitle: "Every character on the keyboard is just a number.",
+  title: "Mã ASCII",
+  subtitle: "Mỗi ký tự trên bàn phím chỉ là một con số.",
   objective:
-    "Look up the ASCII code for any printable character, see the code in decimal, hex and binary, and reverse the lookup.",
+    "Tra cứu mã ASCII cho bất kỳ ký tự in được nào, xem mã trong thập phân, hex và nhị phân, và tra cứu ngược lại.",
   render,
 };
 
@@ -19,9 +19,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: encode a character",
+      "Hãy thử: mã hóa ký tự",
       p(
-        "Type one character or a whole word. Each character maps to a single ASCII code. The same code can be displayed in decimal, hex, or 8-bit binary.",
+        "Nhập một ký tự hoặc cả từ. Mỗi ký tự ánh xạ đến một mã ASCII duy nhất. Cùng một mã có thể hiển thị dưới dạng thập phân, hex, hoặc nhị phân 8-bit.",
       ),
       buildEncoder(),
     ),
@@ -29,13 +29,13 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Browse the printable ASCII table",
+      "Duyệt bảng ASCII in được",
       buildAsciiTable(),
     ),
   );
 
   container.appendChild(
-    section("Guess the character", buildGuessExercise()),
+    section("Đoán ký tự", buildGuessExercise()),
   );
 
   container.appendChild(
@@ -43,27 +43,27 @@ function render(container) {
       "ascii",
       [
         {
-          prompt: "The ASCII code for character <strong>'A'</strong> is:",
+          prompt: "Mã ASCII của ký tự <strong>'A'</strong> là:",
           options: [{ label: "60" }, { label: "65" }, { label: "97" }, { label: "101" }],
           answer: 1,
-          hint: "Uppercase letters start at 65.",
-          explanation: "'A' = 65 (decimal) = 0x41.",
+          hint: "Chữ cái hoa bắt đầu từ 65.",
+          explanation: "'A' = 65 (thập phân) = 0x41.",
         },
         {
-          prompt: "Which character has ASCII code <strong>32</strong>?",
-          options: [{ label: "'0'" }, { label: "'A'" }, { label: "Space" }, { label: "'a'" }],
+          prompt: "Ký tự nào có mã ASCII <strong>32</strong>?",
+          options: [{ label: "'0'" }, { label: "'A'" }, { label: "Dấu cách (Space)" }, { label: "'a'" }],
           answer: 2,
-          hint: "Below the printable letters and digits.",
-          explanation: "32 is the space character.",
+          hint: "Nằm dưới các chữ cái và chữ số in được.",
+          explanation: "32 là ký tự dấu cách (space).",
         },
         {
           prompt:
-            "The lowercase letter <strong>'a'</strong> has ASCII code 97. What is the difference between the codes for 'a' and 'A'?",
+            "Chữ thường <strong>'a'</strong> có mã ASCII 97. Sự khác biệt giữa mã của 'a' và 'A' là bao nhiêu?",
           options: [{ label: "0" }, { label: "16" }, { label: "32" }, { label: "65" }],
           answer: 2,
           hint: "97 − 65.",
           explanation:
-            "Lowercase = uppercase + 32. That's why bit 5 toggles letter case in ASCII.",
+            "Chữ thường = chữ hoa + 32. Đó là lý do bit thứ 5 chuyển đổi chữ hoa/thường trong ASCII.",
         },
       ],
     ),
@@ -73,9 +73,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "ASCII maps each character to a 7-bit code (extended ASCII uses 8 bits).",
-        "Common ranges: digits '0'..'9' = 48..57, uppercase 'A'..'Z' = 65..90, lowercase 'a'..'z' = 97..122.",
-        "Same code, different representations: decimal, hex, or 8-bit binary.",
+        "ASCII ánh xạ mỗi ký tự đến mã 7-bit (ASCII mở rộng dùng 8 bit).",
+        "Phạm vi thường gặp: chữ số '0'..'9' = 48..57, chữ hoa 'A'..'Z' = 65..90, chữ thường 'a'..'z' = 97..122.",
+        "Cùng một mã, biểu diễn khác nhau: thập phân, hex, hoặc nhị phân 8-bit.",
       ]),
     ),
   );
@@ -95,7 +95,7 @@ function buildEncoder() {
     const s = inp.value;
     clear(out);
     if (!s) {
-      out.appendChild(el("div", { class: "alert alert-info", text: "Type something above to see ASCII codes." }));
+      out.appendChild(el("div", { class: "alert alert-info", text: "Nhập gì đó ở trên để xem mã ASCII." }));
       return;
     }
     const row = el("div", { class: "row", style: { flexWrap: "wrap", justifyContent: "center" } });
@@ -104,9 +104,9 @@ function buildEncoder() {
       row.appendChild(
         el("div", { class: "card", style: { padding: "8px 12px", textAlign: "center", minWidth: "100px" } }, [
           el("div", { class: "mono", style: { fontSize: "26px", fontWeight: "700" }, text: displayChar(ch, code) }),
-          el("div", { class: "small mono", style: { marginTop: "4px" }, text: "Dec: " + code }),
+          el("div", { class: "small mono", style: { marginTop: "4px" }, text: "Thập phân: " + code }),
           el("div", { class: "small mono", text: "Hex: " + toHex(code, 2) }),
-          el("div", { class: "small mono", text: "Bin: " + toBinary(code, 8) }),
+          el("div", { class: "small mono", text: "Nhị phân: " + toBinary(code, 8) }),
         ]),
       );
     }
@@ -115,7 +115,7 @@ function buildEncoder() {
   inp.addEventListener("input", rerender);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Enter text:" }),
+      el("span", { class: "small text-2", text: "Nhập văn bản:" }),
       inp,
     ]),
   );
@@ -134,7 +134,7 @@ function buildAsciiTable() {
   const search = el("input", {
     class: "input input-mono",
     type: "text",
-    placeholder: "Search by char or code…",
+    placeholder: "Tìm theo ký tự hoặc mã…",
     style: { maxWidth: "260px" },
   });
 
@@ -147,11 +147,11 @@ function buildAsciiTable() {
     tbl.appendChild(
       el("thead", {}, [
         el("tr", {}, [
-          el("th", { text: "Char" }),
-          el("th", { text: "Dec" }),
+          el("th", { text: "Ký tự" }),
+          el("th", { text: "Thập phân" }),
           el("th", { text: "Hex" }),
-          el("th", { text: "Binary" }),
-          el("th", { text: "Notes" }),
+          el("th", { text: "Nhị phân" }),
+          el("th", { text: "Ghi chú" }),
         ]),
       ]),
     );
@@ -177,7 +177,7 @@ function buildAsciiTable() {
   search.addEventListener("input", rerender);
   card.appendChild(
     el("div", { class: "row" }, [
-      el("span", { class: "small text-2", text: "Filter:" }),
+      el("span", { class: "small text-2", text: "Lọc:" }),
       search,
     ]),
   );
@@ -187,10 +187,10 @@ function buildAsciiTable() {
 }
 
 function notesFor(code) {
-  if (code === 32) return "Space";
-  if (code >= 48 && code <= 57) return "Digit";
-  if (code >= 65 && code <= 90) return "Uppercase letter";
-  if (code >= 97 && code <= 122) return "Lowercase letter";
+  if (code === 32) return "Dấu cách";
+  if (code >= 48 && code <= 57) return "Chữ số";
+  if (code >= 65 && code <= 90) return "Chữ hoa";
+  if (code >= 97 && code <= 122) return "Chữ thường";
   return "";
 }
 
@@ -208,31 +208,31 @@ function buildGuessExercise() {
     inp.value = "";
     clear(fb);
   }
-  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Which character has this code?" }));
+  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Ký tự nào có mã này?" }));
   card.appendChild(display);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Your guess:" }),
+      el("span", { class: "small text-2", text: "Đoán của bạn:" }),
       inp,
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           clear(fb);
           if (!inp.value) {
-            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Enter a single character." }));
+            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Nhập một ký tự duy nhất." }));
             return;
           }
           const ok = inp.value === String.fromCharCode(code);
           fb.appendChild(
             el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-              el("strong", { text: ok ? "Correct! " : "Not quite. " }),
-              el("span", { html: "Code " + code + " = '<strong>" + String.fromCharCode(code) + "</strong>'." }),
+              el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
+              el("span", { html: "Mã " + code + " = '<strong>" + String.fromCharCode(code) + "</strong>'." }),
             ]),
           );
         },
       }),
-      el("button", { class: "btn btn-outline btn-sm", text: "Next", onclick: newQ }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Tiếp theo", onclick: newQ }),
     ]),
   );
   card.appendChild(fb);

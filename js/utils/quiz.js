@@ -31,7 +31,7 @@ export function renderQuiz(container, { title, questions, onComplete }) {
     });
     root.appendChild(
       el("div", { class: "quiz-progress" }, [
-        el("span", { text: `Question ${state.index + 1} of ${questions.length}` }),
+        el("span", { text: `Câu ${state.index + 1} / ${questions.length}` }),
         dots,
       ]),
     );
@@ -68,13 +68,13 @@ export function renderQuiz(container, { title, questions, onComplete }) {
     root.appendChild(opts);
 
     if (state.showHint && !state.revealed && q.hint) {
-      root.appendChild(el("div", { class: "quiz-feedback hint", html: "<strong>Hint.</strong> " + q.hint }));
+      root.appendChild(el("div", { class: "quiz-feedback hint", html: "<strong>Gợi ý.</strong> " + q.hint }));
     }
 
     if (state.revealed) {
       const isCorrect = state.selected === q.answer;
       const cls = isCorrect ? "quiz-feedback ok" : "quiz-feedback bad";
-      const head = isCorrect ? "Correct." : "Not quite.";
+      const head = isCorrect ? "Chính xác!" : "Chưa đúng.";
       const body = q.explanation || "";
       root.appendChild(el("div", { class: cls, html: `<strong>${head}</strong> ${body}` }));
     }
@@ -85,7 +85,7 @@ export function renderQuiz(container, { title, questions, onComplete }) {
         actions.appendChild(
           el("button", {
             class: "btn btn-outline btn-sm",
-            text: state.showHint ? "Hide hint" : "Show hint",
+            text: state.showHint ? "Ẩn gợi ý" : "Xem gợi ý",
             onclick: () => {
               state.showHint = !state.showHint;
               render();
@@ -96,7 +96,7 @@ export function renderQuiz(container, { title, questions, onComplete }) {
       actions.appendChild(
         el("button", {
           class: "btn btn-primary",
-          text: "Check answer",
+          text: "Kiểm tra đáp án",
           disabled: state.selected == null,
           onclick: () => {
             if (state.selected == null) return;
@@ -111,7 +111,7 @@ export function renderQuiz(container, { title, questions, onComplete }) {
       actions.appendChild(
         el("button", {
           class: "btn btn-primary",
-          text: isLast ? "View results" : "Next question",
+          text: isLast ? "Xem kết quả" : "Câu tiếp theo",
           onclick: () => {
             if (isLast) {
               showResults();
@@ -135,11 +135,11 @@ export function renderQuiz(container, { title, questions, onComplete }) {
     const total = questions.length;
     const pct = Math.round((correct / total) * 100);
 
-    root.appendChild(el("h3", { text: "Quiz results" }));
+    root.appendChild(el("h3", { text: "Kết quả kiểm tra" }));
     root.appendChild(
       el("div", { class: "row" }, [
-        el("div", { class: "badge badge-success", text: `${correct} / ${total} correct` }),
-        el("div", { class: "badge badge-lavender", text: `Score: ${pct}%` }),
+        el("div", { class: "badge badge-success", text: `${correct} / ${total} đúng` }),
+        el("div", { class: "badge badge-lavender", text: `Điểm: ${pct}%` }),
       ]),
     );
 
@@ -148,8 +148,8 @@ export function renderQuiz(container, { title, questions, onComplete }) {
       const ok = state.answers[i] === "correct";
       const card = el("div", { class: "card", style: { padding: "12px 16px" } }, [
         el("div", { class: "row" }, [
-          el("span", { class: ok ? "badge badge-success" : "badge badge-error", text: ok ? "Correct" : "Wrong" }),
-          el("span", { class: "small text-2", text: `Q${i + 1}` }),
+          el("span", { class: ok ? "badge badge-success" : "badge badge-error", text: ok ? "Đúng" : "Sai" }),
+          el("span", { class: "small text-2", text: `Câu ${i + 1}` }),
         ]),
         el("div", { style: { marginTop: "8px" }, html: q.prompt }),
         !ok && q.explanation
@@ -164,7 +164,7 @@ export function renderQuiz(container, { title, questions, onComplete }) {
       "button",
       {
         class: "btn btn-primary",
-        text: "Try again",
+        text: "Thử lại",
         style: { marginTop: "16px" },
         onclick: () => {
           state.index = 0;

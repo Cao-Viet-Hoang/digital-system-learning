@@ -20,59 +20,59 @@ const breadcrumb = $("#breadcrumb");
 
 // Routes
 route("", () => {
-  setBreadcrumb([{ label: "Overview", current: true }]);
+  setBreadcrumb([{ label: "Tổng quan", current: true }]);
   renderDashboard(content);
 });
 
 route("lesson/:id", ({ id }) => {
   const lesson = getLesson(id);
   setBreadcrumb([
-    { label: "Overview", href: "#/" },
-    { label: lesson ? lesson.title : "Lesson", current: true },
+    { label: "Tổng quan", href: "#/" },
+    { label: lesson ? lesson.title : "Bài học", current: true },
   ]);
   renderLessonPage(content, { id });
 });
 
 route("exam", () => {
   setBreadcrumb([
-    { label: "Overview", href: "#/" },
-    { label: "Chapter exam", current: true },
+    { label: "Tổng quan", href: "#/" },
+    { label: "Kiểm tra chương", current: true },
   ]);
   renderExam(content);
 });
 
 route("practice", () => {
   setBreadcrumb([
-    { label: "Overview", href: "#/" },
-    { label: "Quick practice", current: true },
+    { label: "Tổng quan", href: "#/" },
+    { label: "Luyện tập nhanh", current: true },
   ]);
   renderPractice(content);
 });
 
 route("dictionary", () => {
   setBreadcrumb([
-    { label: "Overview", href: "#/" },
-    { label: "Glossary", current: true },
+    { label: "Tổng quan", href: "#/" },
+    { label: "Bảng chú giải", current: true },
   ]);
   renderDictionary(content);
 });
 
 route("reference", () => {
   setBreadcrumb([
-    { label: "Overview", href: "#/" },
-    { label: "Reference tables", current: true },
+    { label: "Tổng quan", href: "#/" },
+    { label: "Bảng tra cứu", current: true },
   ]);
   renderReference(content);
 });
 
 setNotFound((path) => {
-  setBreadcrumb([{ label: "Not found", current: true }]);
+  setBreadcrumb([{ label: "Không tìm thấy", current: true }]);
   clear(content);
   content.appendChild(
     el("div", { class: "content-inner" }, [
-      el("h1", { text: "Page not found" }),
-      el("p", { text: `No route matched "${path}".` }),
-      el("button", { class: "btn btn-primary", text: "Back to overview", onclick: () => navigate("/") }),
+      el("h1", { text: "Không tìm thấy trang" }),
+      el("p", { text: `Không có trang nào khớp với "${path}".` }),
+      el("button", { class: "btn btn-primary", text: "Về tổng quan", onclick: () => navigate("/") }),
     ]),
   );
 });
@@ -101,10 +101,10 @@ function renderSidebar() {
   const path = currentPath();
 
   // Section: Learn
-  nav.appendChild(el("div", { class: "nav-group-title", text: "Learn" }));
-  nav.appendChild(navItem("", "Overview", path === "" || path === "/", "🏠"));
+  nav.appendChild(el("div", { class: "nav-group-title", text: "Học" }));
+  nav.appendChild(navItem("", "Tổng quan", path === "" || path === "/", "🏠"));
 
-  nav.appendChild(el("div", { class: "nav-group-title", text: "Lessons" }));
+  nav.appendChild(el("div", { class: "nav-group-title", text: "Bài học" }));
   lessons.forEach((l) => {
     const id = l.id;
     const status = getLessonStatus(id);
@@ -128,13 +128,13 @@ function renderSidebar() {
     nav.appendChild(item);
   });
 
-  nav.appendChild(el("div", { class: "nav-group-title", text: "Practice" }));
-  nav.appendChild(navItem("practice", "Quick practice", path === "practice", "⚡"));
-  nav.appendChild(navItem("exam", "Chapter exam", path === "exam", "📝"));
+  nav.appendChild(el("div", { class: "nav-group-title", text: "Luyện tập" }));
+  nav.appendChild(navItem("practice", "Luyện tập nhanh", path === "practice", "⚡"));
+  nav.appendChild(navItem("exam", "Kiểm tra chương", path === "exam", "📝"));
 
-  nav.appendChild(el("div", { class: "nav-group-title", text: "Resources" }));
-  nav.appendChild(navItem("reference", "Reference tables", path === "reference", "📊"));
-  nav.appendChild(navItem("dictionary", "Glossary", path === "dictionary", "📖"));
+  nav.appendChild(el("div", { class: "nav-group-title", text: "Tài nguyên" }));
+  nav.appendChild(navItem("reference", "Bảng tra cứu", path === "reference", "📊"));
+  nav.appendChild(navItem("dictionary", "Bảng chú giải", path === "dictionary", "📖"));
 }
 
 function navItem(path, label, active, icon) {
@@ -159,7 +159,7 @@ function renderOverall() {
 
 // Reset button
 $("#reset-progress").addEventListener("click", () => {
-  if (confirm("Reset all progress? This will clear lesson completion and scores.")) {
+  if (confirm("Đặt lại toàn bộ tiến độ? Thao tác này sẽ xóa kết quả bài học và điểm số.")) {
     resetAll();
     navigate("/");
   }

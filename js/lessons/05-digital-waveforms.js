@@ -6,10 +6,10 @@ import { COLORS } from "../utils/colors.js";
 export default {
   id: "digital-waveforms",
   order: 5,
-  title: "Digital Waveforms",
-  subtitle: "A sequence of bits, plotted against time, makes a square-wave pattern.",
+  title: "Dạng Sóng Số (Digital Waveforms)",
+  subtitle: "Chuỗi bit vẽ theo thời gian tạo ra dạng sóng vuông.",
   objective:
-    "Generate a waveform from a bit pattern, read a bit pattern from a waveform, and relate the data signal to the clock.",
+    "Tạo dạng sóng từ chuỗi bit, đọc chuỗi bit từ dạng sóng, và liên hệ tín hiệu dữ liệu với xung clock.",
   render,
 };
 
@@ -19,25 +19,25 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: build a waveform from bits",
+      "Hãy thử: tạo dạng sóng từ các bit",
       p(
-        "Toggle each bit cell below — the top trace shows the matching square waveform. Adjust the clock period to slow down or speed up the signal.",
+        "Bật/tắt mỗi ô bit bên dưới — đường trên hiển thị dạng sóng vuông tương ứng. Điều chỉnh chu kỳ clock để làm chậm hoặc nhanh tín hiệu.",
       ),
       buildEditor(),
     ),
   );
 
   container.appendChild(
-    section("Practice: read the waveform", buildReader()),
+    section("Luyện tập: đọc dạng sóng", buildReader()),
   );
 
   container.appendChild(
     section(
-      "Reading tips",
+      "Mẹo đọc dạng sóng",
       el("ul", {}, [
-        el("li", { html: "A <strong>high</strong> level represents <span class='mono'>1</span>; a <strong>low</strong> level represents <span class='mono'>0</span>." }),
-        el("li", { html: "Each bit lasts one clock period — locate clock edges to know when the value can change." }),
-        el("li", { html: "Data is sampled <em>on the clock edge</em>; in between is don't-care for the receiver." }),
+        el("li", { html: "Mức <strong>cao</strong> biểu diễn <span class='mono'>1</span>; mức <strong>thấp</strong> biểu diễn <span class='mono'>0</span>." }),
+        el("li", { html: "Mỗi bit kéo dài một chu kỳ clock — xác định cạnh clock để biết khi nào giá trị có thể thay đổi." }),
+        el("li", { html: "Dữ liệu được lấy mẫu <em>tại cạnh clock</em>; khoảng giữa không quan trọng với bên nhận." }),
       ]),
     ),
   );
@@ -48,15 +48,15 @@ function render(container) {
       [
         {
           prompt:
-            "If a clock period is 100 µs, how long does it take to transmit an 8-bit byte (one bit per period)?",
-          options: [{ label: "100 µs" }, { label: "400 µs" }, { label: "800 µs" }, { label: "1.6 ms" }],
+            "Nếu chu kỳ clock là 100 µs, cần bao lâu để truyền 1 byte 8-bit (một bit mỗi chu kỳ)?",
+          options: [{ label: "100 µs" }, { label: "400 µs" }, { label: "800 µs" }, { label: "1,6 ms" }],
           answer: 2,
-          hint: "8 bits × 100 µs.",
-          explanation: "8 bits × 100 µs/bit = 800 µs.",
+          hint: "8 bit × 100 µs.",
+          explanation: "8 bit × 100 µs/bit = 800 µs.",
         },
         {
           prompt:
-            "A waveform that goes <em>high, low, high, high</em> represents which bit pattern (MSB first)?",
+            "Dạng sóng lần lượt là <em>cao, thấp, cao, cao</em> biểu diễn chuỗi bit nào (MSB trước)?",
           options: [
             { label: "<span class='mono'>1011</span>" },
             { label: "<span class='mono'>0101</span>" },
@@ -64,20 +64,20 @@ function render(container) {
             { label: "<span class='mono'>1110</span>" },
           ],
           answer: 0,
-          hint: "High → 1, low → 0, in order.",
-          explanation: "high, low, high, high → 1 0 1 1.",
+          hint: "Cao → 1, thấp → 0, theo thứ tự.",
+          explanation: "Cao, thấp, cao, cao → 1 0 1 1.",
         },
         {
-          prompt: "What does the clock signal do in a digital system?",
+          prompt: "Tín hiệu clock trong hệ thống digital có vai trò gì?",
           options: [
-            { label: "Carries the data values" },
-            { label: "Sets the timing — receivers sample data on clock edges" },
-            { label: "Acts as the power supply" },
-            { label: "Stores the data permanently" },
+            { label: "Mang các giá trị dữ liệu" },
+            { label: "Đặt thời gian — bên nhận lấy mẫu dữ liệu tại cạnh clock" },
+            { label: "Đóng vai trò nguồn điện" },
+            { label: "Lưu trữ dữ liệu vĩnh viễn" },
           ],
           answer: 1,
-          hint: "Think of it as a metronome for the data line.",
-          explanation: "The clock defines bit boundaries so the transmitter and receiver agree on timing.",
+          hint: "Hãy nghĩ đó như máy đánh nhịp cho đường dữ liệu.",
+          explanation: "Clock định nghĩa ranh giới bit để bên phát và bên nhận đồng ý về thời gian.",
         },
       ],
     ),
@@ -87,9 +87,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "A digital signal alternates between two voltage levels — high (1) and low (0) — over time.",
-        "Each bit occupies one clock period, so the clock paces the whole system.",
-        "Reading a waveform = noting the level during each clock period from left to right.",
+        "Tín hiệu digital xen kẽ giữa hai mức điện áp — cao (1) và thấp (0) — theo thời gian.",
+        "Mỗi bit chiếm một chu kỳ clock, vì vậy clock điều phối toàn bộ hệ thống.",
+        "Đọc dạng sóng = ghi nhận mức trong mỗi chu kỳ clock từ trái sang phải.",
       ]),
     ),
   );
@@ -141,11 +141,11 @@ function buildEditor() {
         wrap.appendChild(el("span", { class: "toggle-track" }));
         return wrap;
       })(),
-      el("span", { class: "small text-2", text: "Show clock" }),
+      el("span", { class: "small text-2", text: "Hiện clock" }),
     ]),
     el("button", {
       class: "btn btn-outline btn-sm",
-      text: "Add bit",
+      text: "Thêm bit",
       onclick: () => {
         if (state.bits.length < 16) {
           state.bits.push(0);
@@ -155,7 +155,7 @@ function buildEditor() {
     }),
     el("button", {
       class: "btn btn-outline btn-sm",
-      text: "Remove bit",
+      text: "Xóa bit",
       onclick: () => {
         if (state.bits.length > 2) {
           state.bits.pop();
@@ -165,7 +165,7 @@ function buildEditor() {
     }),
     el("button", {
       class: "btn btn-outline btn-sm",
-      text: "Random",
+      text: "Ngẫu nhiên",
       onclick: () => {
         state.bits = state.bits.map(() => (Math.random() < 0.5 ? 0 : 1));
         rerender();
@@ -195,7 +195,7 @@ function drawWave(bits, { showClock = true, height = 200, width = 640 } = {}) {
   const clkY0 = 180;
 
   // Axis labels
-  label(svg, "Data", 8, dataY1 - 10);
+  label(svg, "Dữ liệu", 8, dataY1 - 10);
   if (showClock) label(svg, "Clock", 8, clkY1 - 10);
 
   // Bit cell separators
@@ -309,28 +309,28 @@ function buildReader() {
     const actions = el("div", { class: "row", style: { justifyContent: "center", marginTop: "12px" } }, [
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           const guess = inputs.map((i) => parseInt(i.value, 10));
           if (guess.some((g) => g !== 0 && g !== 1)) {
             clear(fb);
-            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Enter a 0 or 1 in every cell." }));
+            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Nhập 0 hoặc 1 vào mỗi ô." }));
             return;
           }
           const ok = guess.every((g, i) => g === bits[i]);
           clear(fb);
           fb.appendChild(
             el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-              el("strong", { text: ok ? "Correct! " : "Not quite. " }),
-              el("span", { html: "The waveform reads <span class='mono'>" + bits.join("") + "</span>." }),
+              el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
+              el("span", { html: "Dạng sóng đọc là <span class='mono'>" + bits.join("") + "</span>." }),
             ]),
           );
         },
       }),
-      el("button", { class: "btn btn-outline btn-sm", text: "New waveform", onclick: newQ }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Dạng sóng mới", onclick: newQ }),
       el("button", {
         class: "btn btn-ghost btn-sm",
-        text: "Reveal",
+        text: "Hiển thị",
         onclick: () => {
           inputs.forEach((inp, i) => (inp.value = String(bits[i])));
         },
@@ -342,7 +342,7 @@ function buildReader() {
     card.appendChild(actions);
   }
 
-  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Read this 8-bit waveform left-to-right:" }));
+  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Đọc dạng sóng 8-bit này từ trái sang phải:" }));
   card.appendChild(wrap);
   card.appendChild(inputCells);
   card.appendChild(fb);

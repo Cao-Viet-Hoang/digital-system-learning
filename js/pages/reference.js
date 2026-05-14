@@ -6,17 +6,17 @@ export function renderReference(container) {
   clear(container);
   const inner = el("div", { class: "content-inner" });
   container.appendChild(inner);
-  inner.appendChild(el("h1", { text: "Reference Tables" }));
+  inner.appendChild(el("h1", { text: "Bảng Tra Cứu" }));
   inner.appendChild(
-    el("p", { class: "text-2", text: "Quick lookup tables. Use these as a cheat sheet while you practise." }),
+    el("p", { class: "text-2", text: "Bảng tra cứu nhanh. Dùng như tài liệu tham khảo khi luyện tập." }),
   );
 
   const tabs = el("div", { class: "tabs", style: { marginBottom: "16px" } });
   const view = el("div");
   const tabSet = [
-    { id: "bin-hex", label: "Binary / Decimal / Hex", render: renderBinHex },
+    { id: "bin-hex", label: "Nhị phân / Thập phân / Hex", render: renderBinHex },
     { id: "bcd", label: "BCD", render: renderBcd },
-    { id: "gray", label: "Gray code", render: renderGray },
+    { id: "gray", label: "Mã Gray", render: renderGray },
     { id: "ascii", label: "ASCII", render: renderAscii },
   ];
   let active = "bin-hex";
@@ -54,8 +54,8 @@ function renderBinHex() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal" }),
-        el("th", { text: "Binary (4-bit)" }),
+        el("th", { text: "Thập phân" }),
+        el("th", { text: "Nhị phân (4-bit)" }),
         el("th", { text: "Hex" }),
       ]),
     ]),
@@ -81,7 +81,7 @@ function renderBcd() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal digit" }),
+        el("th", { text: "Chữ số thập phân" }),
         el("th", { text: "BCD (4-bit)" }),
       ]),
     ]),
@@ -98,7 +98,7 @@ function renderBcd() {
   tbl.appendChild(tb);
   card.appendChild(tbl);
   card.appendChild(
-    el("p", { class: "small text-2", style: { marginTop: "8px" }, text: "Nibbles 1010..1111 (10..15) are invalid in BCD." }),
+    el("p", { class: "small text-2", style: { marginTop: "8px" }, text: "Các nibble 1010..1111 (10..15) không hợp lệ trong BCD." }),
   );
   return card;
 }
@@ -109,8 +109,8 @@ function renderGray() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Decimal" }),
-        el("th", { text: "Binary" }),
+        el("th", { text: "Thập phân" }),
+        el("th", { text: "Nhị phân" }),
         el("th", { text: "Gray" }),
       ]),
     ]),
@@ -136,10 +136,10 @@ function renderAscii() {
   tbl.appendChild(
     el("thead", {}, [
       el("tr", {}, [
-        el("th", { text: "Char" }),
-        el("th", { text: "Dec" }),
+        el("th", { text: "Ký tự" }),
+        el("th", { text: "Thập phân" }),
         el("th", { text: "Hex" }),
-        el("th", { text: "Binary" }),
+        el("th", { text: "Nhị phân" }),
       ]),
     ]),
   );

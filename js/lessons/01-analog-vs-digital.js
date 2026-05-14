@@ -6,10 +6,10 @@ import { COLORS } from "../utils/colors.js";
 export default {
   id: "analog-vs-digital",
   order: 1,
-  title: "Analog vs Digital Systems",
-  subtitle: "How continuous signals differ from discrete ones, and why digital wins for storage and processing.",
+  title: "Hệ thống Analog và Digital",
+  subtitle: "Tín hiệu liên tục khác gì tín hiệu rời rạc, và tại sao digital chiếm ưu thế trong lưu trữ và xử lý.",
   objective:
-    "Distinguish analog from digital signals and explain why most modern systems sample the world into digital form.",
+    "Phân biệt được tín hiệu analog và digital, giải thích tại sao hầu hết hệ thống hiện đại chuyển đổi thế giới thực sang dạng digital.",
   render,
 };
 
@@ -19,9 +19,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: continuous vs discrete",
+      "Hãy thử: liên tục vs rời rạc",
       p(
-        "Move the sliders below to change a real-world signal. The <strong>top</strong> trace is the analog version — a smooth curve. The <strong>bottom</strong> trace is the digital version — a staircase made of discrete samples. Add noise to see how each form copes.",
+        "Di chuyển các thanh trượt bên dưới để thay đổi tín hiệu. Đường <strong>trên</strong> là phiên bản analog — một đường cong mượt mà, liên tục theo thời gian. Đường <strong>dưới</strong> là phiên bản digital — một bậc thang được tạo từ các mẫu rời rạc. Thêm nhiễu để quan sát cách mỗi dạng tín hiệu ứng phó.",
       ),
       buildSimulator(),
     ),
@@ -29,28 +29,28 @@ function render(container) {
 
   container.appendChild(
     section(
-      "What's the difference?",
+      "Sự khác biệt là gì?",
       splitView(
         el("div", { class: "card card-soft-sky" }, [
-          el("h3", { text: "Analog signal" }),
+          el("h3", { text: "Tín hiệu Analog" }),
           el("p", {
-            text: "Varies continuously over time. Can take any value within its range. Sound waves, temperature, light brightness, and natural voltages are all analog.",
+            text: "Biến đổi liên tục theo thời gian. Có thể nhận bất kỳ giá trị nào trong phạm vi của nó. Sóng âm thanh, nhiệt độ, độ sáng ánh sáng và điện áp tự nhiên đều là analog.",
           }),
           el("ul", {}, [
-            el("li", { text: "Smooth, continuous curve" }),
-            el("li", { text: "Infinite possible values" }),
-            el("li", { text: "Sensitive to noise — every wobble counts" }),
+            el("li", { text: "Đường cong mịn, liên tục" }),
+            el("li", { text: "Vô số giá trị có thể" }),
+            el("li", { text: "Nhạy cảm với nhiễu — mọi dao động đều ảnh hưởng" }),
           ]),
         ]),
         el("div", { class: "card card-soft-peach" }, [
-          el("h3", { text: "Digital signal" }),
+          el("h3", { text: "Tín hiệu Digital" }),
           el("p", {
-            text: "Switches between a small set of discrete levels — usually two: 0 and 1. Computers, USB cables, and CDs all use digital representations.",
+            text: "Chuyển đổi giữa một tập hợp nhỏ các mức rời rạc — thường là hai: 0 và 1. Máy tính, cáp USB và đĩa CD đều dùng biểu diễn digital.",
           }),
           el("ul", {}, [
-            el("li", { text: "Staircase or square shape" }),
-            el("li", { text: "Two levels: low (0) and high (1)" }),
-            el("li", { text: "Tolerates noise — small wobbles still read as 0 or 1" }),
+            el("li", { text: "Dạng bậc thang hoặc vuông" }),
+            el("li", { text: "Hai mức: thấp (0) và cao (1)" }),
+            el("li", { text: "Chống nhiễu tốt — dao động nhỏ vẫn đọc đúng là 0 hoặc 1" }),
           ]),
         ]),
       ),
@@ -59,35 +59,35 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Real-world examples",
+      "Ví dụ thực tế",
       el("div", { class: "grid grid-3" }, [
-        exampleCard("🎤", "Microphone", "Analog: continuous air pressure → continuous voltage."),
-        exampleCard("🎚️", "Volume knob", "Analog: smooth resistance change."),
-        exampleCard("💡", "Light switch", "Digital: on or off — nothing in between."),
-        exampleCard("💻", "Computer memory", "Digital: every bit is 0 or 1."),
-        exampleCard("🌡️", "Mercury thermometer", "Analog: continuous height of liquid."),
-        exampleCard("⌨️", "Keyboard key", "Digital: pressed or not pressed."),
+        exampleCard("🎤", "Microphone", "Analog: áp suất không khí liên tục → điện áp liên tục."),
+        exampleCard("🎚️", "Núm âm lượng", "Analog: điện trở thay đổi mượt mà."),
+        exampleCard("💡", "Công tắc đèn", "Digital: bật hoặc tắt — không có trạng thái trung gian."),
+        exampleCard("💻", "Bộ nhớ máy tính", "Digital: mỗi bit là 0 hoặc 1."),
+        exampleCard("🌡️", "Nhiệt kế thủy ngân", "Analog: chiều cao của chất lỏng thay đổi liên tục."),
+        exampleCard("⌨️", "Phím bàn phím", "Digital: nhấn hoặc không nhấn."),
       ]),
     ),
   );
 
   container.appendChild(
     section(
-      "Pros and cons",
+      "Ưu và nhược điểm",
       el("table", { class: "tbl tbl-bordered" }, [
         el("thead", {}, [
           el("tr", {}, [
-            el("th", { text: "Aspect" }),
+            el("th", { text: "Khía cạnh" }),
             el("th", { text: "Analog" }),
             el("th", { text: "Digital" }),
           ]),
         ]),
         el("tbody", {}, [
-          row(["Detail", "Captures fine variation naturally", "Limited by sample resolution"]),
-          row(["Noise tolerance", "Poor — noise distorts the signal", "High — small noise is ignored"]),
-          row(["Storage", "Degrades over copies", "Lossless copies, easy to compress"]),
-          row(["Processing", "Special analog circuits", "Standard computers, any algorithm"]),
-          row(["Cost at scale", "Expensive precise components", "Cheap chips, mass-produced"]),
+          row(["Chi tiết", "Ghi lại biến đổi tinh tế một cách tự nhiên", "Bị giới hạn bởi độ phân giải mẫu"]),
+          row(["Chống nhiễu", "Kém — nhiễu làm méo tín hiệu", "Cao — nhiễu nhỏ bị bỏ qua"]),
+          row(["Lưu trữ", "Chất lượng giảm theo mỗi lần sao chép", "Sao chép không mất dữ liệu, dễ nén"]),
+          row(["Xử lý", "Mạch analog chuyên dụng", "Máy tính thông thường, mọi thuật toán"]),
+          row(["Chi phí lớn", "Linh kiện chính xác đắt tiền", "Chip giá rẻ, sản xuất hàng loạt"]),
         ]),
       ]),
     ),
@@ -99,45 +99,45 @@ function render(container) {
       [
         {
           prompt:
-            "Which of the following is an <strong>analog</strong> quantity?",
+            "Đại lượng nào sau đây là đại lượng <strong>analog</strong>?",
           options: [
-            { label: "The number of students in a classroom" },
-            { label: "The voltage at a microphone output as someone speaks" },
-            { label: "Whether a light switch is on or off" },
-            { label: "A pixel value stored as 8 bits" },
+            { label: "Số học sinh trong lớp" },
+            { label: "Điện áp ở đầu ra microphone khi ai đó nói chuyện" },
+            { label: "Trạng thái bật/tắt của công tắc đèn" },
+            { label: "Giá trị pixel được lưu dưới dạng 8 bit" },
           ],
           answer: 1,
-          hint: "Analog signals vary smoothly over time.",
+          hint: "Tín hiệu analog biến đổi mượt mà theo thời gian.",
           explanation:
-            "A microphone output is a continuously varying voltage — that's analog. The other choices are either counts or already discretised.",
+            "Đầu ra microphone là điện áp thay đổi liên tục — đó là analog. Các lựa chọn khác đều là số đếm hoặc đã được rời rạc hóa.",
         },
         {
           prompt:
-            "Why is digital generally preferred for storing music compared to analog tape?",
+            "Tại sao digital thường được ưu tiên để lưu trữ âm nhạc so với băng analog?",
           options: [
-            { label: "Digital sound has more information than analog" },
-            { label: "Digital signals tolerate noise better, so copies stay clean" },
-            { label: "Analog circuits cannot represent audio" },
-            { label: "Digital files are always smaller than tape" },
+            { label: "Âm thanh digital chứa nhiều thông tin hơn analog" },
+            { label: "Tín hiệu digital chống nhiễu tốt hơn, nên bản sao luôn sạch" },
+            { label: "Mạch analog không thể biểu diễn âm thanh" },
+            { label: "File digital luôn nhỏ hơn băng" },
           ],
           answer: 1,
-          hint: "Think about what happens when you copy a tape multiple times.",
+          hint: "Nghĩ về điều gì xảy ra khi bạn sao chép băng nhiều lần.",
           explanation:
-            "Small noise added to a digital signal is still read as the same 0 or 1, so digital copies are identical to the original. Analog tapes lose quality on every copy.",
+            "Nhiễu nhỏ thêm vào tín hiệu digital vẫn được đọc đúng là 0 hoặc 1, nên bản sao digital giống hệt bản gốc. Băng analog mất chất lượng sau mỗi lần sao chép.",
         },
         {
           prompt:
-            "A traffic light shows red, yellow or green. Is the light state itself analog or digital?",
+            "Đèn giao thông hiển thị đỏ, vàng hoặc xanh. Trạng thái của đèn là analog hay digital?",
           options: [
-            { label: "Analog — it varies continuously" },
-            { label: "Digital — it has a small set of discrete states" },
-            { label: "Neither — it's mechanical" },
-            { label: "Both at once" },
+            { label: "Analog — nó biến đổi liên tục" },
+            { label: "Digital — nó có một tập hợp nhỏ các trạng thái rời rạc" },
+            { label: "Không cái nào — nó là cơ học" },
+            { label: "Cả hai cùng lúc" },
           ],
           answer: 1,
-          hint: "Count how many distinct states the system has.",
+          hint: "Đếm xem hệ thống có bao nhiêu trạng thái phân biệt.",
           explanation:
-            "The light has three distinct states. Anything with a small, countable set of states is digital, even if it has more than two.",
+            "Đèn có ba trạng thái phân biệt. Bất kỳ hệ thống nào có tập hợp trạng thái nhỏ, đếm được đều là digital, kể cả khi có hơn hai trạng thái.",
         },
       ],
     ),
@@ -145,11 +145,11 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Summary",
+      "Tóm tắt",
       summary(null, [
-        "<strong>Analog</strong> signals vary continuously; <strong>digital</strong> signals take a small set of discrete values.",
-        "Digital signals tolerate noise — that is why nearly all modern storage, communication and computing is digital.",
-        "Most real-world quantities (sound, light, temperature) are analog and must be <em>sampled</em> to become digital.",
+        "Tín hiệu <strong>analog</strong> biến đổi liên tục; tín hiệu <strong>digital</strong> chỉ nhận một tập hợp nhỏ các giá trị rời rạc.",
+        "Tín hiệu digital chống nhiễu tốt — đó là lý do hầu hết lưu trữ, truyền thông và máy tính hiện đại đều dùng digital.",
+        "Hầu hết đại lượng thực (âm thanh, ánh sáng, nhiệt độ) đều là analog và phải được <em>lấy mẫu</em> để chuyển thành digital.",
       ]),
     ),
   );
@@ -220,7 +220,7 @@ function buildSimulator() {
     return g;
   }
   svg.appendChild(centerLine(90, "Analog"));
-  svg.appendChild(centerLine(270, "Digital (sampled)"));
+  svg.appendChild(centerLine(270, "Digital (lấy mẫu)"));
   svg.appendChild(analogPath);
   svg.appendChild(digitalPath);
 
@@ -280,20 +280,20 @@ function buildSimulator() {
   card.appendChild(svg);
 
   const controls = el("div", { class: "grid grid-4", style: { marginTop: "16px" } });
-  controls.appendChild(slider("Amplitude", 10, 100, state.amp, (v) => ((state.amp = v), update())));
-  controls.appendChild(slider("Frequency", 0.5, 4, state.freq, (v) => ((state.freq = v), update()), 0.1));
-  controls.appendChild(slider("Noise", 0, 60, state.noise, (v) => ((state.noise = v), update())));
+  controls.appendChild(slider("Biên độ", 10, 100, state.amp, (v) => ((state.amp = v), update())));
+  controls.appendChild(slider("Tần số", 0.5, 4, state.freq, (v) => ((state.freq = v), update()), 0.1));
+  controls.appendChild(slider("Nhiễu", 0, 60, state.noise, (v) => ((state.noise = v), update())));
   controls.appendChild(
-    slider("Digital levels", 2, 16, state.levels, (v) => ((state.levels = Math.round(v)), update()), 1),
+    slider("Mức digital", 2, 16, state.levels, (v) => ((state.levels = Math.round(v)), update()), 1),
   );
   card.appendChild(controls);
 
   card.appendChild(
     el("div", { class: "alert alert-info", style: { marginTop: "16px" } }, [
-      el("strong", { text: "Observe: " }),
+      el("strong", { text: "Quan sát: " }),
       el("span", {
         text:
-          "Increase noise — the analog (blue) signal gets jittery quickly, but the digital (orange) version stays steady. That's the noise-tolerance advantage. Decrease the digital levels to see how a coarser sampling loses detail.",
+          "Quan sát: Tăng nhiễu — tín hiệu analog (xanh) bị rung ngay, nhưng phiên bản digital (cam) vẫn ổn định. Đó là lợi thế chống nhiễu. Giảm mức digital để thấy lấy mẫu thô hơn làm mất chi tiết như thế nào.",
       }),
     ]),
   );

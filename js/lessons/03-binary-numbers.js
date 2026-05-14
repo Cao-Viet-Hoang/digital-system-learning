@@ -6,9 +6,9 @@ import { toBinary, fromBinary } from "../utils/conversions.js";
 export default {
   id: "binary-numbers",
   order: 3,
-  title: "Binary Numbers",
-  subtitle: "Two-state digits — 0 and 1 — combine by place value to represent any whole number.",
-  objective: "Build any value by toggling bits, and read a binary value as a weighted sum of powers of two.",
+  title: "Số Nhị Phân (Binary)",
+  subtitle: "Chữ số hai trạng thái — 0 và 1 — kết hợp theo giá trị vị trí để biểu diễn bất kỳ số nguyên nào.",
+  objective: "Xây dựng bất kỳ giá trị nào bằng cách bật/tắt bit, và đọc giá trị nhị phân như tổng có trọng số của các lũy thừa của 2.",
   render,
 };
 
@@ -18,9 +18,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: toggle bits to build a number",
+      "Hãy thử: bật/tắt bit để tạo số",
       p(
-        "Each bit has a <strong>place value</strong> (its weight). Turn bits on to add their weight to the total. The active bits are highlighted below in orange.",
+        "Mỗi bit có một <strong>giá trị vị trí</strong> (trọng số). Bật bit để cộng trọng số của nó vào tổng. Các bit đang bật được tô sáng màu cam bên dưới.",
       ),
       buildBitSimulator(),
     ),
@@ -28,26 +28,26 @@ function render(container) {
 
   container.appendChild(
     section(
-      "How the value is read",
+      "Cách đọc giá trị",
       p(
-        "Read the bits from left (most-significant) to right (least-significant). For each <strong>1</strong>, add its weight. Skip the <strong>0</strong>s.",
+        "Đọc các bit từ trái (quan trọng nhất) sang phải (ít quan trọng nhất). Với mỗi <strong>1</strong>, cộng trọng số của nó vào. Bỏ qua các <strong>0</strong>.",
       ),
       el("div", { class: "card card-soft-mint" }, [
         el("p", {
           style: { margin: 0 },
           html:
-            "Example: <span class='mono'>1 0 1 1</span> = 1×8 + 0×4 + 1×2 + 1×1 = <strong>11</strong>.",
+            "Ví dụ: <span class='mono'>1 0 1 1</span> = 1×8 + 0×4 + 1×2 + 1×1 = <strong>11</strong>. Tức là chỉ cộng trọng số của các bit bằng 1.",
         }),
       ]),
     ),
   );
 
   container.appendChild(
-    section("Practice: read a binary number", buildReadExercise()),
+    section("Luyện tập: đọc số nhị phân", buildReadExercise()),
   );
 
   container.appendChild(
-    section("Practice: build a target number", buildBuildExercise()),
+    section("Luyện tập: xây dựng số mục tiêu", buildBuildExercise()),
   );
 
   container.appendChild(
@@ -56,15 +56,15 @@ function render(container) {
       [
         {
           prompt:
-            "What is the decimal value of binary <span class='mono'>1100</span>?",
+            "Giá trị thập phân của số nhị phân <span class='mono'>1100</span> là bao nhiêu?",
           options: [{ label: "8" }, { label: "10" }, { label: "12" }, { label: "14" }],
           answer: 2,
-          hint: "Weights: 8, 4, 2, 1. Add the weights of the 1-bits.",
+          hint: "Trọng số: 8, 4, 2, 1. Cộng trọng số của các bit 1.",
           explanation: "1×8 + 1×4 + 0×2 + 0×1 = <strong>12</strong>.",
         },
         {
           prompt:
-            "Which 4-bit binary number represents <strong>5</strong>?",
+            "Số nhị phân 4 bit nào biểu diễn <strong>5</strong>?",
           options: [
             { label: "<span class='mono'>0011</span>" },
             { label: "<span class='mono'>0101</span>" },
@@ -73,15 +73,15 @@ function render(container) {
           ],
           answer: 1,
           hint: "5 = 4 + 1.",
-          explanation: "5 = 4 + 1, so bits at weights 4 and 1 are on: <span class='mono'>0101</span>.",
+          explanation: "5 = 4 + 1, nên bit tại trọng số 4 và 1 bật: <span class='mono'>0101</span>.",
         },
         {
           prompt:
-            "How many distinct values can be represented with <strong>5 bits</strong>?",
+            "Với <strong>5 bit</strong>, có thể biểu diễn bao nhiêu giá trị phân biệt?",
           options: [{ label: "16" }, { label: "25" }, { label: "31" }, { label: "32" }],
           answer: 3,
-          hint: "Each bit doubles the count: 2^n.",
-          explanation: "5 bits give 2^5 = 32 patterns (from 00000 to 11111, i.e. 0..31).",
+          hint: "Mỗi bit nhân đôi số lượng: 2^n.",
+          explanation: "5 bit cho 2^5 = 32 tổ hợp (từ 00000 đến 11111, tức 0..31).",
         },
       ],
     ),
@@ -89,12 +89,12 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Summary",
+      "Tóm tắt",
       summary(null, [
-        "A binary digit (<em>bit</em>) is 0 or 1.",
-        "Each position has weight 2^k, with k counting from the right starting at 0.",
-        "Value = sum of weights where the bit is 1.",
-        "<em>n</em> bits represent 2<sup>n</sup> distinct values, from 0 to 2<sup>n</sup>−1.",
+        "Một chữ số nhị phân (<em>bit</em>) là 0 hoặc 1.",
+        "Mỗi vị trí có trọng số 2^k, với k tính từ phải sang bắt đầu là 0.",
+        "Giá trị = tổng các trọng số mà bit tại đó bằng 1.",
+        "<em>n</em> bit biểu diễn 2<sup>n</sup> giá trị phân biệt, từ 0 đến 2<sup>n</sup>−1.",
       ]),
     ),
   );
@@ -170,8 +170,8 @@ function buildBitSimulator() {
     display.appendChild(
       el("div", { class: "small text-2", style: { marginTop: "8px" } }, [
         parts.length === 0
-          ? el("span", { text: "Decimal: 0" })
-          : el("span", { html: "Decimal: " + parts.join(" + ") + " = <strong>" + total + "</strong>" }),
+          ? el("span", { text: "Thập phân: 0" })
+          : el("span", { html: "Thập phân: " + parts.join(" + ") + " = <strong>" + total + "</strong>" }),
       ]),
     );
     display.appendChild(
@@ -185,7 +185,7 @@ function buildBitSimulator() {
     el("div", { class: "row", style: { marginTop: "16px", justifyContent: "center" } }, [
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: "All 0",
+        text: "Tất cả 0",
         onclick: () => {
           bits.fill(0);
           update();
@@ -193,7 +193,7 @@ function buildBitSimulator() {
       }),
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: "All 1",
+        text: "Tất cả 1",
         onclick: () => {
           bits.fill(1);
           update();
@@ -201,7 +201,7 @@ function buildBitSimulator() {
       }),
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: "Random",
+        text: "Ngẫu nhiên",
         onclick: () => {
           for (let i = 0; i < N; i++) bits[i] = Math.random() < 0.5 ? 0 : 1;
           update();
@@ -215,7 +215,7 @@ function buildBitSimulator() {
     "div",
     { class: "row", style: { marginTop: "16px", justifyContent: "center" } },
     [
-      el("span", { class: "small text-2", text: "Set from decimal:" }),
+      el("span", { class: "small text-2", text: "Đặt từ thập phân:" }),
       (() => {
         const inp = el("input", {
           class: "input input-mono",
@@ -271,22 +271,22 @@ function buildReadExercise() {
     const inp = el("input", { class: "input input-mono", type: "number", style: { width: "120px" } });
     const fb = el("div", { style: { marginTop: "10px" } });
     const actions = el("div", { class: "row", style: { marginTop: "10px" } }, [
-      el("span", { class: "small text-2", text: "Your decimal answer:" }),
+      el("span", { class: "small text-2", text: "Đáp án thập phân của bạn:" }),
       inp,
       el("button", {
         class: "btn btn-primary btn-sm",
-        text: "Check",
+        text: "Kiểm tra",
         onclick: () => {
           const v = parseInt(inp.value, 10);
           clear(fb);
           if (!Number.isFinite(v)) {
-            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Enter a number." }));
+            fb.appendChild(el("div", { class: "quiz-feedback hint", text: "Nhập một số." }));
             return;
           }
           const ok = v === state.target;
           fb.appendChild(
             el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-              el("strong", { text: ok ? "Correct! " : "Not quite. " }),
+              el("strong", { text: ok ? "Chính xác! " : "Chưa đúng. " }),
               el("span", { html: "<span class='mono'>" + bits + "</span> = " + state.target + "." }),
             ]),
           );
@@ -294,12 +294,12 @@ function buildReadExercise() {
       }),
       el("button", {
         class: "btn btn-outline btn-sm",
-        text: "New number",
+        text: "Số mới",
         onclick: () => rerender(),
       }),
     ]);
     clear(card);
-    card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Read this 8-bit binary number:" }));
+    card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center" }, text: "Đọc số nhị phân 8 bit này:" }));
     card.appendChild(display);
     card.appendChild(el("div", { class: "row", style: { justifyContent: "center", flexWrap: "wrap" } }, [actions]));
     card.appendChild(fb);
@@ -331,7 +331,7 @@ function buildBuildExercise() {
 
   function rerender() {
     clear(targetDisplay);
-    targetDisplay.appendChild(el("div", { class: "small text-2", text: "Target value (decimal):" }));
+    targetDisplay.appendChild(el("div", { class: "small text-2", text: "Giá trị mục tiêu (thập phân):" }));
     targetDisplay.appendChild(
       el("div", { style: { fontSize: "26px", fontWeight: "600" }, text: String(state.target) }),
     );
@@ -356,12 +356,12 @@ function buildBuildExercise() {
     const cur = state.bits.reduce((a, b, p) => a + (b ? Math.pow(2, p) : 0), 0);
     const bin = state.bits.slice().reverse().join("");
     clear(value);
-    value.appendChild(el("span", { text: "Current: " + bin + " = " + cur }));
+    value.appendChild(el("span", { text: "Hiện tại: " + bin + " = " + cur }));
 
     clear(fb);
     if (cur === state.target) {
       fb.appendChild(
-        el("div", { class: "quiz-feedback ok", html: "<strong>Match!</strong> Click <em>New target</em> to try another." }),
+        el("div", { class: "quiz-feedback ok", html: "<strong>Khớp rồi!</strong> Nhấn <em>Mục tiêu mới</em> để thử tiếp." }),
       );
     }
   }
@@ -372,10 +372,10 @@ function buildBuildExercise() {
   card.appendChild(fb);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center", marginTop: "12px" } }, [
-      el("button", { class: "btn btn-outline btn-sm", text: "New target", onclick: nextTarget }),
+      el("button", { class: "btn btn-outline btn-sm", text: "Mục tiêu mới", onclick: nextTarget }),
       el("button", {
         class: "btn btn-ghost btn-sm",
-        text: "Reveal solution",
+        text: "Xem đáp án",
         onclick: () => {
           for (let p = 0; p < N; p++) state.bits[p] = (state.target >> p) & 1;
           rerender();

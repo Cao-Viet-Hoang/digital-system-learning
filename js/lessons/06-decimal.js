@@ -5,10 +5,10 @@ import { section, summary, quizSection, p, resetSectionCounter } from "../utils/
 export default {
   id: "decimal",
   order: 6,
-  title: "The Decimal System",
-  subtitle: "Base 10 — the system everyone learns first. Each digit's value is a power of 10.",
+  title: "Hệ Thập Phân (Decimal)",
+  subtitle: "Cơ số 10 — hệ thống mọi người học đầu tiên. Giá trị mỗi chữ số là một lũy thừa của 10.",
   objective:
-    "Break a decimal number into its digit × place-value contributions and recognise base 10 as just one possible positional system.",
+    "Phân tích số thập phân thành tích chữ số × giá trị vị trí và nhận ra cơ số 10 chỉ là một trong nhiều hệ thống vị trí có thể.",
   render,
 };
 
@@ -18,9 +18,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: split any decimal number",
+      "Hãy thử: phân tích số thập phân",
       p(
-        "Type a number below. Each digit is shown with its place value (a power of 10) and the contribution it makes to the total.",
+        "Nhập số bên dưới. Mỗi chữ số được hiển thị với giá trị vị trí của nó (một lũy thừa của 10) và đóng góp của nó vào tổng.",
       ),
       buildExpander(),
     ),
@@ -28,22 +28,22 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Why base 10?",
+      "Tại sao dùng cơ số 10?",
       p(
-        "Decimal uses ten digits (0–9) and ten place values (1, 10, 100, …). Probably because we have ten fingers. Other bases are just the same idea with a different number of digits: base 2 uses two, base 16 uses sixteen.",
+        "Hệ thập phân dùng mười chữ số (0–9) và các giá trị vị trí là 1, 10, 100, ... Có lẽ vì chúng ta có mười ngón tay. Các cơ số khác dùng cùng ý tưởng nhưng với số chữ số khác: cơ số 2 dùng hai chữ số, cơ số 16 dùng mười sáu.",
       ),
       el("div", { class: "card card-soft-mint" }, [
         el("p", {
           style: { margin: 0 },
           html:
-            "<strong>Example.</strong> 4 0 7 in decimal = 4 × 10² + 0 × 10¹ + 7 × 10⁰ = 400 + 0 + 7 = <strong>407</strong>.",
+            "<strong>Ví dụ.</strong> 4 0 7 trong thập phân = 4 × 10² + 0 × 10¹ + 7 × 10⁰ = 400 + 0 + 7 = <strong>407</strong>.",
         }),
       ]),
     ),
   );
 
   container.appendChild(
-    section("Practice: change a digit", buildDigitTweaker()),
+    section("Luyện tập: thay đổi chữ số", buildDigitTweaker()),
   );
 
   container.appendChild(
@@ -51,30 +51,30 @@ function render(container) {
       "decimal",
       [
         {
-          prompt: "In the decimal number <strong>3052</strong>, what is the place value of the digit <strong>3</strong>?",
+          prompt: "Trong số thập phân <strong>3052</strong>, giá trị vị trí của chữ số <strong>3</strong> là bao nhiêu?",
           options: [{ label: "1" }, { label: "100" }, { label: "1 000" }, { label: "10 000" }],
           answer: 2,
-          hint: "Count positions from the right starting at 0.",
+          hint: "Đếm vị trí từ phải sang, bắt đầu từ 0.",
           explanation: "3052 = 3×1000 + 0×100 + 5×10 + 2×1.",
         },
         {
-          prompt: "Which expansion equals <strong>6 207</strong>?",
+          prompt: "Khai triển nào bằng <strong>6 207</strong>?",
           options: [
             { label: "6×1000 + 2×100 + 0×10 + 7×1" },
-            { label: "6×100 + 2×10 + 0×1 + 7×0.1" },
+            { label: "6×100 + 2×10 + 0×1 + 7×0,1" },
             { label: "6×10 + 2×1 + 0 + 7" },
             { label: "6 + 2 + 0 + 7" },
           ],
           answer: 0,
-          hint: "Powers of ten from the right.",
-          explanation: "Position 3 is 10³ = 1000, position 0 is 10⁰ = 1.",
+          hint: "Lũy thừa của 10 từ phải sang.",
+          explanation: "Vị trí 3 là 10³ = 1000, vị trí 0 là 10⁰ = 1.",
         },
         {
-          prompt: "How many distinct values can <strong>4 decimal digits</strong> represent?",
+          prompt: "<strong>4 chữ số thập phân</strong> biểu diễn được bao nhiêu giá trị phân biệt?",
           options: [{ label: "40" }, { label: "100" }, { label: "1 000" }, { label: "10 000" }],
           answer: 3,
           hint: "10^n.",
-          explanation: "4 digits → 10⁴ = 10 000 patterns (0000 to 9999).",
+          explanation: "4 chữ số → 10⁴ = 10 000 tổ hợp (0000 đến 9999).",
         },
       ],
     ),
@@ -84,9 +84,9 @@ function render(container) {
     section(
       "Summary",
       summary(null, [
-        "Decimal is base 10 — digits 0..9 and place values 1, 10, 100, …",
-        "Value = sum over digits of <em>digit × place-value</em>.",
-        "Other number systems use the same idea with a different base.",
+        "Hệ thập phân là cơ số 10 — chữ số 0..9 và giá trị vị trí 1, 10, 100, ...",
+        "Giá trị = tổng của <em>chữ số × giá trị vị trí</em> cho mỗi chữ số.",
+        "Các hệ thống số khác dùng cùng ý tưởng với cơ số khác nhau.",
       ]),
     ),
   );
@@ -130,7 +130,7 @@ function buildExpander() {
     expansion.appendChild(
       el("div", { class: "card card-soft-mint", style: { marginTop: "12px", textAlign: "center" } }, [
         el("span", {
-          html: "Total = " + digits.map((d, i) => parseInt(d, 10) * Math.pow(10, digits.length - 1 - i)).filter((x) => x > 0).join(" + "),
+          html: "Tổng = " + digits.map((d, i) => parseInt(d, 10) * Math.pow(10, digits.length - 1 - i)).filter((x) => x > 0).join(" + "),
         }),
         el("div", { style: { fontSize: "22px", fontWeight: "600", marginTop: "4px" }, text: total.toLocaleString() }),
       ]),
@@ -140,7 +140,7 @@ function buildExpander() {
   inp.addEventListener("input", rerender);
   card.appendChild(
     el("div", { class: "row", style: { justifyContent: "center" } }, [
-      el("span", { class: "small text-2", text: "Enter a decimal number:" }),
+      el("span", { class: "small text-2", text: "Nhập số thập phân:" }),
       inp,
     ]),
   );
@@ -198,7 +198,7 @@ function buildDigitTweaker() {
     clear(display);
     display.appendChild(
       el("div", { class: "card card-soft-lavender", style: { display: "inline-block", padding: "12px 24px" } }, [
-        el("div", { class: "small text-2", text: "Value" }),
+        el("div", { class: "small text-2", text: "Giá trị" }),
         el("div", { class: "mono", style: { fontSize: "26px", fontWeight: "600" }, text: total.toLocaleString() }),
       ]),
     );

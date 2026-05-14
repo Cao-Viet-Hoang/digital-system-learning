@@ -5,53 +5,53 @@ import { section, summary, quizSection, p, resetSectionCounter } from "../utils/
 export default {
   id: "mixed-systems",
   order: 2,
-  title: "Mixed Analog-Digital Systems",
-  subtitle: "Most real systems convert physical signals to digital, process them, then output to the analog world.",
+  title: "Hệ thống Analog-Digital Hỗn Hợp",
+  subtitle: "Hầu hết hệ thống thực tế chuyển đổi tín hiệu vật lý sang digital, xử lý, rồi xuất ra thế giới analog.",
   objective:
-    "Understand the typical signal chain — sensor → analog conditioning → ADC → processing → DAC → actuator — and classify parts of a system as analog, digital, or both.",
+    "Hiểu chuỗi tín hiệu điển hình — cảm biến → điều hòa analog → ADC → xử lý → DAC → cơ cấu chấp hành — và phân loại các phần của hệ thống là analog, digital, hoặc cả hai.",
   render,
 };
 
 const stages = [
   {
     key: "phys",
-    title: "Physical quantity",
-    blurb: "Sound, light, temperature, position — continuous in the real world.",
+    title: "Đại lượng vật lý",
+    blurb: "Âm thanh, ánh sáng, nhiệt độ, vị trí — liên tục trong thế giới thực.",
     color: "sky",
     type: "analog",
   },
   {
     key: "sensor",
-    title: "Sensor",
-    blurb: "Converts physical quantity into a voltage. The output is still analog.",
+    title: "Cảm biến",
+    blurb: "Chuyển đại lượng vật lý thành điện áp. Đầu ra vẫn là analog.",
     color: "sky",
     type: "analog",
   },
   {
     key: "adc",
     title: "ADC",
-    blurb: "Analog-to-digital converter samples and quantises the voltage into bits.",
+    blurb: "Bộ chuyển đổi analog-sang-digital lấy mẫu và lượng hóa điện áp thành các bit.",
     color: "lavender",
     type: "boundary",
   },
   {
     key: "cpu",
-    title: "Digital processor",
-    blurb: "Software or logic processes the bits — filtering, decisions, storage.",
+    title: "Bộ xử lý Digital",
+    blurb: "Phần mềm hoặc logic xử lý các bit — lọc, ra quyết định, lưu trữ.",
     color: "peach",
     type: "digital",
   },
   {
     key: "dac",
     title: "DAC",
-    blurb: "Digital-to-analog converter turns processed bits back into a voltage.",
+    blurb: "Bộ chuyển đổi digital-sang-analog chuyển các bit đã xử lý trở lại thành điện áp.",
     color: "lavender",
     type: "boundary",
   },
   {
     key: "act",
-    title: "Actuator",
-    blurb: "Speaker, motor, display — drives the physical world from a voltage.",
+    title: "Cơ cấu chấp hành",
+    blurb: "Loa, động cơ, màn hình — điều khiển thế giới vật lý từ điện áp.",
     color: "mint",
     type: "analog",
   },
@@ -63,9 +63,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Try it: build the signal chain",
+      "Hãy thử: xây dựng chuỗi tín hiệu",
       p(
-        "A typical sensor-to-actuator system has six stages. Drag or click to reorder them, then click <strong>Check order</strong>.",
+        "Một hệ thống điển hình từ cảm biến đến cơ cấu chấp hành gồm sáu giai đoạn. Nhấn nút mũi tên để sắp xếp lại thứ tự, sau đó nhấn <strong>Kiểm tra thứ tự</strong>.",
       ),
       buildChainBuilder(),
     ),
@@ -73,9 +73,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "The flow, fixed",
+      "Luồng tín hiệu cố định",
       p(
-        "Once correct, the chain converts a continuous physical quantity into bits, processes them, and pushes the result back to the physical world.",
+        "Khi đúng, chuỗi này chuyển đổi đại lượng vật lý liên tục thành các bit, xử lý chúng, rồi đẩy kết quả trở lại thế giới vật lý.",
       ),
       buildFlowDiagram(),
     ),
@@ -83,9 +83,9 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Classify the part",
+      "Phân loại thành phần",
       p(
-        "For each example below, choose whether the stage shown is analog, digital, or a converter between the two.",
+        "Với mỗi ví dụ bên dưới, hãy chọn liệu giai đoạn đó là analog, digital, hay bộ chuyển đổi giữa hai loại.",
       ),
       buildClassifier(),
     ),
@@ -97,36 +97,36 @@ function render(container) {
       [
         {
           prompt:
-            "In a digital thermometer, the <strong>thermistor</strong> outputs a continuously varying voltage. This stage is:",
+            "Trong nhiệt kế digital, <strong>nhiệt điện trở (thermistor)</strong> xuất ra điện áp thay đổi liên tục. Giai đoạn này là:",
           options: [
             { label: "Analog" },
             { label: "Digital" },
-            { label: "A converter between analog and digital" },
-            { label: "Mechanical only" },
+            { label: "Bộ chuyển đổi giữa analog và digital" },
+            { label: "Chỉ là cơ học" },
           ],
           answer: 0,
-          hint: "Is the thermistor's output continuous or discrete?",
-          explanation: "The thermistor's voltage is continuous — that's analog. The ADC after it does the conversion.",
+          hint: "Đầu ra của nhiệt điện trở là liên tục hay rời rạc?",
+          explanation: "Điện áp của nhiệt điện trở là liên tục — đó là analog. ADC sau nó mới thực hiện việc chuyển đổi.",
         },
         {
-          prompt: "Which block <strong>turns voltage into bits</strong>?",
-          options: [{ label: "DAC" }, { label: "ADC" }, { label: "CPU" }, { label: "Actuator" }],
+          prompt: "Khối nào <strong>chuyển điện áp thành bit</strong>?",
+          options: [{ label: "DAC" }, { label: "ADC" }, { label: "CPU" }, { label: "Cơ cấu chấp hành" }],
           answer: 1,
-          hint: "ADC = Analog-to-Digital Converter.",
-          explanation: "The ADC samples the voltage at regular intervals and quantises it into a multi-bit number.",
+          hint: "ADC = Bộ chuyển đổi Analog-sang-Digital.",
+          explanation: "ADC lấy mẫu điện áp theo chu kỳ đều và lượng hóa nó thành số nhiều bit.",
         },
         {
-          prompt: "Which of these systems is best described as <strong>mixed analog + digital</strong>?",
+          prompt: "Hệ thống nào sau đây được mô tả tốt nhất là <strong>hỗn hợp analog + digital</strong>?",
           options: [
-            { label: "A pocket calculator" },
-            { label: "A USB cable" },
-            { label: "A smart-speaker that listens, processes voice, and plays audio" },
-            { label: "A purely mechanical clock" },
+            { label: "Máy tính bỏ túi" },
+            { label: "Cáp USB" },
+            { label: "Loa thông minh lắng nghe, xử lý giọng nói và phát âm thanh" },
+            { label: "Đồng hồ cơ thuần túy" },
           ],
           answer: 2,
-          hint: "Mixed systems sense the physical world and act on it.",
+          hint: "Hệ thống hỗn hợp cảm nhận thế giới vật lý và tác động lên nó.",
           explanation:
-            "The smart speaker has a microphone (analog sense), ADC, digital processor, DAC, and amplifier-speaker (analog actuator) — that's the textbook mixed system.",
+            "Loa thông minh có microphone (cảm biến analog), ADC, bộ xử lý digital, DAC và bộ khuếch đại-loa (cơ cấu chấp hành analog) — đó là hệ thống hỗn hợp điển hình.",
         },
       ],
     ),
@@ -134,11 +134,11 @@ function render(container) {
 
   container.appendChild(
     section(
-      "Summary",
+      "Tóm tắt",
       summary(null, [
-        "Most real systems are <strong>mixed</strong>: sensors and actuators are analog; processing is digital; <em>ADC</em> and <em>DAC</em> bridge the two.",
-        "Signals travel <em>physical → analog → digital → analog → physical</em>.",
-        "Identifying which stage is which is the first step in designing or troubleshooting a system.",
+        "Hầu hết hệ thống thực đều là <strong>hỗn hợp</strong>: cảm biến và cơ cấu chấp hành là analog; xử lý là digital; <em>ADC</em> và <em>DAC</em> kết nối hai thế giới.",
+        "Tín hiệu di chuyển theo hướng <em>vật lý → analog → digital → analog → vật lý</em>.",
+        "Xác định giai đoạn nào thuộc loại nào là bước đầu tiên trong thiết kế hoặc khắc phục sự cố hệ thống.",
       ]),
     ),
   );
@@ -165,7 +165,7 @@ function buildFlowDiagram() {
 function typeLabel(t) {
   if (t === "analog") return "ANALOG";
   if (t === "digital") return "DIGITAL";
-  return "CONVERTER";
+  return "CHUYỂN ĐỔI";
 }
 
 function buildChainBuilder() {
@@ -224,17 +224,17 @@ function buildChainBuilder() {
     el("div", { class: "row", style: { marginTop: "12px" } }, [
       el("button", {
         class: "btn btn-primary",
-        text: "Check order",
+        text: "Kiểm tra thứ tự",
         onclick: () => {
           clear(feedback);
           const correct = order.every((s, i) => s.key === stages[i].key);
           feedback.appendChild(
             el("div", { class: correct ? "alert alert-success" : "alert alert-warning" }, [
-              el("strong", { text: correct ? "Correct order. " : "Not yet. " }),
+              el("strong", { text: correct ? "Đúng thứ tự! " : "Chưa đúng. " }),
               el("span", {
                 text: correct
-                  ? "The signal flows physical → sensor → ADC → processor → DAC → actuator."
-                  : "Hint: the signal must be analog before the ADC and digital after it.",
+                  ? "Tín hiệu chạy: vật lý → cảm biến → ADC → bộ xử lý → DAC → cơ cấu chấp hành."
+                  : "Gợi ý: tín hiệu phải là analog trước ADC và digital sau nó.",
               }),
             ]),
           );
@@ -242,7 +242,7 @@ function buildChainBuilder() {
       }),
       el("button", {
         class: "btn btn-outline",
-        text: "Shuffle",
+        text: "Xáo trộn",
         onclick: () => {
           order.sort(() => Math.random() - 0.5);
           rerender();
@@ -251,7 +251,7 @@ function buildChainBuilder() {
       }),
       el("button", {
         class: "btn btn-ghost",
-        text: "Show solution",
+        text: "Xem đáp án",
         onclick: () => {
           order.length = 0;
           stages.forEach((s) => order.push(s));
@@ -267,12 +267,12 @@ function buildChainBuilder() {
 
 function buildClassifier() {
   const items = [
-    { name: "Microphone diaphragm", answer: "analog", reason: "Outputs continuous voltage from sound pressure." },
-    { name: "Memory chip storing bits", answer: "digital", reason: "Stores discrete 0/1 values." },
-    { name: "Speaker driver", answer: "analog", reason: "Drives a continuous current to move the cone." },
-    { name: "ADC inside a microphone preamp", answer: "boundary", reason: "Converts voltage into a binary code." },
-    { name: "Push button (pressed / not pressed)", answer: "digital", reason: "Only two discrete states." },
-    { name: "Brightness slider on a smart bulb", answer: "boundary", reason: "User-facing dial, but the bulb stores a number — a converter between human-analog and digital control." },
+    { name: "Màng rung microphone", answer: "analog", reason: "Xuất điện áp liên tục từ áp suất âm thanh." },
+    { name: "Chip nhớ lưu trữ bit", answer: "digital", reason: "Lưu trữ giá trị rời rạc 0/1." },
+    { name: "Bộ điều khiển loa", answer: "analog", reason: "Điều khiển dòng điện liên tục để di chuyển màng loa." },
+    { name: "ADC trong preamp microphone", answer: "boundary", reason: "Chuyển đổi điện áp thành mã nhị phân." },
+    { name: "Nút nhấn (nhấn / không nhấn)", answer: "digital", reason: "Chỉ có hai trạng thái rời rạc." },
+    { name: "Thanh trượt độ sáng của bóng đèn thông minh", answer: "boundary", reason: "Núm điều khiển phía người dùng, nhưng bóng đèn lưu một số — bộ chuyển đổi giữa điều khiển analog-người-dùng và digital." },
   ];
 
   const card = el("div", { class: "card" });
@@ -300,7 +300,7 @@ function buildClassifier() {
         buttons.appendChild(
           el("button", {
             class: cls,
-            text: opt === "boundary" ? "Converter" : opt[0].toUpperCase() + opt.slice(1),
+            text: opt === "boundary" ? "Bộ chuyển đổi" : opt === "analog" ? "Analog" : "Digital",
             disabled: revealed,
             onclick: () => {
               chosen = opt;
@@ -310,7 +310,7 @@ function buildClassifier() {
               const ok = opt === it.answer;
               fb.appendChild(
                 el("div", { class: ok ? "quiz-feedback ok" : "quiz-feedback bad" }, [
-                  el("strong", { text: ok ? "Correct. " : "Not quite. " }),
+                  el("strong", { text: ok ? "Đúng rồi. " : "Chưa đúng. " }),
                   el("span", { text: it.reason }),
                 ]),
               );

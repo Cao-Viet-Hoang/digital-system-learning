@@ -2,18 +2,18 @@
 import { toBinary, toHex, decToBcd, binToGray, decToGray, randInt, shuffle } from "./conversions.js";
 
 export const topics = [
-  { id: "binary", label: "Binary numbers", lesson: "binary-numbers" },
-  { id: "logic", label: "Logic levels", lesson: "logic-levels" },
-  { id: "waveform", label: "Digital waveforms", lesson: "digital-waveforms" },
-  { id: "decimal", label: "Decimal expansion", lesson: "decimal" },
-  { id: "hex", label: "Hexadecimal", lesson: "hexadecimal" },
-  { id: "d2b", label: "Decimal → Binary", lesson: "base-conversion" },
-  { id: "b2d", label: "Binary → Decimal", lesson: "base-conversion" },
-  { id: "d2h", label: "Decimal → Hex", lesson: "base-conversion" },
-  { id: "h2d", label: "Hex → Decimal", lesson: "base-conversion" },
-  { id: "b2h", label: "Binary → Hex", lesson: "base-conversion" },
-  { id: "bcd", label: "BCD encoding", lesson: "bcd" },
-  { id: "gray", label: "Gray code", lesson: "gray-code" },
+  { id: "binary", label: "Số nhị phân", lesson: "binary-numbers" },
+  { id: "logic", label: "Mức logic", lesson: "logic-levels" },
+  { id: "waveform", label: "Dạng sóng số", lesson: "digital-waveforms" },
+  { id: "decimal", label: "Hệ thập phân", lesson: "decimal" },
+  { id: "hex", label: "Thập lục phân", lesson: "hexadecimal" },
+  { id: "d2b", label: "Thập phân → Nhị phân", lesson: "base-conversion" },
+  { id: "b2d", label: "Nhị phân → Thập phân", lesson: "base-conversion" },
+  { id: "d2h", label: "Thập phân → Hex", lesson: "base-conversion" },
+  { id: "h2d", label: "Hex → Thập phân", lesson: "base-conversion" },
+  { id: "b2h", label: "Nhị phân → Hex", lesson: "base-conversion" },
+  { id: "bcd", label: "Mã hóa BCD", lesson: "bcd" },
+  { id: "gray", label: "Mã Gray", lesson: "gray-code" },
   { id: "ascii", label: "ASCII", lesson: "ascii" },
 ];
 
@@ -29,23 +29,23 @@ const generators = {
     const bin = toBinary(n, 8);
     const opts = uniqueAround(n, 3, 0, 255);
     return makeMc(
-      `What is the decimal value of <span class='mono'>${bin}</span>?`,
+      `Giá trị thập phân của <span class='mono'>${bin}</span> là bao nhiêu?`,
       opts,
       n,
-      `Add up the place values (1, 2, 4, 8, 16, 32, 64, 128) for each 1-bit.`,
+      `Cộng các giá trị vị trí (1, 2, 4, 8, 16, 32, 64, 128) cho mỗi bit bằng 1.`,
       `<span class='mono'>${bin}</span> = ${n}.`,
       { topic: "binary" },
     );
   },
   logic(d) {
     const v = Math.round(Math.random() * 50) / 10;
-    const answer = v <= 0.8 ? "Logic 0" : v >= 2.0 ? "Logic 1" : "Undefined";
-    const options = ["Logic 0", "Logic 1", "Undefined"];
+    const answer = v <= 0.8 ? "Logic 0" : v >= 2.0 ? "Logic 1" : "Không xác định";
+    const options = ["Logic 0", "Logic 1", "Không xác định"];
     return makeMc(
-      `On a 5 V system, an input of <strong>${v.toFixed(1)} V</strong> reads as:`,
+      `Trên hệ thống 5 V, đầu vào <strong>${v.toFixed(1)} V</strong> được đọc là:`,
       options,
       answer,
-      "Logic 0: ≤ 0.8 V; Logic 1: ≥ 2.0 V; everything else is undefined.",
+      "Logic 0: ≤ 0,8 V; Logic 1: ≥ 2,0 V; mọi giá trị khác là không xác định.",
       `${v.toFixed(1)} V → ${answer}.`,
       { topic: "logic" },
     );
@@ -60,10 +60,10 @@ const generators = {
       if (cand !== ans && !wrong.includes(cand)) wrong.push(cand);
     }
     return makeMc(
-      `A waveform goes <em>${trace}</em>. What bit pattern is that (MSB first)?`,
+      `Dạng sóng đi <em>${trace}</em>. Đó là chuỗi bit nào (MSB đầu tiên)?`,
       [ans, ...wrong].map((b) => `<span class='mono'>${b}</span>`),
       `<span class='mono'>${ans}</span>`,
-      "high → 1, low → 0, in the order the waveform shows.",
+      "cao → 1, thấp → 0, theo thứ tự dạng sóng hiển thị.",
       `<span class='mono'>${ans}</span>.`,
       { topic: "waveform" },
     );
@@ -76,11 +76,11 @@ const generators = {
     const digit = parseInt(n[digits - 1 - pos], 10);
     const place = Math.pow(10, pos);
     return makeMc(
-      `In the decimal number <strong>${n}</strong>, what is the <em>place value</em> of the digit <strong>${digit}</strong> at position ${pos} (from the right)?`,
+      `Trong số thập phân <strong>${n}</strong>, <em>giá trị vị trí</em> của chữ số <strong>${digit}</strong> tại vị trí ${pos} (từ phải) là bao nhiêu?`,
       [place, place * 10, place / 10 || 1, place * 100].map(String),
       String(place),
-      "Place value = 10^position, counting positions from the right starting at 0.",
-      `Position ${pos} → 10^${pos} = ${place}.`,
+      "Giá trị vị trí = 10^vị_trí, đếm từ phải bắt đầu từ 0.",
+      `Vị trí ${pos} → 10^${pos} = ${place}.`,
       { topic: "decimal" },
     );
   },
@@ -89,10 +89,10 @@ const generators = {
     const hex = toHex(n);
     const opts = uniqueAround(n, 3, 0, 255);
     return makeMc(
-      `Convert hex <span class='mono'>${hex}</span> to decimal.`,
+      `Chuyển hex <span class='mono'>${hex}</span> sang thập phân.`,
       opts,
       n,
-      "Each hex digit is multiplied by a power of 16.",
+      "Mỗi chữ số hex nhân với một lũy thừa của 16.",
       `<span class='mono'>${hex}</span> = ${n}.`,
       { topic: "hex" },
     );
@@ -102,10 +102,10 @@ const generators = {
     const bin = toBinary(n);
     const wrong = uniqueBinAround(bin, 3);
     return makeMc(
-      `Convert decimal <strong>${n}</strong> to binary.`,
+      `Chuyển số thập phân <strong>${n}</strong> sang nhị phân.`,
       [bin, ...wrong].map((b) => `<span class='mono'>${b}</span>`),
       `<span class='mono'>${bin}</span>`,
-      "Divide by 2 repeatedly; read remainders bottom-up.",
+      "Chia liên tiếp cho 2; đọc phần dư từ dưới lên.",
       `${n} = <span class='mono'>${bin}</span>.`,
       { topic: "d2b" },
     );
@@ -115,10 +115,10 @@ const generators = {
     const bin = toBinary(n);
     const opts = uniqueAround(n, 3, 0, 255);
     return makeMc(
-      `Convert binary <span class='mono'>${bin}</span> to decimal.`,
+      `Chuyển nhị phân <span class='mono'>${bin}</span> sang thập phân.`,
       opts,
       n,
-      "Add weights of 1-bits.",
+      "Cộng trọng số của các bit bằng 1.",
       `<span class='mono'>${bin}</span> = ${n}.`,
       { topic: "b2d" },
     );
@@ -128,10 +128,10 @@ const generators = {
     const hex = toHex(n);
     const wrong = uniqueHexAround(hex, 3);
     return makeMc(
-      `Convert decimal <strong>${n}</strong> to hex.`,
+      `Chuyển số thập phân <strong>${n}</strong> sang hex.`,
       [hex, ...wrong].map((h) => `<span class='mono'>${h}</span>`),
       `<span class='mono'>${hex}</span>`,
-      "Divide by 16 repeatedly.",
+      "Chia liên tiếp cho 16.",
       `${n} = <span class='mono'>${hex}</span>.`,
       { topic: "d2h" },
     );
@@ -145,10 +145,10 @@ const generators = {
     const hex = toHex(n, 2);
     const wrong = uniqueHexAround(hex, 3);
     return makeMc(
-      `Convert binary <span class='mono'>${bin}</span> to hex.`,
+      `Chuyển nhị phân <span class='mono'>${bin}</span> sang hex.`,
       [hex, ...wrong].map((h) => `<span class='mono'>${h}</span>`),
       `<span class='mono'>${hex}</span>`,
-      "Group bits in fours from the right.",
+      "Nhóm bit thành nhóm 4 từ phải sang.",
       `<span class='mono'>${bin}</span> = <span class='mono'>${hex}</span>.`,
       { topic: "b2h" },
     );
@@ -165,10 +165,10 @@ const generators = {
       decToBcd(n - 1 < 10 ? n + 1 : n - 1).map((g) => g.bits).join(" "),
     ];
     return makeMc(
-      `Encode decimal <strong>${n}</strong> as BCD.`,
+      `Mã hóa số thập phân <strong>${n}</strong> sang BCD.`,
       [bcd, ...wrongs].map((s) => `<span class='mono'>${s}</span>`),
       `<span class='mono'>${bcd}</span>`,
-      "Encode each digit as its own 4-bit group.",
+      "Mã hóa từng chữ số thành nhóm 4-bit riêng.",
       `${n} → BCD <span class='mono'>${bcd}</span>.`,
       { topic: "bcd" },
     );
@@ -179,7 +179,7 @@ const generators = {
     const gray = decToGray(n, 4);
     const wrongs = uniqueBinAround(gray, 3).filter((w) => w !== gray);
     return makeMc(
-      `What is the Gray code for binary <span class='mono'>${bin}</span>?`,
+      `Mã Gray của nhị phân <span class='mono'>${bin}</span> là gì?`,
       [gray, ...wrongs.slice(0, 3)].map((g) => `<span class='mono'>${g}</span>`),
       `<span class='mono'>${gray}</span>`,
       "G[0] = B[0]; G[i] = B[i-1] XOR B[i].",
@@ -192,10 +192,10 @@ const generators = {
     const code = ch.charCodeAt(0);
     const opts = uniqueAround(code, 3, 32, 127);
     return makeMc(
-      `What is the ASCII code (decimal) for the character <strong>'${ch}'</strong>?`,
+      `Mã ASCII (thập phân) của ký tự <strong>'${ch}'</strong> là bao nhiêu?`,
       opts,
       code,
-      "Common ranges: digits 48..57, uppercase 65..90, lowercase 97..122.",
+      "Phạm vi thường gặp: chữ số 48..57, chữ hoa 65..90, chữ thường 97..122.",
       `'${ch}' = ${code}.`,
       { topic: "ascii" },
     );
