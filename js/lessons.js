@@ -11,6 +11,11 @@ import lesson09 from "./lessons/09-base-conversion.js";
 import lesson10 from "./lessons/10-bcd.js";
 import lesson11 from "./lessons/11-gray-code.js";
 import lesson12 from "./lessons/12-ascii.js";
+import lesson13 from "./lessons/13-basic-gates.js";
+import lesson14 from "./lessons/14-derived-gates.js";
+import lesson15 from "./lessons/15-logic-circuits.js";
+import lesson16 from "./lessons/16-boolean-theorems.js";
+import lesson17 from "./lessons/17-universal-gates.js";
 
 export const lessons = [
   lesson01,
@@ -25,6 +30,11 @@ export const lessons = [
   lesson10,
   lesson11,
   lesson12,
+  lesson13,
+  lesson14,
+  lesson15,
+  lesson16,
+  lesson17,
 ];
 
 export function getLesson(id) {
