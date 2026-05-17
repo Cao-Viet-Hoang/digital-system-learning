@@ -358,7 +358,8 @@ function kmapWithGroupsPOS({ vars, rows, cols, zeroMinterms, groups, opts, pos, 
   const totalH = HEAD_H + rows * CELL_H;
 
   const wrap = el("div", { class: "card", style: { padding: "12px", display: "flex", flexDirection: "column", alignItems: "center" } });
-  const stage = el("div", { style: { position: "relative", width: `${totalW}px`, height: `${totalH}px` } });
+  const scroll = el("div", { class: "kmap-scroll" });
+  const stage = el("div", { class: "kmap-stage", style: { position: "relative", width: `${totalW}px`, height: `${totalH}px`, margin: "0 auto" } });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", position: "absolute", top: "0", left: "0" } });
 
   const headerRow = el("tr");
@@ -440,7 +441,8 @@ function kmapWithGroupsPOS({ vars, rows, cols, zeroMinterms, groups, opts, pos, 
     });
   });
 
-  wrap.appendChild(stage);
+  scroll.appendChild(stage);
+  wrap.appendChild(scroll);
 
   if (groups && groups.length) {
     const legend = el("div", { style: { display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", marginTop: "10px" } });

@@ -337,3 +337,141 @@
   color: var(--c-peach-deep);
   font-weight: 700;
 }
+
+/* K-map horizontal scroll container.
+   K-maps render at fixed pixel sizes (up to ~310px wide for the 4-var map).
+   On narrow viewports we let them scroll horizontally rather than overflow the page.
+   Inner element gets `margin: 0 auto` so it stays centered when the viewport is
+   wide enough — and we use `display: inline-block` via text-align trick. */
+.kmap-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.kmap-scroll > * {
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+}
+
+/* Generic horizontal-scroll wrapper for wide content (truth tables, etc.) */
+.scroll-x {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* SVG diagrams: never let them push the page wider than the viewport. */
+.lesson-section svg,
+.card svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Mobile breakpoints                                                       */
+/* ------------------------------------------------------------------------ */
+
+@media (max-width: 720px) {
+  .lesson-header h1 {
+    font-size: 22px;
+  }
+  .lesson-header .badge {
+    font-size: 11px;
+  }
+  .lesson-objective {
+    padding: var(--s-3) var(--s-4);
+    gap: var(--s-2);
+    margin-bottom: var(--s-5);
+  }
+  .lesson-objective-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+  .lesson-objective-label {
+    font-size: 11px;
+  }
+  .lesson-section {
+    margin-bottom: var(--s-6);
+  }
+  .lesson-section-title {
+    gap: var(--s-2);
+    margin-bottom: var(--s-3);
+  }
+  .lesson-section-title h2 {
+    font-size: 18px;
+  }
+  .lesson-section-num {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  /* Footer prev/next stacks and full width */
+  .lesson-footer {
+    flex-direction: column;
+    margin-top: var(--s-6);
+    padding-top: var(--s-4);
+  }
+  .lesson-nav-btn {
+    min-width: 0;
+    width: 100%;
+  }
+  .lesson-nav-btn.right {
+    text-align: left;
+  }
+
+  /* Quiz padding */
+  .quiz {
+    padding: var(--s-4);
+  }
+  .quiz-q {
+    font-size: 14px;
+  }
+  .quiz-option {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+  .quiz-progress {
+    font-size: 12px;
+  }
+
+  /* Summary panel */
+  .summary {
+    padding: var(--s-4);
+  }
+  .summary ul {
+    padding-left: var(--s-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson-header h1 {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  .lesson-section-title h2 {
+    font-size: 16px;
+  }
+  .lesson-objective {
+    flex-direction: column;
+    padding: var(--s-3);
+  }
+  .lesson-objective-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Smaller quiz option markers */
+  .quiz-option-marker {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+  .quiz-actions .btn {
+    flex: 1;
+  }
+}

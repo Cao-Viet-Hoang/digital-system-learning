@@ -196,3 +196,52 @@ textarea {
 .small {
   font-size: 13px;
 }
+
+/* Prevent inline content (long mono strings, URLs) from forcing horizontal scroll on mobile. */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+pre,
+code,
+.mono {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile typography */
+@media (max-width: 720px) {
+  body {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 16px;
+  }
+  h4 {
+    font-size: 15px;
+  }
+  .small {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+}

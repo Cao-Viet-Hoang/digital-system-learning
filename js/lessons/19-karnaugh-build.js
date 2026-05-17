@@ -258,6 +258,7 @@ function kmap2Demo() {
 function buildKmap2(values, onToggle) {
   // Header row: B=0, B=1. Rows: A=0, A=1.
   // minterm index = A*2 + B.
+  const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
     el("th", { html: "<span class='mono'>A \\ B</span>", style: hStyle() }),
@@ -274,7 +275,8 @@ function buildKmap2(values, onToggle) {
     }
     table.appendChild(row);
   }
-  return table;
+  scroll.appendChild(table);
+  return scroll;
 }
 
 // 3-variable K-map (A rows, BC columns Gray-coded).
@@ -302,6 +304,7 @@ const BC_GRAY = [
 const BC_LABEL = ["00", "01", "11", "10"];
 
 function buildKmap3(values, onToggle) {
+  const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
     el("th", { html: "<span class='mono'>A \\ BC</span>", style: hStyle() }),
@@ -318,7 +321,8 @@ function buildKmap3(values, onToggle) {
     }
     table.appendChild(row);
   }
-  return table;
+  scroll.appendChild(table);
+  return scroll;
 }
 
 // 4-variable K-map (AB rows Gray-coded, CD columns Gray-coded).
@@ -345,6 +349,7 @@ const AB_GRAY = [
 const AB_LABEL = ["00", "01", "11", "10"];
 
 function buildKmap4(values, onToggle) {
+  const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
     el("th", { html: "<span class='mono'>AB \\ CD</span>", style: hStyle() }),
@@ -362,7 +367,8 @@ function buildKmap4(values, onToggle) {
     }
     table.appendChild(row);
   }
-  return table;
+  scroll.appendChild(table);
+  return scroll;
 }
 
 // Helper: pre-filled 3-variable K-map for examples (read-only).
