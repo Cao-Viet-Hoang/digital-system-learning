@@ -384,29 +384,40 @@ function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowL
 
   const CELL_W = 56, CELL_H = 56;
   const HEAD_W = 64, HEAD_H = 32;
-  const totalW = HEAD_W + cols * CELL_W;
-  const totalH = HEAD_H + rows * CELL_H;
 
   const wrap = el("div", { class: "card", style: { padding: "12px", display: "flex", flexDirection: "column", alignItems: "center" } });
   const scroll = el("div", { class: "kmap-scroll" });
-  const stage = el("div", { class: "kmap-stage", style: { position: "relative", width: `${totalW}px`, height: `${totalH}px`, margin: "0 auto" } });
+  // Stage sizes itself to the table — we measure actual cell positions after mount.
+  const stage = el("div", { class: "kmap-stage", style: { position: "relative", display: "inline-block" } });
 
-  // Build the underlying table.
+  // Build the underlying table. `table-layout: fixed` keeps column widths predictable.
   const table = el("table", {
     class: "kmap",
-    style: { borderCollapse: "collapse", position: "absolute", top: "0", left: "0" },
+    style: { borderCollapse: "collapse", tableLayout: "fixed" },
   });
+
+  // <colgroup> guarantees deterministic column widths.
+  const colgroup = document.createElement("colgroup");
+  const headCol = document.createElement("col");
+  headCol.style.width = `${HEAD_W}px`;
+  colgroup.appendChild(headCol);
+  for (let c = 0; c < cols; c++) {
+    const cc = document.createElement("col");
+    cc.style.width = `${CELL_W}px`;
+    colgroup.appendChild(cc);
+  }
+  table.appendChild(colgroup);
 
   // Header row.
   const headerRow = el("tr");
   headerRow.appendChild(el("th", {
     html: `<span class='mono'>${header}</span>`,
-    style: { ...hStyle(), width: `${HEAD_W}px`, height: `${HEAD_H}px` },
+    style: { ...hStyle(), height: `${HEAD_H}px` },
   }));
   for (let c = 0; c < cols; c++) {
     headerRow.appendChild(el("th", {
       text: colLabel(c),
-      style: { ...hStyle(), width: `${CELL_W}px`, height: `${HEAD_H}px` },
+      style: { ...hStyle(), height: `${HEAD_H}px` },
     }));
   }
   table.appendChild(headerRow);
@@ -415,18 +426,16 @@ function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowL
     const tr = el("tr");
     tr.appendChild(el("th", {
       text: rowLabel(r),
-      style: { ...hStyle(), width: `${HEAD_W}px`, height: `${CELL_H}px` },
+      style: { ...hStyle(), height: `${CELL_H}px` },
     }));
     for (let c = 0; c < cols; c++) {
-      // Find minterm index from (r, c).
       const idx = mintermFromPos(vars, r, c);
       const isOne = ones.has(idx);
       const isX = dontcares.has(idx);
       const val = isX ? "X" : isOne ? "1" : "0";
       const bg = isX ? COLORS.logicXBg : isOne ? COLORS.logic1Bg : COLORS.logic0Bg;
-      tr.appendChild(el("td", {
+      const td = el("td", {
         style: {
-          width: `${CELL_W}px`,
           height: `${CELL_H}px`,
           border: `1.5px solid ${COLORS.borderStrong}`,
           textAlign: "center",
@@ -451,39 +460,70 @@ function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowL
           },
           text: String(idx),
         }),
-      ]));
+      ]);
+      td.dataset.mt = String(idx);
+      tr.appendChild(td);
     }
     table.appendChild(tr);
   }
   stage.appendChild(table);
 
-  // Group overlays — split per row segment so wrap-around is visually clear.
+  // Overlays — placed first with estimated positions, then snapped to actual cells after mount.
+  const overlayPlans = [];
   (groups || []).forEach((g) => {
     const color = GROUP_COLORS[g.color % GROUP_COLORS.length];
     const segments = groupSegments(g.cells, pos, cols);
     segments.forEach((seg) => {
-      const x = HEAD_W + seg.colStart * CELL_W + 3;
-      const y = HEAD_H + seg.rowStart * CELL_H + 3;
-      const w = (seg.colEnd - seg.colStart + 1) * CELL_W - 6;
-      const h = (seg.rowEnd - seg.rowStart + 1) * CELL_H - 6;
-      stage.appendChild(el("div", {
+      const overlay = el("div", {
         style: {
           position: "absolute",
-          left: `${x}px`,
-          top: `${y}px`,
-          width: `${w}px`,
-          height: `${h}px`,
           background: color.fill,
           border: `2.5px solid ${color.stroke}`,
           borderRadius: "10px",
           pointerEvents: "none",
+          boxSizing: "border-box",
+          // Initial estimate (used until rAF refines it).
+          left: `${HEAD_W + seg.colStart * CELL_W + 3}px`,
+          top: `${HEAD_H + seg.rowStart * CELL_H + 3}px`,
+          width: `${(seg.colEnd - seg.colStart + 1) * CELL_W - 6}px`,
+          height: `${(seg.rowEnd - seg.rowStart + 1) * CELL_H - 6}px`,
         },
-      }));
+      });
+      stage.appendChild(overlay);
+      overlayPlans.push({ overlay, seg });
     });
   });
 
   scroll.appendChild(stage);
   wrap.appendChild(scroll);
+
+  // After the stage is in the DOM and laid out, measure actual cell rects and snap
+  // each overlay to span its segment exactly. Retries on next frame until the table
+  // has a non-zero size (e.g., if it hasn't been inserted into the DOM yet).
+  function snapOverlays() {
+    if (!table.isConnected || table.offsetWidth === 0) {
+      requestAnimationFrame(snapOverlays);
+      return;
+    }
+    const stageRect = stage.getBoundingClientRect();
+    overlayPlans.forEach(({ overlay, seg }) => {
+      const firstIdx = mintermFromPos(vars, seg.rowStart, seg.colStart);
+      const lastIdx = mintermFromPos(vars, seg.rowEnd, seg.colEnd);
+      const firstCell = table.querySelector(`td[data-mt="${firstIdx}"]`);
+      const lastCell = table.querySelector(`td[data-mt="${lastIdx}"]`);
+      if (!firstCell || !lastCell) return;
+      const r1 = firstCell.getBoundingClientRect();
+      const r2 = lastCell.getBoundingClientRect();
+      const inset = 3;
+      overlay.style.left = `${r1.left - stageRect.left + inset}px`;
+      overlay.style.top = `${r1.top - stageRect.top + inset}px`;
+      overlay.style.width = `${r2.right - r1.left - 2 * inset}px`;
+      overlay.style.height = `${r2.bottom - r1.top - 2 * inset}px`;
+    });
+  }
+  if (overlayPlans.length) {
+    requestAnimationFrame(snapOverlays);
+  }
 
   if (groups && groups.length) {
     const legend = el("div", { style: { display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", marginTop: "10px" } });
