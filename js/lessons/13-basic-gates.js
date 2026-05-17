@@ -1,16 +1,16 @@
-// Lesson 13: Các cổng logic cơ bản — OR, AND, NOT.
+// Lesson 13: Các cổng logic cơ bản — NOT, OR, AND.
 import { el, clear } from "../utils/dom.js";
 import { section, summary, quizSection, p, splitView, resetSectionCounter } from "../utils/lesson-ui.js";
 import { COLORS } from "../utils/colors.js";
-import { computeGate, gatePlayground, gateInfoCard, truthTableCard } from "../utils/gates.js";
+import { computeGate, drawGate, drawWire, drawPort, gatePlayground, gateInfoCard, truthTableCard } from "../utils/gates.js";
 
 export default {
   id: "basic-gates",
   order: 13,
-  title: "Cổng logic cơ bản – OR, AND, NOT",
+  title: "Cổng logic cơ bản – NOT, OR, AND",
   subtitle: "Ba viên gạch nền tảng để xây mọi mạch số.",
   objective:
-    "Hiểu được phép toán OR, AND, NOT; đọc và viết bảng chân trị; dự đoán ngõ ra của một cổng khi biết ngõ vào.",
+    "Hiểu được phép toán NOT, OR, AND; đọc và viết bảng chân trị; dự đoán ngõ ra của một cổng khi biết ngõ vào.",
   render,
 };
 
@@ -25,8 +25,23 @@ function render(container) {
         "Ở các bài trước, ta biết mạch số chỉ làm việc với hai mức điện áp — gọi là <strong>logic 0</strong> và <strong>logic 1</strong>. Một <em>cổng logic</em> (logic gate) là mạch điện nhỏ nhất nhận một hoặc hai mức logic ở ngõ vào và sinh ra một mức logic ở ngõ ra theo một <em>quy tắc cố định</em>.",
       ),
       p(
-        "Mọi vi xử lý, bộ nhớ và mạch điều khiển đều được dựng từ tổ hợp ba cổng nền tảng: <strong>OR</strong>, <strong>AND</strong>, <strong>NOT</strong>. Trong bài này, ta sẽ làm quen với cả ba: ký hiệu, biểu thức Boole, bảng chân trị và mạch điện minh hoạ.",
+        "Mọi vi xử lý, bộ nhớ và mạch điều khiển đều được dựng từ tổ hợp ba cổng nền tảng: <strong>NOT</strong>, <strong>OR</strong>, <strong>AND</strong>. Trong bài này, ta sẽ làm quen với cả ba: ký hiệu, biểu thức Boole, bảng chân trị và mạch điện minh hoạ.",
       ),
+    ),
+  );
+
+  // NOT gate — first
+  container.appendChild(
+    section(
+      "Phép toán NOT – cổng NOT (INVERTER)",
+      p(
+        "Cổng NOT chỉ có <strong>một ngõ vào</strong> và <strong>một ngõ ra</strong>. Nó <em>đảo trạng thái</em>: 0 thành 1, 1 thành 0. Ký hiệu là một dấu gạch ngang trên biến (<span style='text-decoration:overline'>A</span>) hoặc dấu nháy đơn (A'). Đây là cổng đơn giản nhất và là nền tảng để tạo ra các cổng phủ định (NAND, NOR, XNOR).",
+      ),
+      splitView(
+        gatePlayground("NOT"),
+        gateInfoCard("NOT"),
+      ),
+      truthTableCard("NOT"),
     ),
   );
 
@@ -35,7 +50,7 @@ function render(container) {
     section(
       "Phép toán OR – cổng OR",
       p(
-        "Cổng OR cho ngõ ra bằng 1 khi <strong>ít nhất một</strong> ngõ vào bằng 1. Tưởng tượng hai công tắc mắc <em>song song</em> nối với bóng đèn — đèn sáng nếu bất kỳ công tắch nào được bật.",
+        "Cổng OR cho ngõ ra bằng 1 khi <strong>ít nhất một</strong> ngõ vào bằng 1. Tưởng tượng hai công tắc mắc <em>song song</em> nối với bóng đèn — đèn sáng nếu bất kỳ công tắc nào được bật.",
       ),
       splitView(
         gatePlayground("OR"),
@@ -60,21 +75,6 @@ function render(container) {
     ),
   );
 
-  // NOT gate
-  container.appendChild(
-    section(
-      "Phép toán NOT – cổng NOT (INVERTER)",
-      p(
-        "Cổng NOT chỉ có <strong>một ngõ vào</strong> và <strong>một ngõ ra</strong>. Nó <em>đảo trạng thái</em>: 0 thành 1, 1 thành 0. Ký hiệu là một dấu gạch ngang trên biến (A̅) hoặc dấu nháy đơn (A').",
-      ),
-      splitView(
-        gatePlayground("NOT"),
-        gateInfoCard("NOT"),
-      ),
-      truthTableCard("NOT"),
-    ),
-  );
-
   // Real-world analogy
   container.appendChild(
     section(
@@ -89,7 +89,7 @@ function render(container) {
     ),
   );
 
-  // Multi-input note
+  // Multi-input section with interactive demos
   container.appendChild(
     section(
       "Cổng nhiều ngõ vào",
@@ -101,6 +101,13 @@ function render(container) {
         el("span", {
           html: "OR giống phép cộng (+), AND giống phép nhân (·). Trong đại số Boole: <code>0 + 0 = 0, 0 + 1 = 1, 1 + 1 = 1</code> và <code>0 · 0 = 0, 0 · 1 = 0, 1 · 1 = 1</code>.",
         }),
+      ]),
+      p(
+        "Cổng 3 ngõ vào được thực hiện bằng cách ghép nối hai cổng 2 ngõ vào. Ví dụ: OR 3 ngõ vào Y = A + B + C = (A + B) + C.",
+      ),
+      el("div", { class: "grid grid-2" }, [
+        multiInputCard("OR"),
+        multiInputCard("AND"),
       ]),
     ),
   );
@@ -126,7 +133,7 @@ function render(container) {
         options: [{ label: "0" }, { label: "1" }, { label: "Vẫn là 1" }],
         answer: 0,
         hint: "NOT đảo trạng thái.",
-        explanation: "Y = A̅ = 1̅ = 0.",
+        explanation: "Y = <span style='text-decoration:overline'>A</span> = <span style='text-decoration:overline'>1</span> = 0.",
       },
       {
         prompt: "Biểu thức Boole nào sau đây <em>không đúng</em>?",
@@ -154,14 +161,139 @@ function render(container) {
     section(
       "Tóm tắt",
       summary(null, [
+        "<strong>NOT</strong>: Y = <span style='text-decoration:overline'>A</span>, đảo trạng thái ngõ vào (0 ↔ 1). Chỉ có một ngõ vào.",
         "<strong>OR</strong>: Y = A + B, bằng 1 khi có ít nhất một ngõ vào bằng 1.",
         "<strong>AND</strong>: Y = A · B, bằng 1 chỉ khi tất cả ngõ vào bằng 1.",
-        "<strong>NOT</strong>: Y = A̅, đảo trạng thái ngõ vào (0 ↔ 1).",
         "Cổng AND/OR có thể có nhiều hơn 2 ngõ vào; quy tắc vẫn giữ nguyên.",
         "OR ~ công tắc <em>song song</em>; AND ~ công tắc <em>nối tiếp</em>; NOT ~ đảo công tắc.",
       ]),
     ),
   );
+}
+
+// ---------------------------------------------------------------------------
+// Multi-input (3-input) interactive card — cascaded 2-input gates.
+
+function multiInputCard(type) {
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const isOR = type === "OR";
+  const card = el("div", { class: "card" });
+  card.appendChild(el("h4", {
+    text: isOR ? "OR – 3 ngõ vào: Y = A + B + C" : "AND – 3 ngõ vào: Y = A · B · C",
+    style: { marginTop: 0 },
+  }));
+  card.appendChild(el("div", {
+    class: "small text-2",
+    style: { textAlign: "center", marginBottom: "8px" },
+    text: "Bấm vào ngõ vào để đổi 0 ↔ 1",
+  }));
+
+  const W = 400, H = 195;
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.style.width = "100%";
+  svg.style.maxHeight = "230px";
+
+  const state = { a: 0, b: 0, c: 0 };
+
+  function rerender() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const ab = computeGate(type, state.a, state.b);
+    const out = computeGate(type, ab, state.c);
+
+    const sc = 1.2;
+    const g1x = 105, g1y = 55;
+    const gate1 = drawGate(svg, type, g1x, g1y, { scale: sc });
+
+    // Align gate2's inA with gate1's output
+    const g2x = 238;
+    const g2y = gate1.out.y - 8 * sc;
+    const gate2 = drawGate(svg, type, g2x, g2y, { scale: sc });
+
+    const portX = 32;
+    const cPortY = 150;
+    const outPortX = 378;
+    const midBendX = g2x - 18; // between the two gates
+
+    // Input wires A and B → gate1
+    drawWire(svg, [{ x: portX, y: gate1.inA.y }, { x: gate1.inA.x, y: gate1.inA.y }], state.a);
+    drawWire(svg, [{ x: portX, y: gate1.inB.y }, { x: gate1.inB.x, y: gate1.inB.y }], state.b);
+    // C wire routed below gate1, then up to gate2.inB
+    drawWire(svg, [
+      { x: portX, y: cPortY },
+      { x: midBendX, y: cPortY },
+      { x: midBendX, y: gate2.inB.y },
+      { x: gate2.inB.x, y: gate2.inB.y },
+    ], state.c);
+    // Intermediate wire gate1 → gate2
+    drawWire(svg, [{ x: gate1.out.x, y: gate1.out.y }, { x: gate2.inA.x, y: gate2.inA.y }], ab);
+    // Output wire
+    drawWire(svg, [{ x: gate2.out.x, y: gate2.out.y }, { x: outPortX, y: gate2.out.y }], out);
+
+    // Input ports
+    const aPort = drawPort(svg, portX, gate1.inA.y, "A", state.a);
+    const bPort = drawPort(svg, portX, gate1.inB.y, "B", state.b);
+    const cPort = drawPort(svg, portX, cPortY, "C", state.c);
+    aPort.style.cursor = bPort.style.cursor = cPort.style.cursor = "pointer";
+    aPort.addEventListener("click", () => { state.a ^= 1; rerender(); });
+    bPort.addEventListener("click", () => { state.b ^= 1; rerender(); });
+    cPort.addEventListener("click", () => { state.c ^= 1; rerender(); });
+
+    // Output port
+    drawPort(svg, outPortX, gate2.out.y, "Y", out);
+
+    // Intermediate value label between the two gates
+    const midLabel = document.createElementNS(SVG_NS, "text");
+    midLabel.setAttribute("x", (gate1.out.x + gate2.inA.x) / 2);
+    midLabel.setAttribute("y", gate1.out.y - 7);
+    midLabel.setAttribute("font-size", "10");
+    midLabel.setAttribute("font-family", "Inter");
+    midLabel.setAttribute("fill", COLORS.text2);
+    midLabel.setAttribute("text-anchor", "middle");
+    midLabel.style.pointerEvents = "none";
+    midLabel.textContent = `A${isOR ? "+" : "·"}B=${ab}`;
+    svg.appendChild(midLabel);
+  }
+
+  card.appendChild(svg);
+  rerender();
+  card.appendChild(multiInputTruthTable(type));
+  return card;
+}
+
+function multiInputTruthTable(type) {
+  const rows = [];
+  for (let a = 0; a <= 1; a++) {
+    for (let b = 0; b <= 1; b++) {
+      for (let c = 0; c <= 1; c++) {
+        const y = computeGate(type, computeGate(type, a, b), c);
+        rows.push([a, b, c, y]);
+      }
+    }
+  }
+  return el("div", { class: "card", style: { marginTop: "8px" } }, [
+    el("div", { class: "small text-2", style: { marginBottom: "6px" }, text: `Bảng chân trị – ${type} 3 ngõ vào` }),
+    el("table", { class: "tbl tbl-bordered", style: { width: "auto", margin: "0 auto" } }, [
+      el("thead", {}, [
+        el("tr", {}, [
+          el("th", { text: "A" }), el("th", { text: "B" }), el("th", { text: "C" }), el("th", { text: "Y" }),
+        ]),
+      ]),
+      el("tbody", {}, rows.map(([a, b, c, y]) =>
+        el("tr", {}, [
+          el("td", { class: "mono", style: { textAlign: "center" }, text: String(a) }),
+          el("td", { class: "mono", style: { textAlign: "center" }, text: String(b) }),
+          el("td", { class: "mono", style: { textAlign: "center" }, text: String(c) }),
+          el("td", { class: "mono", style: {
+            textAlign: "center",
+            background: y === 1 ? COLORS.logic1Bg : COLORS.logic0Bg,
+            fontWeight: "700",
+          }, text: String(y) }),
+        ])
+      )),
+    ]),
+  ]);
 }
 
 // ---------------------------------------------------------------------------

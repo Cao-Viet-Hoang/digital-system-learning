@@ -4,6 +4,8 @@ import { section, summary, quizSection, p, splitView, resetSectionCounter } from
 import { COLORS } from "../utils/colors.js";
 import { drawGate, drawWire, drawPort, computeGate } from "../utils/gates.js";
 
+const ov = (t) => `<span style="text-decoration:overline">${t}</span>`;
+
 export default {
   id: "universal-gates",
   order: 17,
@@ -38,24 +40,24 @@ function render(container) {
       el("div", { class: "stack", style: { gap: "16px" } }, [
         universalCard(
           "NOT từ NAND",
-          "Y = (A · A)̅ = Ā",
-          "Khi cả hai ngõ vào của NAND nối chung A, ta có A · A = A → NAND = Ā. Vậy NAND một ngõ vào = NOT.",
+          `Y = ${ov("A · A")} = ${ov("A")}`,
+          `Khi cả hai ngõ vào của NAND nối chung A, ta có A · A = A → NAND = ${ov("A")}. Vậy NAND một ngõ vào = NOT.`,
           buildNotFromNand,
           (a) => computeGate("NOT", a),
           1,
         ),
         universalCard(
           "AND từ NAND",
-          "Y = ((A · B)̅)̅ = A · B",
-          "Một NAND cho ra (A·B)̅. Đảo lần nữa bằng NAND (cùng ngõ vào) ta được lại A·B.",
+          `Y = ${ov(ov("A · B"))} = A · B`,
+          `Một NAND cho ra ${ov("A·B")}. Đảo lần nữa bằng NAND (cùng ngõ vào) ta được lại A·B.`,
           buildAndFromNand,
           (a, b) => computeGate("AND", a, b),
           2,
         ),
         universalCard(
           "OR từ NAND",
-          "Y = (Ā · B̄)̅ = A + B  (DeMorgan)",
-          "Đảo từng biến trước (NAND-tự-nối = NOT), rồi NAND hai kết quả lại. Theo DeMorgan, kết quả chính là A + B.",
+          `Y = ${ov(ov("A") + " · " + ov("B"))} = A + B  (DeMorgan)`,
+          `Đảo từng biến trước (NAND-tự-nối = NOT), rồi NAND hai kết quả lại. Theo DeMorgan, kết quả chính là A + B.`,
           buildOrFromNand,
           (a, b) => computeGate("OR", a, b),
           2,
@@ -72,24 +74,24 @@ function render(container) {
       el("div", { class: "stack", style: { gap: "16px" } }, [
         universalCard(
           "NOT từ NOR",
-          "Y = (A + A)̅ = Ā",
-          "Cả hai ngõ vào NOR nối A → A + A = A → NOR = Ā.",
+          `Y = ${ov("A + A")} = ${ov("A")}`,
+          `Cả hai ngõ vào NOR nối A → A + A = A → NOR = ${ov("A")}.`,
           buildNotFromNor,
           (a) => computeGate("NOT", a),
           1,
         ),
         universalCard(
           "OR từ NOR",
-          "Y = ((A + B)̅)̅ = A + B",
-          "NOR cho (A+B)̅; đảo lần nữa được A + B.",
+          `Y = ${ov(ov("A + B"))} = A + B`,
+          `NOR cho ${ov("A+B")}; đảo lần nữa được A + B.`,
           buildOrFromNor,
           (a, b) => computeGate("OR", a, b),
           2,
         ),
         universalCard(
           "AND từ NOR",
-          "Y = (Ā + B̄)̅ = A · B  (DeMorgan)",
-          "Đảo từng biến (NOR-tự-nối), rồi NOR lại. Theo DeMorgan, kết quả chính là A · B.",
+          `Y = ${ov(ov("A") + " + " + ov("B"))} = A · B  (DeMorgan)`,
+          `Đảo từng biến (NOR-tự-nối), rồi NOR lại. Theo DeMorgan, kết quả chính là A · B.`,
           buildAndFromNor,
           (a, b) => computeGate("AND", a, b),
           2,
@@ -171,15 +173,15 @@ function render(container) {
           { label: "Không thể tạo được" },
         ],
         answer: 1,
-        hint: "A · A = A → NAND = Ā.",
-        explanation: "NAND(A, A) = (A·A)̅ = Ā → đúng là NOT.",
+        hint: `A · A = A → NAND = ${ov("A")}.`,
+        explanation: `NAND(A, A) = ${ov("A·A")} = ${ov("A")} → đúng là NOT.`,
       },
       {
         prompt: "Để tạo cổng AND chỉ từ NAND, cần ít nhất bao nhiêu cổng NAND?",
         options: [{ label: "1" }, { label: "2" }, { label: "3" }, { label: "4" }],
         answer: 1,
         hint: "AND = NOT(NAND).",
-        explanation: "NAND(A, B) cho (A·B)̅, sau đó dùng NAND tự nối để đảo lần nữa → tổng 2 cổng.",
+        explanation: `NAND(A, B) cho ${ov("A·B")}, sau đó dùng NAND tự nối để đảo lần nữa → tổng 2 cổng.`,
       },
       {
         prompt: "Theo DeMorgan, OR(A, B) = NAND(?, ?) khi dùng toàn NAND.",
@@ -187,11 +189,11 @@ function render(container) {
           { label: "NAND(A, B), NAND(A, B)" },
           { label: "NAND(A, A), NAND(B, B)" },
           { label: "NAND(A, B), NAND(B, A)" },
-          { label: "NAND(Ā, B̄), NAND(A, B)" },
+          { label: `NAND(${ov("A")}, ${ov("B")}), NAND(A, B)` },
         ],
         answer: 1,
-        hint: "OR = (Ā · B̄)̅ — đảo từng biến trước, rồi NAND.",
-        explanation: "NAND(A,A)=Ā, NAND(B,B)=B̄; NAND(Ā,B̄)=(Ā·B̄)̅=A+B.",
+        hint: `OR = ${ov(ov("A") + " · " + ov("B"))} — đảo từng biến trước, rồi NAND.`,
+        explanation: `NAND(A,A)=${ov("A")}, NAND(B,B)=${ov("B")}; NAND(${ov("A")},${ov("B")})=${ov(ov("A") + "·" + ov("B"))}=A+B.`,
       },
       {
         prompt: "Vì sao công nghiệp bán dẫn thích dựng chip toàn cổng NAND?",

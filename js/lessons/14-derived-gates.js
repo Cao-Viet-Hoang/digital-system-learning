@@ -49,7 +49,7 @@ function render(container) {
       truthTableCard("NOR"),
       el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
         el("strong", { text: "Mối quan hệ: " }),
-        el("span", { html: "Y<sub>NOR</sub> = <span class='mono'>(A + B)̅ </span>= NOT(OR(A, B))." }),
+        el("span", { html: "Y<sub>NOR</sub> = <span class='mono'><span style='text-decoration:overline'>A + B</span></span> = NOT(OR(A, B))." }),
       ]),
     ),
   );
@@ -65,7 +65,7 @@ function render(container) {
       truthTableCard("NAND"),
       el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
         el("strong", { text: "Mối quan hệ: " }),
-        el("span", { html: "Y<sub>NAND</sub> = <span class='mono'>(A · B)̅ </span>= NOT(AND(A, B))." }),
+        el("span", { html: "Y<sub>NAND</sub> = <span class='mono'><span style='text-decoration:overline'>A · B</span></span> = NOT(AND(A, B))." }),
       ]),
     ),
   );
@@ -133,7 +133,7 @@ function render(container) {
         "XOR không có ký hiệu riêng trong mạch điện ban đầu — nó được dựng từ tổ hợp AND, OR, NOT. Biểu thức:",
       ),
       el("div", { class: "card mono", style: { textAlign: "center", fontSize: "18px" } }, [
-        el("span", { html: "Y = A ⊕ B = A·B̅ + A̅·B" }),
+        el("span", { html: "Y = A ⊕ B = A·<span style='text-decoration:overline'>B</span> + <span style='text-decoration:overline'>A</span>·B" }),
       ]),
       p(
         "Diễn giải: <em>(A bằng 1 và B bằng 0)</em> hoặc <em>(A bằng 0 và B bằng 1)</em> — chính là <strong>một và chỉ một</strong> trong hai bằng 1.",
@@ -174,14 +174,14 @@ function render(container) {
       {
         prompt: "Biểu thức nào tương đương với XOR?",
         options: [
-          { label: "A · B + A̅ · B̅" },
-          { label: "A · B̅ + A̅ · B" },
+          { label: "A · B + <span style='text-decoration:overline'>A</span> · <span style='text-decoration:overline'>B</span>" },
+          { label: "A · <span style='text-decoration:overline'>B</span> + <span style='text-decoration:overline'>A</span> · B" },
           { label: "A + B" },
-          { label: "(A + B)̅" },
+          { label: "<span style='text-decoration:overline'>A + B</span>" },
         ],
         answer: 1,
         hint: "XOR = 1 khi chỉ một trong hai bằng 1.",
-        explanation: "A·B̅ + A̅·B đúng định nghĩa XOR. A·B + A̅·B̅ là XNOR.",
+        explanation: "A·<span style='text-decoration:overline'>B</span> + <span style='text-decoration:overline'>A</span>·B đúng định nghĩa XOR. A·B + <span style='text-decoration:overline'>A</span>·<span style='text-decoration:overline'>B</span> là XNOR.",
       },
       {
         prompt: "Cổng NAND khác cổng AND ở điểm nào trên ký hiệu?",

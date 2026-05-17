@@ -101,7 +101,7 @@ function render(container) {
     section(
       "Ví dụ 2 – Mạch XOR dựng từ cổng cơ bản",
       p(
-        "Đây là mạch khó hơn: hai cổng NOT, hai cổng AND và một cổng OR — dựng nên hàm <span class='mono'>Y = A·B̅ + A̅·B</span> (chính là XOR). Bấm A, B để theo dõi 5 giá trị trung gian.",
+        "Đây là mạch khó hơn: hai cổng NOT, hai cổng AND và một cổng OR — dựng nên hàm <span class='mono'>Y = A·<span style='text-decoration:overline'>B</span> + <span style='text-decoration:overline'>A</span>·B</span> (chính là XOR). Bấm A, B để theo dõi 5 giá trị trung gian.",
       ),
       xorCircuit(),
     ),
@@ -111,11 +111,11 @@ function render(container) {
     section(
       "Từ biểu thức Boole → vẽ mạch",
       p(
-        "Quá trình ngược: cho biểu thức <span class='mono'>Y = (A + B) · C̅</span>, ta vẽ mạch theo thứ tự <em>ưu tiên phép toán</em> giống đại số thông thường: NOT cao nhất, rồi AND, rồi OR.",
+        "Quá trình ngược: cho biểu thức <span class='mono'>Y = (A + B) · <span style='text-decoration:overline'>C</span></span>, ta vẽ mạch theo thứ tự <em>ưu tiên phép toán</em> giống đại số thông thường: NOT cao nhất, rồi AND, rồi OR.",
       ),
       el("div", { class: "card", style: { padding: "16px" } }, [
         el("ol", {}, [
-          el("li", { html: "Tách biểu thức: cần <span class='mono'>A + B</span> (OR), <span class='mono'>C̅</span> (NOT), rồi <span class='mono'>(A + B) · C̅</span> (AND)." }),
+          el("li", { html: "Tách biểu thức: cần <span class='mono'>A + B</span> (OR), <span class='mono'><span style='text-decoration:overline'>C</span></span> (NOT), rồi <span class='mono'>(A + B) · <span style='text-decoration:overline'>C</span></span> (AND)." }),
           el("li", { html: "Vẽ cổng OR cho A và B → dây trung gian P." }),
           el("li", { html: "Vẽ cổng NOT cho C → dây trung gian Q." }),
           el("li", { html: "Vẽ cổng AND nhận P và Q → ngõ ra Y." }),
@@ -158,7 +158,7 @@ function render(container) {
         explanation: "2³ = 8 hàng.",
       },
       {
-        prompt: "Biểu thức Y = A·B̅ + A̅·B tương đương với cổng nào?",
+        prompt: "Biểu thức Y = A·<span style='text-decoration:overline'>B</span> + <span style='text-decoration:overline'>A</span>·B tương đương với cổng nào?",
         options: [{ label: "AND" }, { label: "OR" }, { label: "XOR" }, { label: "XNOR" }],
         answer: 2,
         hint: "Bằng 1 khi A và B khác nhau.",
@@ -340,8 +340,8 @@ function xorCircuit() {
     ], T2);
     drawWire(svg, [{ x: orG.out.x, y: orG.out.y }, { x: 480, y: orG.out.y }], Y);
 
-    labelAt(svg, notA.out.x + 6, notA.out.y - 6, `Ā=${Abar}`, COLORS.text2);
-    labelAt(svg, notB.out.x + 6, notB.out.y - 6, `B̄=${Bbar}`, COLORS.text2);
+    labelAtOv(svg, notA.out.x + 6, notA.out.y - 6, "A", `=${Abar}`, COLORS.text2);
+    labelAtOv(svg, notB.out.x + 6, notB.out.y - 6, "B", `=${Bbar}`, COLORS.text2);
     labelAt(svg, and1.out.x + 4, and1.out.y - 6, `${T1}`, COLORS.text2);
     labelAt(svg, and2.out.x + 4, and2.out.y - 6, `${T2}`, COLORS.text2);
 
@@ -408,7 +408,7 @@ function circuitFromExpr() {
     drawWire(svg, [{ x: andG.out.x, y: andG.out.y }, { x: 420, y: andG.out.y }], Y);
 
     labelAt(svg, orG.out.x + 4, orG.out.y - 6, `P=${P}`, COLORS.text2);
-    labelAt(svg, notG.out.x + 6, notG.out.y - 6, `C̄=${Cbar}`, COLORS.text2);
+    labelAtOv(svg, notG.out.x + 6, notG.out.y - 6, "C", `=${Cbar}`, COLORS.text2);
 
     const a = drawPort(svg, portX, aY, "A", state.a);
     const b = drawPort(svg, portX, bY, "B", state.b);
@@ -421,7 +421,7 @@ function circuitFromExpr() {
   }
 
   card.appendChild(svg);
-  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center", marginTop: "6px" }, text: "Mạch hiện thực Y = (A + B) · C̄" }));
+  card.appendChild(el("div", { class: "small text-2", style: { textAlign: "center", marginTop: "6px" }, html: "Mạch hiện thực Y = (A + B) · <span style='text-decoration:overline'>C</span>" }));
   rerender();
   return card;
 }
@@ -477,6 +477,24 @@ function labelAt(svg, x, y, str, fill) {
   t.setAttribute("fill", fill);
   t.setAttribute("text-anchor", "start");
   t.textContent = str;
+  svg.appendChild(t);
+}
+
+// Label where the first character is overlined (e.g. Ā=0, B̄=1).
+function labelAtOv(svg, x, y, olChar, rest, fill) {
+  const NS = "http://www.w3.org/2000/svg";
+  const t = document.createElementNS(NS, "text");
+  t.setAttribute("x", x);
+  t.setAttribute("y", y);
+  t.setAttribute("font-size", "11");
+  t.setAttribute("font-family", "Inter");
+  t.setAttribute("fill", fill);
+  t.setAttribute("text-anchor", "start");
+  const ts = document.createElementNS(NS, "tspan");
+  ts.style.textDecoration = "overline";
+  ts.textContent = olChar;
+  t.appendChild(ts);
+  if (rest) t.appendChild(document.createTextNode(rest));
   svg.appendChild(t);
 }
 

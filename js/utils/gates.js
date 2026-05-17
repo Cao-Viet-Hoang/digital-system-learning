@@ -27,11 +27,11 @@ export function gateInfo(type) {
   const map = {
     AND: { name: "AND", expr: "Y = A · B", desc: "Ngõ ra bằng 1 chỉ khi <em>tất cả</em> ngõ vào bằng 1." },
     OR: { name: "OR", expr: "Y = A + B", desc: "Ngõ ra bằng 1 khi <em>có ít nhất một</em> ngõ vào bằng 1." },
-    NOT: { name: "NOT (INVERTER)", expr: "Y = A̅", desc: "Đảo trạng thái ngõ vào: 0 → 1 và 1 → 0." },
-    NAND: { name: "NAND", expr: "Y = A · B̅", desc: "Là cổng AND nối tiếp NOT — đảo kết quả AND." },
-    NOR: { name: "NOR", expr: "Y = A + B̅", desc: "Là cổng OR nối tiếp NOT — đảo kết quả OR." },
+    NOT: { name: "NOT (INVERTER)", expr: "Y = <span style='text-decoration:overline'>A</span>", desc: "Đảo trạng thái ngõ vào: 0 → 1 và 1 → 0." },
+    NAND: { name: "NAND", expr: "Y = <span style='text-decoration:overline'>A · B</span>", desc: "Là cổng AND nối tiếp NOT — đảo kết quả AND." },
+    NOR: { name: "NOR", expr: "Y = <span style='text-decoration:overline'>A + B</span>", desc: "Là cổng OR nối tiếp NOT — đảo kết quả OR." },
     XOR: { name: "EX-OR (XOR)", expr: "Y = A ⊕ B", desc: "Ngõ ra bằng 1 khi <em>chỉ một</em> ngõ vào bằng 1 (hai ngõ vào khác nhau)." },
-    XNOR: { name: "EX-NOR (XNOR)", expr: "Y = A ⊕ B̅", desc: "Ngõ ra bằng 1 khi hai ngõ vào <em>giống nhau</em>." },
+    XNOR: { name: "EX-NOR (XNOR)", expr: "Y = <span style='text-decoration:overline'>A ⊕ B</span>", desc: "Ngõ ra bằng 1 khi hai ngõ vào <em>giống nhau</em>." },
   };
   return map[type] || { name: type, expr: "", desc: "" };
 }
@@ -208,6 +208,7 @@ export function drawPort(svg, x, y, label, value, opts = {}) {
   t.setAttribute("fill", COLORS.surface);
   t.setAttribute("text-anchor", "middle");
   t.setAttribute("font-weight", "700");
+  t.style.pointerEvents = "none";
   t.textContent = String(value);
   svg.appendChild(t);
   if (label) {
@@ -218,6 +219,7 @@ export function drawPort(svg, x, y, label, value, opts = {}) {
     lab.setAttribute("font-family", "Inter");
     lab.setAttribute("fill", COLORS.text2);
     lab.setAttribute("text-anchor", "middle");
+    lab.style.pointerEvents = "none";
     lab.textContent = label;
     svg.appendChild(lab);
   }
@@ -288,7 +290,7 @@ export function gateInfoCard(type, color = "mint") {
   const info = gateInfo(type);
   return el("div", { class: `card card-soft-${color}` }, [
     el("h3", { text: info.name, style: { marginTop: 0 } }),
-    el("div", { class: "mono", style: { fontSize: "18px", marginBottom: "8px" }, text: info.expr }),
+    el("div", { class: "mono", style: { fontSize: "18px", marginBottom: "8px" }, html: info.expr }),
     el("p", { html: info.desc }),
   ]);
 }

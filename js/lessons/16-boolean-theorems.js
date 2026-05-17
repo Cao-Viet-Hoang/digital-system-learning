@@ -4,6 +4,9 @@ import { section, summary, quizSection, p, splitView, resetSectionCounter } from
 import { COLORS } from "../utils/colors.js";
 import { drawGate, drawWire, drawPort, computeGate } from "../utils/gates.js";
 
+// Shorthand for HTML overline span.
+const ov = (t) => `<span style="text-decoration:overline">${t}</span>`;
+
 export default {
   id: "boolean-theorems",
   order: 16,
@@ -36,8 +39,8 @@ function render(container) {
         ["Identity (Đồng nhất)", "A + 0 = A", "A · 1 = A"],
         ["Null (Hấp thụ hằng)", "A + 1 = 1", "A · 0 = 0"],
         ["Idempotent (Đẳng cấp)", "A + A = A", "A · A = A"],
-        ["Complement (Bù)", "A + Ā = 1", "A · Ā = 0"],
-        ["Involution (Đối hợp)", "(Ā)̅ = A", "—"],
+        ["Complement (Bù)", `A + ${ov("A")} = 1`, `A · ${ov("A")} = 0`],
+        ["Involution (Đối hợp)", `${ov(ov("A"))} = A`, "—"],
       ]),
     ),
   );
@@ -64,12 +67,12 @@ function render(container) {
   container.appendChild(
     section(
       "Ứng dụng – Rút gọn biểu thức",
-      p("Ví dụ: rút gọn <span class='mono'>Y = A·B + A·B̄ + Ā·B</span>"),
+      p(`Ví dụ: rút gọn <span class='mono'>Y = A·B + A·${ov("B")} + ${ov("A")}·B</span>`),
       el("div", { class: "card mono", style: { padding: "16px", lineHeight: "1.9", fontSize: "14px" } }, [
-        el("div", { html: "Y = A·B + A·B̄ + Ā·B" }),
-        el("div", { html: "&nbsp;&nbsp;= A·(B + B̄) + Ā·B  <span class='small text-3'>// phân phối ngược cho A</span>" }),
-        el("div", { html: "&nbsp;&nbsp;= A·1 + Ā·B  <span class='small text-3'>// bù: B + B̄ = 1</span>" }),
-        el("div", { html: "&nbsp;&nbsp;= A + Ā·B  <span class='small text-3'>// đồng nhất: A·1 = A</span>" }),
+        el("div", { html: `Y = A·B + A·${ov("B")} + ${ov("A")}·B` }),
+        el("div", { html: `&nbsp;&nbsp;= A·(B + ${ov("B")}) + ${ov("A")}·B  <span class='small text-3'>// phân phối ngược cho A</span>` }),
+        el("div", { html: `&nbsp;&nbsp;= A·1 + ${ov("A")}·B  <span class='small text-3'>// bù: B + ${ov("B")} = 1</span>` }),
+        el("div", { html: `&nbsp;&nbsp;= A + ${ov("A")}·B  <span class='small text-3'>// đồng nhất: A·1 = A</span>` }),
         el("div", { html: "&nbsp;&nbsp;= A + B  <span class='small text-3'>// định lý phụ: A + Ā·B = A + B</span>" }),
         el("div", { style: { marginTop: "8px", borderTop: `1px dashed ${COLORS.border}`, paddingTop: "8px" } }, [
           el("strong", { html: "Y = A + B" }),
@@ -93,13 +96,13 @@ function render(container) {
       el("div", { class: "grid grid-2" }, [
         el("div", { class: "card card-soft-peach" }, [
           el("h3", { text: "Định lý 1", style: { marginTop: 0 } }),
-          el("div", { class: "mono", style: { fontSize: "20px", textAlign: "center", margin: "10px 0" }, html: "(A · B)̅ = Ā + B̄" }),
-          el("p", { html: "<em>Phủ định của AND = OR của các phủ định.</em><br>Cổng NAND tương đương cổng OR có <strong>cả hai ngõ vào đảo</strong>." }),
+          el("div", { class: "mono", style: { fontSize: "20px", textAlign: "center", margin: "10px 0" }, html: `${ov("A · B")} = ${ov("A")} + ${ov("B")}` }),
+          el("p", { html: `<em>Phủ định của AND = OR của các phủ định.</em><br>Cổng NAND tương đương cổng OR có <strong>cả hai ngõ vào đảo</strong>.` }),
         ]),
         el("div", { class: "card card-soft-sky" }, [
           el("h3", { text: "Định lý 2", style: { marginTop: 0 } }),
-          el("div", { class: "mono", style: { fontSize: "20px", textAlign: "center", margin: "10px 0" }, html: "(A + B)̅ = Ā · B̄" }),
-          el("p", { html: "<em>Phủ định của OR = AND của các phủ định.</em><br>Cổng NOR tương đương cổng AND có <strong>cả hai ngõ vào đảo</strong>." }),
+          el("div", { class: "mono", style: { fontSize: "20px", textAlign: "center", margin: "10px 0" }, html: `${ov("A + B")} = ${ov("A")} · ${ov("B")}` }),
+          el("p", { html: `<em>Phủ định của OR = AND của các phủ định.</em><br>Cổng NOR tương đương cổng AND có <strong>cả hai ngõ vào đảo</strong>.` }),
         ]),
       ]),
       el("div", { class: "alert alert-info", style: { marginTop: "12px" } }, [
@@ -128,17 +131,17 @@ function render(container) {
       el("div", { class: "card", style: { padding: "16px" } }, [
         el("strong", { text: "Ví dụ – đơn giản hoá:" }),
         el("div", { class: "mono", style: { marginTop: "10px", lineHeight: "1.9", fontSize: "14px" } }, [
-          el("div", { html: "Y = (A·B + C)̅" }),
-          el("div", { html: "&nbsp;&nbsp;= (A·B)̅ · C̄  <span class='small text-3'>// DeMorgan 2 (đảo OR)</span>" }),
-          el("div", { html: "&nbsp;&nbsp;= (Ā + B̄) · C̄  <span class='small text-3'>// DeMorgan 1 (đảo AND)</span>" }),
+          el("div", { html: `Y = ${ov("A·B + C")}` }),
+          el("div", { html: `&nbsp;&nbsp;= ${ov("A·B")} · ${ov("C")}  <span class='small text-3'>// DeMorgan 2 (đảo OR)</span>` }),
+          el("div", { html: `&nbsp;&nbsp;= (${ov("A")} + ${ov("B")}) · ${ov("C")}  <span class='small text-3'>// DeMorgan 1 (đảo AND)</span>` }),
         ]),
       ]),
       el("div", { class: "card", style: { marginTop: "12px", padding: "16px" } }, [
         el("strong", { text: "Ví dụ – chuyển sang chỉ dùng NAND:" }),
         el("div", { class: "mono", style: { marginTop: "10px", lineHeight: "1.9", fontSize: "14px" } }, [
           el("div", { html: "Y = A + B  <span class='small text-3'>// muốn dùng NAND</span>" }),
-          el("div", { html: "&nbsp;&nbsp;= (A + B)̿  <span class='small text-3'>// thêm hai dấu phủ định (không đổi giá trị)</span>" }),
-          el("div", { html: "&nbsp;&nbsp;= (Ā · B̄)̅  <span class='small text-3'>// DeMorgan 2 ở bên trong</span>" }),
+          el("div", { html: `&nbsp;&nbsp;= ${ov(ov("A + B"))}  <span class='small text-3'>// thêm hai dấu phủ định (không đổi giá trị)</span>` }),
+          el("div", { html: `&nbsp;&nbsp;= ${ov(ov("A") + " · " + ov("B"))}  <span class='small text-3'>// DeMorgan 2 ở bên trong</span>` }),
         ]),
         el("p", { class: "small text-2", style: { marginTop: "8px" }, html: "Biểu thức cuối chỉ cần 2 cổng NOT (= NAND 1 ngõ vào) và 1 cổng NAND — sẽ thấy chi tiết ở bài tiếp theo." }),
       ]),
@@ -153,7 +156,7 @@ function render(container) {
           { label: "A + 1 = 1" },
           { label: "A · 0 = 0" },
           { label: "A + A = 2A" },
-          { label: "A · Ā = 0" },
+          { label: `A · ${ov("A")} = 0` },
         ],
         answer: 2,
         hint: "Đại số Boole chỉ có 0 và 1; không có 2A.",
@@ -167,41 +170,41 @@ function render(container) {
         explanation: "A + A·B = A·(1 + B) = A·1 = A.",
       },
       {
-        prompt: "(A + B)̅ tương đương với?",
+        prompt: `${ov("A + B")} tương đương với?`,
         options: [
-          { label: "Ā + B̄" },
-          { label: "Ā · B̄" },
-          { label: "A · B̄" },
-          { label: "A + B̄" },
+          { label: `${ov("A")} + ${ov("B")}` },
+          { label: `${ov("A")} · ${ov("B")}` },
+          { label: `A · ${ov("B")}` },
+          { label: `A + ${ov("B")}` },
         ],
         answer: 1,
         hint: "Định lý DeMorgan thứ hai.",
         explanation: "DeMorgan: bù của OR = AND của bù từng biến.",
       },
       {
-        prompt: "(A·B·C)̅ tương đương với?",
+        prompt: `${ov("A·B·C")} tương đương với?`,
         options: [
-          { label: "Ā·B̄·C̄" },
-          { label: "Ā + B̄ + C̄" },
-          { label: "Ā + B + C̄" },
+          { label: `${ov("A")}·${ov("B")}·${ov("C")}` },
+          { label: `${ov("A")} + ${ov("B")} + ${ov("C")}` },
+          { label: `${ov("A")} + B + ${ov("C")}` },
           { label: "A + B + C" },
         ],
         answer: 1,
         hint: "DeMorgan mở rộng cho nhiều biến: đổi · thành + và đảo từng biến.",
-        explanation: "DeMorgan tổng quát: (A·B·C)̅ = Ā + B̄ + C̄.",
+        explanation: `DeMorgan tổng quát: ${ov("A·B·C")} = ${ov("A")} + ${ov("B")} + ${ov("C")}.`,
       },
       {
-        prompt: "Rút gọn: Y = A·B + A·B̄",
+        prompt: `Rút gọn: Y = A·B + A·${ov("B")}`,
         options: [{ label: "A" }, { label: "B" }, { label: "A·B" }, { label: "0" }],
         answer: 0,
-        hint: "Phân phối ngược: A·(B + B̄).",
-        explanation: "Y = A·(B + B̄) = A·1 = A.",
+        hint: `Phân phối ngược: A·(B + ${ov("B")}).`,
+        explanation: `Y = A·(B + ${ov("B")}) = A·1 = A.`,
       },
       {
         prompt: "DeMorgan cho phép biến đổi NAND thành cổng nào tương đương (đầu vào đảo)?",
         options: [{ label: "AND" }, { label: "OR với cả hai ngõ vào đảo" }, { label: "NOR" }, { label: "XOR" }],
         answer: 1,
-        hint: "(A·B)̅ = Ā + B̄.",
+        hint: `${ov("A·B")} = ${ov("A")} + ${ov("B")}.`,
         explanation: "NAND = OR của hai ngõ vào đã được đảo.",
       },
     ]),
@@ -213,8 +216,8 @@ function render(container) {
       summary(null, [
         "Đại số Boole có các định lý <em>đồng nhất, null, đẳng cấp, bù, đối hợp</em> cho một biến và <em>giao hoán, kết hợp, phân phối, hấp thụ</em> cho nhiều biến.",
         "Rút gọn biểu thức giúp giảm số cổng cần dùng, tiết kiệm chi phí và tăng tốc độ mạch.",
-        "<strong>DeMorgan 1:</strong> (A·B)̅ = Ā + B̄ — bù của AND = OR các bù.",
-        "<strong>DeMorgan 2:</strong> (A + B)̅ = Ā · B̄ — bù của OR = AND các bù.",
+        `<strong>DeMorgan 1:</strong> ${ov("A·B")} = ${ov("A")} + ${ov("B")} — bù của AND = OR các bù.`,
+        `<strong>DeMorgan 2:</strong> ${ov("A + B")} = ${ov("A")} · ${ov("B")} — bù của OR = AND các bù.`,
         "DeMorgan cho phép chuyển đổi giữa AND-OR và NAND-NOR, là chìa khoá cho thiết kế mạch dùng một loại cổng duy nhất.",
       ]),
     ),
@@ -257,7 +260,7 @@ function simplificationVerifier() {
         el("tr", {}, [
           el("th", { text: "A" }),
           el("th", { text: "B" }),
-          el("th", { html: "Y₁ = A·B + A·B̄ + Ā·B" }),
+          el("th", { html: `Y₁ = A·B + A·${ov("B")} + ${ov("A")}·B` }),
           el("th", { html: "Y₂ = A + B" }),
         ]),
       ]),
@@ -279,9 +282,8 @@ function simplificationVerifier() {
 function demorganVerifier() {
   const wrap = el("div", { class: "grid grid-2" });
 
-  // Left card: NAND gate
   const left = el("div", { class: "card" });
-  left.appendChild(el("h4", { text: "Vế trái: (A · B)̅", style: { marginTop: 0 } }));
+  left.appendChild(el("h4", { html: `Vế trái: ${ov("A · B")}`, style: { marginTop: 0 } }));
 
   const SVG_NS = "http://www.w3.org/2000/svg";
   const W = 280, H = 140;
@@ -322,7 +324,6 @@ function demorganVerifier() {
     const orG = drawGate(svgR, "OR", 170, 55, { scale: 1.1 });
     drawWire(svgR, [{ x: 30, y: nA.inA.y }, { x: nA.inA.x, y: nA.inA.y }], state.a);
     drawWire(svgR, [{ x: 30, y: nB.inA.y }, { x: nB.inA.x, y: nB.inA.y }], state.b);
-    // NOT outputs → OR inputs, bend just after each NOT output.
     drawWire(svgR, [
       { x: nA.out.x, y: nA.out.y },
       { x: nA.out.x + 8, y: nA.out.y },
@@ -348,7 +349,7 @@ function demorganVerifier() {
 
   left.appendChild(svgL);
   const right = el("div", { class: "card" });
-  right.appendChild(el("h4", { text: "Vế phải: Ā + B̄", style: { marginTop: 0 } }));
+  right.appendChild(el("h4", { html: `Vế phải: ${ov("A")} + ${ov("B")}`, style: { marginTop: 0 } }));
   right.appendChild(svgR);
 
   wrap.appendChild(left);
