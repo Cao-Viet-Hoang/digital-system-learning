@@ -165,6 +165,29 @@ If a request is not fully specified:
 - If missing information could lead to an incorrect lesson or design, ask a short clarifying question.
 - When adding content, prioritize what helps first-time learners understand better: examples, visuals, practice, feedback, and a clear learning path.
 
+## Incremental Writing for Large Lessons
+
+When creating a large lesson, chapter, or full learning module, do not assume the whole result must be written in a single response or a single large file edit. Large one-shot outputs can fail because of API limits, incomplete generation, truncation, or formatting errors.
+
+Prefer an incremental writing workflow:
+
+1. First create a clear outline for the complete lesson.
+2. Split the lesson into small, coherent sections such as objectives, intuition, core theory, worked examples, visuals, quick checks, exercises, and summary.
+3. Write or edit one section at a time.
+4. After each section, make sure it connects cleanly with the previous and next sections.
+5. Continue across multiple passes until the lesson is complete.
+6. At the end, review the whole lesson for consistency, missing prerequisites, duplicated explanations, broken references, and uneven difficulty.
+
+For large code or content updates, prefer several focused edits over one very large edit. Each edit should leave the project in a coherent state and should be easy to review.
+
+When continuing a lesson across multiple responses or edits:
+
+- Preserve the same terminology, notation, examples, and difficulty level.
+- Keep track of what has already been written and what still needs to be completed.
+- Avoid restarting from the beginning unless the user asks for a rewrite.
+- If generation stops midway, continue from the last complete section.
+- Do a final integration pass so the result feels like one complete lesson, not disconnected fragments.
+
 ## Final Quality Checklist
 
 Before completing any change, check:
@@ -176,4 +199,3 @@ Before completing any change, check:
 - Are common mistakes addressed?
 - If there is a user interface, is it readable and uncluttered?
 - Is text encoding correct?
-
