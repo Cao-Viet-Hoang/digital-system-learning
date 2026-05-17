@@ -16,6 +16,10 @@ import lesson14 from "./lessons/14-derived-gates.js";
 import lesson15 from "./lessons/15-logic-circuits.js";
 import lesson16 from "./lessons/16-boolean-theorems.js";
 import lesson17 from "./lessons/17-universal-gates.js";
+import lesson18 from "./lessons/18-combinational-design.js";
+import lesson19 from "./lessons/19-karnaugh-build.js";
+import lesson20 from "./lessons/20-karnaugh-sop.js";
+import lesson21 from "./lessons/21-karnaugh-pos.js";
 
 export const lessons = [
   lesson01,
@@ -35,6 +39,10 @@ export const lessons = [
   lesson15,
   lesson16,
   lesson17,
+  lesson18,
+  lesson19,
+  lesson20,
+  lesson21,
 ];
 
 export function getLesson(id) {
