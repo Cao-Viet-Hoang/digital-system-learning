@@ -1,6 +1,6 @@
 // Lesson 21: Đơn giản bìa Karnaugh theo POS.
 import { el, clear } from "../utils/dom.js";
-import { section, summary, quizSection, p, splitView, resetSectionCounter } from "../utils/lesson-ui.js";
+import { section, summary, quizSection, p, splitView, resetSectionCounter, toolCTA } from "../utils/lesson-ui.js";
 import { COLORS } from "../utils/colors.js";
 
 const ov = (t) => `<span style="text-decoration:overline">${t}</span>`;
@@ -210,6 +210,20 @@ function render(container) {
           el("p", { text: "X có thể coi là 0 hoặc 1 — tự do chọn để mở rộng nhóm ô 0 cho nhóm POS to hơn." }),
         ]),
       ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
+      "Luyện tập SOP và POS với công cụ",
+      toolCTA({
+        title: "So sánh SOP ↔ POS trên cùng một bìa K",
+        description:
+          "Vào trang <strong>Tối ưu bìa K</strong>, bật chế độ <em>Luyện tập</em> để hệ thống sinh đề ngẫu nhiên. Với mỗi đề, hãy tự rút gọn <strong>cả SOP lẫn POS</strong> trên giấy, rồi chuyển nút <em>Phương pháp</em> giữa hai chế độ để đối chiếu — nhanh chóng cảm nhận khi nào POS ngắn hơn SOP và ngược lại.",
+        buttonText: "Mở công cụ luyện tập →",
+        href: "#/kmap-solver",
+        hint: "Mẹo: cùng một bìa K, đổi SOP ↔ POS sẽ tự ẩn đáp án để bạn thử lại.",
+      }),
     ),
   );
 

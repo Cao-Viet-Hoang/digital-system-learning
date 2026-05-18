@@ -63,3 +63,23 @@ export function p(html) {
 export function splitView(left, right) {
   return el("div", { class: "grid grid-2", style: { alignItems: "start" } }, [left, right]);
 }
+
+// CTA card pointing learners to an external tool page in this app.
+// Used by K-map lessons to invite practice with the K-map solver.
+export function toolCTA({ title, description, buttonText, href, hint }) {
+  return el("div", { class: "card card-soft-mint", style: { padding: "16px" } }, [
+    el("h3", { text: title, style: { marginTop: 0, marginBottom: "6px" } }),
+    el("p", { class: "text-2", style: { margin: "0 0 12px" }, html: description }),
+    el("div", { style: { display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center" } }, [
+      el("a", {
+        class: "btn btn-primary btn-sm",
+        href,
+        style: { textDecoration: "none" },
+        text: buttonText,
+      }),
+      hint
+        ? el("span", { class: "small text-3", html: hint })
+        : null,
+    ]),
+  ]);
+}

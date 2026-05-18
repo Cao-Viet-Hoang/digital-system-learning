@@ -1,6 +1,6 @@
 // Lesson 20: Đơn giản bìa Karnaugh theo SOP.
 import { el, clear } from "../utils/dom.js";
-import { section, summary, quizSection, p, splitView, resetSectionCounter } from "../utils/lesson-ui.js";
+import { section, summary, quizSection, p, splitView, resetSectionCounter, toolCTA } from "../utils/lesson-ui.js";
 import { COLORS } from "../utils/colors.js";
 
 const ov = (t) => `<span style="text-decoration:overline">${t}</span>`;
@@ -238,6 +238,20 @@ function render(container) {
           el("p", { text: "Phải kiểm tra: tất cả ô bằng 1 đều phải thuộc ít nhất một nhóm — không sót minterm nào." }),
         ]),
       ]),
+    ),
+  );
+
+  container.appendChild(
+    section(
+      "Luyện tập với công cụ tự sinh đề",
+      toolCTA({
+        title: "Luyện gộp nhóm SOP — sinh đề ngẫu nhiên",
+        description:
+          "Trang <strong>Tối ưu bìa K</strong> có chế độ <em>Luyện tập</em>: chọn 2/3/4 biến, hệ thống sinh ngẫu nhiên 0/1/X cho từng ô. Bạn tự khoanh nhóm và viết biểu thức SOP rút gọn ra giấy, sau đó bấm <em>Gợi ý</em> để biết số nhóm tối ưu rồi <em>Hiện đáp án</em> để đối chiếu.",
+        buttonText: "Luyện SOP ngay →",
+        href: "#/kmap-solver",
+        hint: "Mỗi lần bấm “Đề mới” là một bài tập khác.",
+      }),
     ),
   );
 

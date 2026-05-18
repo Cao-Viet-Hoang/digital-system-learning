@@ -33,11 +33,44 @@ const state = {
   cells: [],        // length 2^vars, each 0 | 1 | "X"
   selectedCover: 0, // index into result.covers
   swap: false,      // false → rows = high bits (e.g. A or AB); true → rows = low bits (e.g. BC or CD)
+  practice: false,  // when true, hide answer until user explicitly reveals
+  reveal: 0,        // practice-mode reveal stage: 0 = nothing, 1 = hint, 2 = full answer
 };
 
 function resetCells() {
   state.cells = new Array(1 << state.vars).fill(0);
   state.selectedCover = 0;
+  state.reveal = 0;
+}
+
+// Generate a random K-map for practice. Ensures the function is non-trivial
+// (at least one cell required to be 1 and at least one required to be 0)
+// so there's a meaningful answer for the student to find.
+function generatePracticeCells() {
+  const n = 1 << state.vars;
+  for (let attempt = 0; attempt < 20; attempt++) {
+    const cells = new Array(n);
+    for (let i = 0; i < n; i++) {
+      const r = Math.random();
+      // ~45% ones, ~45% zeros, ~10% don't-cares.
+      cells[i] = r < 0.45 ? 1 : r < 0.9 ? 0 : "X";
+    }
+    const ones = cells.filter((c) => c === 1).length;
+    const zeros = cells.filter((c) => c === 0).length;
+    // Ensure the function is not constant — needs both 1s and 0s.
+    if (ones >= 1 && zeros >= 1) {
+      state.cells = cells;
+      state.selectedCover = 0;
+      state.reveal = 0;
+      return;
+    }
+  }
+  // Fallback to a hand-built non-trivial problem if random kept failing.
+  state.cells = new Array(n).fill(0);
+  state.cells[0] = 1;
+  state.cells[n - 1] = 1;
+  state.selectedCover = 0;
+  state.reveal = 0;
 }
 
 resetCells();
@@ -49,7 +82,7 @@ export function renderKmapSolver(container) {
 
   inner.appendChild(el("h1", { text: "Tối ưu bìa Karnaugh" }));
   inner.appendChild(
-    el("p", { class: "text-2", html: "Bấm vào các ô để đổi <span class='mono'>0</span> → <span class='mono'>1</span> → <span class='mono'>X</span> → <span class='mono'>0</span>. Tool sẽ tìm tất cả biểu thức rút gọn tối ưu theo SOP hoặc POS. Khi có nhiều phương án cùng tối ưu, bạn có thể chọn để xem cách khoanh nhóm tương ứng." }),
+    el("p", { class: "text-2", html: "Bấm vào các ô để đổi <span class='mono'>0</span> → <span class='mono'>1</span> → <span class='mono'>X</span> → <span class='mono'>0</span>. Tool sẽ tìm tất cả biểu thức rút gọn tối ưu theo SOP hoặc POS. Khi có nhiều phương án cùng tối ưu, bạn có thể chọn để xem cách khoanh nhóm tương ứng. Bật <strong>Chế độ luyện tập</strong> để hệ thống tự sinh đề ngẫu nhiên — bạn tự tìm biểu thức rồi mới mở đáp án." }),
   );
 
   const layout = el("div", { class: "stack stack-lg" });
@@ -77,6 +110,35 @@ export function renderKmapSolver(container) {
   function buildControls() {
     const card = el("div", { class: "card", style: { display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" } });
 
+    // Mode: free / practice — placed first so context is clear.
+    card.appendChild(el("div", { style: { display: "flex", gap: "8px", alignItems: "center" } }, [
+      el("span", { class: "small text-2", text: "Chế độ:" }),
+      el("button", {
+        class: "btn btn-sm" + (!state.practice ? " btn-primary" : " btn-outline"),
+        text: "Tự do",
+        title: "Tự nhập bìa K và xem đáp án ngay.",
+        onclick: () => {
+          if (state.practice) {
+            state.practice = false;
+            state.reveal = 0;
+            rerender();
+          }
+        },
+      }),
+      el("button", {
+        class: "btn btn-sm" + (state.practice ? " btn-primary" : " btn-outline"),
+        text: "Luyện tập",
+        title: "Hệ thống sinh đề ngẫu nhiên; bạn tự tìm đáp án trước khi mở.",
+        onclick: () => {
+          if (!state.practice) {
+            state.practice = true;
+            generatePracticeCells();
+            rerender();
+          }
+        },
+      }),
+    ]));
+
     // Vars selector.
     card.appendChild(el("div", { style: { display: "flex", gap: "8px", alignItems: "center" } }, [
       el("span", { class: "small text-2", text: "Số biến:" }),
@@ -87,7 +149,8 @@ export function renderKmapSolver(container) {
           onclick: () => {
             if (state.vars !== n) {
               state.vars = n;
-              resetCells();
+              if (state.practice) generatePracticeCells();
+              else resetCells();
               rerender();
             }
           },
@@ -106,6 +169,8 @@ export function renderKmapSolver(container) {
             if (state.mode !== m) {
               state.mode = m;
               state.selectedCover = 0;
+              // Different mode → different answer → re-hide in practice mode.
+              if (state.practice) state.reveal = 0;
               rerender();
             }
           },
@@ -125,30 +190,39 @@ export function renderKmapSolver(container) {
       }),
     ]));
 
-    // Reset / fill helpers.
+    // Mode-dependent helper buttons.
     card.appendChild(el("div", { class: "spacer" }));
-    card.appendChild(el("button", {
-      class: "btn btn-sm btn-outline",
-      text: "Đặt tất cả về 0",
-      onclick: () => { state.cells.fill(0); state.selectedCover = 0; rerender(); },
-    }));
-    card.appendChild(el("button", {
-      class: "btn btn-sm btn-outline",
-      text: "Đặt tất cả về 1",
-      onclick: () => { state.cells.fill(1); state.selectedCover = 0; rerender(); },
-    }));
-    card.appendChild(el("button", {
-      class: "btn btn-sm btn-outline",
-      text: "Ngẫu nhiên",
-      onclick: () => {
-        for (let i = 0; i < state.cells.length; i++) {
-          const r = Math.random();
-          state.cells[i] = r < 0.45 ? 1 : r < 0.85 ? 0 : "X";
-        }
-        state.selectedCover = 0;
-        rerender();
-      },
-    }));
+    if (state.practice) {
+      card.appendChild(el("button", {
+        class: "btn btn-sm btn-primary",
+        text: "Đề mới",
+        title: "Sinh một bìa K ngẫu nhiên khác.",
+        onclick: () => { generatePracticeCells(); rerender(); },
+      }));
+    } else {
+      card.appendChild(el("button", {
+        class: "btn btn-sm btn-outline",
+        text: "Đặt tất cả về 0",
+        onclick: () => { state.cells.fill(0); state.selectedCover = 0; rerender(); },
+      }));
+      card.appendChild(el("button", {
+        class: "btn btn-sm btn-outline",
+        text: "Đặt tất cả về 1",
+        onclick: () => { state.cells.fill(1); state.selectedCover = 0; rerender(); },
+      }));
+      card.appendChild(el("button", {
+        class: "btn btn-sm btn-outline",
+        text: "Ngẫu nhiên",
+        onclick: () => {
+          for (let i = 0; i < state.cells.length; i++) {
+            const r = Math.random();
+            state.cells[i] = r < 0.45 ? 1 : r < 0.85 ? 0 : "X";
+          }
+          state.selectedCover = 0;
+          rerender();
+        },
+      }));
+    }
 
     return card;
   }
@@ -224,6 +298,9 @@ function buildKmapCard(result, rerender) {
         onclick: () => {
           state.cells[idx] = nextCellValue(state.cells[idx]);
           state.selectedCover = 0;
+          // If the user changes the problem after revealing in practice mode,
+          // re-hide the answer — the function has changed.
+          if (state.practice) state.reveal = 0;
           rerender();
         },
       }, [
@@ -248,8 +325,10 @@ function buildKmapCard(result, rerender) {
   stage.appendChild(table);
 
   // Draw group overlays for the currently-selected cover.
+  // In practice mode, hide overlays until the user fully reveals the answer.
   const overlayPlans = [];
-  if (result.covers.length > 0 && !result.constant) {
+  const showOverlays = !state.practice || state.reveal >= 2;
+  if (showOverlays && result.covers.length > 0 && !result.constant) {
     const cover = result.covers[state.selectedCover];
     cover.forEach((piIdx, gi) => {
       const pi = result.primes[piIdx];
@@ -327,7 +406,15 @@ function nextCellValue(v) {
 
 function buildExpressionPanel(result, rerender) {
   const card = el("div", { class: "card" });
-  card.appendChild(el("h3", { text: "Biểu thức rút gọn", style: { marginTop: 0, marginBottom: "10px" } }));
+  card.appendChild(el("h3", {
+    text: state.practice ? "Luyện tập" : "Biểu thức rút gọn",
+    style: { marginTop: 0, marginBottom: "10px" },
+  }));
+
+  // ---- Practice mode: gated reveal flow --------------------------------
+  if (state.practice && state.reveal < 2) {
+    return buildPracticePanel(card, result, rerender);
+  }
 
   // Handle constants and edge cases.
   if (result.constant != null) {
@@ -390,6 +477,77 @@ function buildExpressionPanel(result, rerender) {
   } else {
     card.appendChild(el("p", { class: "small text-3", style: { marginTop: "10px" }, html: `Cả ${result.covers.length} phương án đều có cùng số nhóm và cùng số literal — bạn có thể chọn phương án nào cũng đúng.` }));
   }
+
+  return card;
+}
+
+// ===========================================================================
+// Practice-mode reveal panel
+// ===========================================================================
+
+// Renders the placeholder panel shown in practice mode before the answer is
+// fully revealed. Supports a 2-stage reveal:
+//   stage 0 → only prompt + buttons (Gợi ý, Hiện đáp án, Đề mới)
+//   stage 1 → also shows hint stats (number of groups, literals)
+function buildPracticePanel(card, result, rerender) {
+  const isPos = result.pos;
+  const requiredLabel = isPos ? "ô = 0 (maxterm)" : "ô = 1 (minterm)";
+
+  // Intro line.
+  card.appendChild(el("p", { class: "text-2", style: { marginBottom: "8px" },
+    html: `Hãy tự tìm biểu thức <strong>${state.mode}</strong> rút gọn cho bìa K bên trên. Khi đã có đáp án trong đầu (hoặc trên giấy), bấm “Hiện đáp án” để kiểm tra.` }),
+  );
+
+  // Always-shown problem stats — these are not spoilers (just counts).
+  card.appendChild(el("div", { class: "small text-3", style: { marginBottom: "10px" } }, [
+    el("span", { html: `<strong>${result.requiredCount}</strong> ${requiredLabel}` }),
+    el("span", { html: ` &middot; <strong>${result.dontCareCount}</strong> ô X` }),
+  ]));
+
+  // Stage 1: hint stats (shown only after user clicks Gợi ý).
+  if (state.reveal >= 1) {
+    if (result.constant != null) {
+      card.appendChild(el("div", { class: "alert alert-info", style: { marginBottom: "10px" } }, [
+        el("strong", { text: "Gợi ý: " }),
+        el("span", { html: `Hàm luôn bằng <span class='mono'>${result.constant}</span> — không có nhóm nào cần khoanh.` }),
+      ]));
+    } else if (result.covers.length === 0) {
+      card.appendChild(el("p", { class: "text-2", text: "Không có đáp án cho bìa K này." }));
+    } else {
+      const cover = result.covers[0];
+      const groups = cover.length;
+      const lits = literalCount(cover, result.primes);
+      card.appendChild(el("div", { class: "alert alert-info", style: { marginBottom: "10px" } }, [
+        el("strong", { text: "Gợi ý: " }),
+        el("span", { html: `Đáp án tối ưu có <strong>${groups}</strong> nhóm và <strong>${lits}</strong> literal. ` +
+          (result.covers.length > 1
+            ? `Có <strong>${result.covers.length}</strong> phương án cùng tối ưu — chỉ cần tìm một trong số đó.`
+            : `Có đúng một phương án tối ưu.`) }),
+      ]));
+    }
+  }
+
+  // Action buttons row.
+  const actions = el("div", { style: { display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "4px" } });
+  if (state.reveal < 1) {
+    actions.appendChild(el("button", {
+      class: "btn btn-sm btn-outline",
+      text: "Gợi ý",
+      title: "Hiện số nhóm và số literal của đáp án tối ưu — chưa hiện biểu thức.",
+      onclick: () => { state.reveal = 1; rerender(); },
+    }));
+  }
+  actions.appendChild(el("button", {
+    class: "btn btn-sm btn-primary",
+    text: "Hiện đáp án",
+    onclick: () => { state.reveal = 2; rerender(); },
+  }));
+  actions.appendChild(el("button", {
+    class: "btn btn-sm btn-outline",
+    text: "Đề mới",
+    onclick: () => { generatePracticeCells(); rerender(); },
+  }));
+  card.appendChild(actions);
 
   return card;
 }

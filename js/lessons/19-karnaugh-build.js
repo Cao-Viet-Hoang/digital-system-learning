@@ -1,6 +1,6 @@
 // Lesson 19: Xây dựng bìa Karnaugh.
 import { el, clear } from "../utils/dom.js";
-import { section, summary, quizSection, p, splitView, resetSectionCounter } from "../utils/lesson-ui.js";
+import { section, summary, quizSection, p, splitView, resetSectionCounter, toolCTA } from "../utils/lesson-ui.js";
 import { COLORS } from "../utils/colors.js";
 
 const ov = (t) => `<span style="text-decoration:overline">${t}</span>`;
@@ -155,6 +155,20 @@ function render(container) {
         ]),
       ]),
       kmap3ExamplePOS([0, 1, 4, 6]),
+    ),
+  );
+
+  container.appendChild(
+    section(
+      "Thử ngay với công cụ tương tác",
+      toolCTA({
+        title: "Tối ưu bìa Karnaugh — công cụ tương tác",
+        description:
+          "Mở trang công cụ để tự dựng bìa K (2, 3 hoặc 4 biến), bấm vào từng ô để gán <span class='mono'>0</span>, <span class='mono'>1</span>, <span class='mono'>X</span> và quan sát cách các ô được sắp xếp theo Gray code. Bài tiếp theo sẽ học cách gộp nhóm — bạn có thể quay lại công cụ này để luyện tập.",
+        buttonText: "Mở công cụ tối ưu bìa K →",
+        href: "#/kmap-solver",
+        hint: "Có cả <strong>chế độ Luyện tập</strong> để hệ thống sinh đề ngẫu nhiên.",
+      }),
     ),
   );
 
