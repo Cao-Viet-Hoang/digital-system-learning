@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Học Hệ Thống Số">
+  <defs>
+    <linearGradient id="dsBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c8e6d5"/>
+      <stop offset="100%" stop-color="#bde0fe"/>
+    </linearGradient>
+    <linearGradient id="dsShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" ry="14"
+        fill="url(#dsBg)" stroke="#7ec8a6" stroke-width="2"/>
+  <rect x="4" y="4" width="56" height="26" rx="12" ry="12"
+        fill="url(#dsShine)"/>
+  <text x="32" y="44"
+        text-anchor="middle"
+        font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-weight="700"
+        font-size="28"
+        letter-spacing="-1"
+        fill="#2a2730">DS</text>
+</svg>
