@@ -346,6 +346,34 @@ const AB_GRAY = [
   { a: 1, b: 0 },
 ];
 
+// Top-left corner cell — SVG diagonal slash splits the cell; row variable
+// sits in the bottom-left triangle, column variable in the top-right.
+function cornerHeader(rowVar, colVar) {
+  const W = 64, H = 40;
+  return el("th", {
+    class: "kmap-corner",
+    style: {
+      border: `1.5px solid ${COLORS.borderStrong}`,
+      width: `${W}px`,
+      height: `${H}px`,
+    },
+    html: `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"
+           style="display:block; width:100%; height:100%;">
+        <line x1="0" y1="0" x2="${W}" y2="${H}"
+              stroke="${COLORS.borderStrong}" stroke-width="1.2"
+              vector-effect="non-scaling-stroke" />
+        <text x="${W - 5}" y="13" text-anchor="end"
+              font-family="JetBrains Mono, ui-monospace, monospace"
+              font-size="13" font-weight="700" fill="${COLORS.skyDeep}">${colVar}</text>
+        <text x="5" y="${H - 5}" text-anchor="start"
+              font-family="JetBrains Mono, ui-monospace, monospace"
+              font-size="13" font-weight="700" fill="${COLORS.peachDeep}">${rowVar}</text>
+      </svg>
+    `,
+  });
+}
+
 // 3-variable K-map. cellPos[idx] returns the row/col on the displayed grid.
 function pos3(idx) {
   const a = (idx >> 2) & 1;
@@ -370,20 +398,20 @@ function pos4(idx) {
 // groups: [{ cells: [minterm idx...], color: 0..4, label }]
 function kmap3WithGroups(oneMinterms, groups, opts = {}) {
   return kmapWithGroups({ vars: 3, rows: 2, cols: 4, oneMinterms, groups, opts, pos: pos3,
-    rowLabel: (r) => String(r), colLabel: (c) => ["00", "01", "11", "10"][c], header: "A \\ BC" });
+    rowLabel: (r) => String(r), colLabel: (c) => ["00", "01", "11", "10"][c], rowVar: "A", colVar: "BC" });
 }
 
 function kmap4WithGroups(oneMinterms, groups, opts = {}) {
   return kmapWithGroups({ vars: 4, rows: 4, cols: 4, oneMinterms, groups, opts, pos: pos4,
-    rowLabel: (r) => ["00", "01", "11", "10"][r], colLabel: (c) => ["00", "01", "11", "10"][c], header: "AB \\ CD" });
+    rowLabel: (r) => ["00", "01", "11", "10"][r], colLabel: (c) => ["00", "01", "11", "10"][c], rowVar: "AB", colVar: "CD" });
 }
 
-function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowLabel, colLabel, header }) {
+function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowLabel, colLabel, rowVar, colVar }) {
   const dontcares = new Set(opts.dontcares || []);
   const ones = new Set(oneMinterms || []);
 
   const CELL_W = 56, CELL_H = 56;
-  const HEAD_W = 64, HEAD_H = 32;
+  const HEAD_W = 64, HEAD_H = 40;
 
   const wrap = el("div", { class: "card", style: { padding: "12px", display: "flex", flexDirection: "column", alignItems: "center" } });
   const scroll = el("div", { class: "kmap-scroll" });
@@ -410,10 +438,7 @@ function kmapWithGroups({ vars, rows, cols, oneMinterms, groups, opts, pos, rowL
 
   // Header row.
   const headerRow = el("tr");
-  headerRow.appendChild(el("th", {
-    html: `<span class='mono'>${header}</span>`,
-    style: { ...hStyle(), height: `${HEAD_H}px` },
-  }));
+  headerRow.appendChild(cornerHeader(rowVar, colVar));
   for (let c = 0; c < cols; c++) {
     headerRow.appendChild(el("th", {
       text: colLabel(c),

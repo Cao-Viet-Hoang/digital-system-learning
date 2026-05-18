@@ -261,7 +261,7 @@ function buildKmap2(values, onToggle) {
   const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
-    el("th", { html: "<span class='mono'>A \\ B</span>", style: hStyle() }),
+    cornerHeader("A", "B"),
     el("th", { text: "0", style: hStyle() }),
     el("th", { text: "1", style: hStyle() }),
   ]);
@@ -307,7 +307,7 @@ function buildKmap3(values, onToggle) {
   const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
-    el("th", { html: "<span class='mono'>A \\ BC</span>", style: hStyle() }),
+    cornerHeader("A", "BC"),
     ...BC_LABEL.map((lab) => el("th", { text: lab, style: hStyle() })),
   ]);
   table.appendChild(header);
@@ -352,7 +352,7 @@ function buildKmap4(values, onToggle) {
   const scroll = el("div", { class: "kmap-scroll" });
   const table = el("table", { class: "kmap", style: { borderCollapse: "collapse", margin: "0 auto" } });
   const header = el("tr", {}, [
-    el("th", { html: "<span class='mono'>AB \\ CD</span>", style: hStyle() }),
+    cornerHeader("AB", "CD"),
     ...BC_LABEL.map((lab) => el("th", { text: lab, style: hStyle() })),
   ]);
   table.appendChild(header);
@@ -443,4 +443,38 @@ function hStyle() {
     padding: "6px 10px",
     border: `1.5px solid ${COLORS.borderStrong}`,
   };
+}
+
+// Top-left corner cell — SVG draws a diagonal slash dividing the cell, with
+// the row variable in the bottom-left triangle and the column variable in the
+// top-right triangle. Both are placed at coordinates that guarantee they sit
+// entirely within their respective triangle, far from the diagonal.
+function cornerHeader(rowVar, colVar) {
+  return el("th", {
+    class: "kmap-corner",
+    style: {
+      border: `1.5px solid ${COLORS.borderStrong}`,
+      width: "64px",
+      height: "40px",
+    },
+    html: cornerSvg(rowVar, colVar),
+  });
+}
+
+function cornerSvg(rowVar, colVar) {
+  const W = 64, H = 40;
+  return `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"
+         style="display:block; width:100%; height:100%;">
+      <line x1="0" y1="0" x2="${W}" y2="${H}"
+            stroke="${COLORS.borderStrong}" stroke-width="1.2"
+            vector-effect="non-scaling-stroke" />
+      <text x="${W - 5}" y="13" text-anchor="end"
+            font-family="JetBrains Mono, ui-monospace, monospace"
+            font-size="13" font-weight="700" fill="${COLORS.skyDeep}">${colVar}</text>
+      <text x="5" y="${H - 5}" text-anchor="start"
+            font-family="JetBrains Mono, ui-monospace, monospace"
+            font-size="13" font-weight="700" fill="${COLORS.peachDeep}">${rowVar}</text>
+    </svg>
+  `;
 }

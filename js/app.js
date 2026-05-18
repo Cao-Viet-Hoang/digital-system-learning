@@ -14,6 +14,7 @@ import { renderExam } from "./pages/exam.js";
 import { renderPractice } from "./pages/practice.js";
 import { renderDictionary } from "./pages/dictionary.js";
 import { renderReference } from "./pages/reference.js";
+import { renderKmapSolver } from "./pages/kmap-solver.js";
 
 const content = $("#content");
 const breadcrumb = $("#breadcrumb");
@@ -63,6 +64,14 @@ route("reference", () => {
     { label: "Bảng tra cứu", current: true },
   ]);
   renderReference(content);
+});
+
+route("kmap-solver", () => {
+  setBreadcrumb([
+    { label: "Tổng quan", href: "#/" },
+    { label: "Tối ưu bìa Karnaugh", current: true },
+  ]);
+  renderKmapSolver(content);
 });
 
 setNotFound((path) => {
@@ -135,6 +144,7 @@ function renderSidebar() {
   nav.appendChild(el("div", { class: "nav-group-title", text: "Tài nguyên" }));
   nav.appendChild(navItem("reference", "Bảng tra cứu", path === "reference", "📊"));
   nav.appendChild(navItem("dictionary", "Bảng chú giải", path === "dictionary", "📖"));
+  nav.appendChild(navItem("kmap-solver", "Tối ưu bìa K", path === "kmap-solver", "🧮"));
 }
 
 function navItem(path, label, active, icon) {
