@@ -90,6 +90,7 @@ setAfterRender(() => {
   window.scrollTo(0, 0);
   renderSidebar();
   renderOverall();
+  if (mobileQuery.matches) closeMobileSidebar();
 });
 
 function setBreadcrumb(parts) {
@@ -175,9 +176,30 @@ $("#reset-progress").addEventListener("click", () => {
   }
 });
 
-// Sidebar toggle (mobile)
+// Sidebar toggle
+const sidebar = $("#sidebar");
+const backdrop = $("#sidebar-backdrop");
+const mobileQuery = window.matchMedia("(max-width: 900px)");
+
+function closeMobileSidebar() {
+  sidebar.classList.remove("open");
+  backdrop.classList.remove("active");
+}
+
 $("#toggle-sidebar").addEventListener("click", () => {
-  $("#sidebar").classList.toggle("open");
+  if (mobileQuery.matches) {
+    const isOpen = sidebar.classList.toggle("open");
+    backdrop.classList.toggle("active", isOpen);
+  } else {
+    $("#app").classList.toggle("sidebar-collapsed");
+  }
+});
+
+backdrop.addEventListener("click", closeMobileSidebar);
+
+// Khi chuyển từ desktop → mobile, reset trạng thái sidebar
+mobileQuery.addEventListener("change", (e) => {
+  if (e.matches) closeMobileSidebar();
 });
 
 subscribe(() => {
