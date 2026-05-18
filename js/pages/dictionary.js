@@ -22,6 +22,29 @@ const TERMS = [
   { term: "MSB / LSB", def: "Bit quan trọng nhất / bit ít quan trọng nhất — bit ngoài cùng bên trái / phải của giá trị nhị phân." },
   { term: "Màn hình 7 đoạn", def: "Màn hình gồm bảy đoạn LED (a..g) có thể hiển thị chữ số 0–9." },
   { term: "Nibble (trong BCD)", def: "Trong ngữ cảnh BCD, nhóm 4-bit biểu diễn đúng một chữ số thập phân." },
+
+  // Chương Mạch tổ hợp ứng dụng — Encoder / Decoder / 7-segment
+  { term: "Mạch mã hoá (Encoder)", def: "Mạch tổ hợp biến N đường tín hiệu rời rạc thành mã nhị phân n = ⌈log₂N⌉ bit. Tại mỗi thời điểm chỉ một đường được kích hoạt." },
+  { term: "Mạch giải mã (Decoder)", def: "Mạch tổ hợp ngược với encoder: nhận mã nhị phân n bit, kích hoạt đúng một trong 2ⁿ đường ngõ ra." },
+  { term: "Mạch mã hoá ưu tiên (Priority Encoder)", def: "Encoder cho phép nhiều ngõ vào cùng tích cực; mã ra luôn ứng với đường có chỉ số cao nhất, các đường nhỏ hơn bị bỏ qua." },
+  { term: "Tích cực mức cao (Active-high)", def: "Tín hiệu coi là “đang yêu cầu / đang nhấn” khi ở logic 1. Ký hiệu không có gạch trên." },
+  { term: "Tích cực mức thấp (Active-low)", def: "Tín hiệu coi là “đang yêu cầu / đang nhấn” khi ở logic 0. Ký hiệu có gạch trên (ví dụ I̅₃)." },
+  { term: "Ngõ cho phép (Enable, E)", def: "Tín hiệu điều khiển bật/tắt cả khối mạch. Khi E không tích cực, mọi ngõ ra của mạch trở về mức không tích cực." },
+  { term: "DEMUX (Demultiplexer)", def: "Mạch ngược của MUX: một ngõ vào dữ liệu, n ngõ vào địa chỉ, 2ⁿ ngõ ra — dữ liệu được đưa tới đúng một ngõ ra theo địa chỉ. Có thể tạo từ decoder có Enable." },
+  { term: "Minterm", def: "Một tích đầy đủ các biến (mỗi biến xuất hiện đúng một lần, có hoặc không lấy bù) — bằng 1 ở đúng một hàng của bảng chân trị." },
+  { term: "Maxterm", def: "Một tổng đầy đủ các biến — bằng 0 ở đúng một hàng của bảng chân trị. Là đối ngẫu của minterm." },
+  { term: "BCD đảo", def: "Mã BCD nhưng các bit đã bị đảo (ví dụ ngõ ra 74LS147 ở dạng A̅₃A̅₂A̅₁A̅₀). Dễ ghép với mạch tích cực mức 0." },
+  { term: "74LS147", def: "Vi mạch mã hoá ưu tiên 10 đường → 4 đường BCD. Có 9 ngõ vào tích cực mức 0 (I̅₁..I̅₉) và 4 ngõ ra BCD đảo." },
+  { term: "74LS148", def: "Vi mạch mã hoá ưu tiên 8 → 3, ngõ vào tích cực mức 0, có ngõ EI cho phép và GS/EO để ghép tầng." },
+  { term: "Anode chung (Common Anode – CA)", def: "Kiểu LED 7 đoạn có 7 anode nối chung lên V_CC. Mỗi đoạn sáng khi cathode bị kéo xuống mức 0." },
+  { term: "Cathode chung (Common Cathode – CC)", def: "Kiểu LED 7 đoạn có 7 cathode nối chung xuống GND. Mỗi đoạn sáng khi anode được đưa lên mức 1." },
+  { term: "Mạch giải mã LED 7 đoạn", def: "Mạch tổ hợp nhận BCD 4 bit và xuất ra 7 tín hiệu điều khiển 7 đoạn a..g để hiển thị số 0–9." },
+  { term: "74LS47", def: "IC giải mã BCD → 7 đoạn cho LED Anode chung; ngõ ra tích cực mức 0. Có chân L̅T (lamp test), B̅I (blanking), R̅BI (ripple blanking input)." },
+  { term: "74LS48", def: "Tương tự 74LS47 nhưng dành cho LED Cathode chung; ngõ ra tích cực mức 1." },
+  { term: "Điện trở hạn dòng", def: "Điện trở nối tiếp với LED (~220–470 Ω) để giới hạn dòng qua LED ở mức an toàn (5–20 mA)." },
+  { term: "Lamp Test (L̅T)", def: "Chân kiểm tra đèn trên IC giải mã 7 đoạn: kéo xuống 0 để bật cả 7 đoạn cùng lúc, dùng để kiểm tra LED còn tốt hay không." },
+  { term: "Blanking Input (B̅I)", def: "Chân tắt toàn bộ ngõ ra của IC giải mã 7 đoạn; kéo xuống 0 thì 7 đoạn đều tắt, dùng để chớp số hoặc xoá hiển thị." },
+  { term: "Ripple Blanking (R̅BI / R̅BO)", def: "Cơ chế ẩn các số 0 đầu/cuối vô nghĩa khi ghép nhiều LED 7 đoạn; chân RBO của IC trước nối vào RBI của IC sau." },
 ];
 
 export function renderDictionary(container) {

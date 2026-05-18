@@ -20,6 +20,9 @@ import lesson18 from "./lessons/18-combinational-design.js";
 import lesson19 from "./lessons/19-karnaugh-build.js";
 import lesson20 from "./lessons/20-karnaugh-sop.js";
 import lesson21 from "./lessons/21-karnaugh-pos.js";
+import lesson22 from "./lessons/22-encoders.js";
+import lesson23 from "./lessons/23-decoders.js";
+import lesson24 from "./lessons/24-seven-segment-decoder.js";
 
 export const lessons = [
   lesson01,
@@ -43,6 +46,9 @@ export const lessons = [
   lesson19,
   lesson20,
   lesson21,
+  lesson22,
+  lesson23,
+  lesson24,
 ];
 
 export function getLesson(id) {
