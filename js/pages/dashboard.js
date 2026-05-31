@@ -144,6 +144,18 @@ export function renderDashboard(container) {
       "Mở bảng chú giải",
       () => navigate("dictionary"),
     ),
+    toolCard(
+      "Tối ưu bìa Karnaugh",
+      "Nhập bìa K và tìm tất cả biểu thức rút gọn tối ưu theo SOP hoặc POS.",
+      "Mở công cụ",
+      () => navigate("kmap-solver"),
+    ),
+    toolCard(
+      "So sánh biểu thức",
+      "Kiểm tra hai biểu thức logic có tương đương hay không bằng bảng chân trị chung.",
+      "Mở công cụ",
+      () => navigate("equivalence"),
+    ),
   ]);
   inner.appendChild(tools);
 }
